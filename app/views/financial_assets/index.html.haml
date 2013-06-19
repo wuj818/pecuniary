@@ -13,6 +13,7 @@
     %thead
       %tr
         %th Name
+        %th Permalink
         %th
         %th
 
@@ -20,6 +21,7 @@
       - @assets.each do |asset|
         %tr
           %td= link_to asset.name, asset
+          %td= asset.permalink
           %td
             = link_to [:edit, asset], class: 'btn btn-info' do
               %i.icon-edit

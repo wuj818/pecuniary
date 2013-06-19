@@ -1,10 +1,11 @@
 class FinancialAssetsController < ApplicationController
+  before_filter :get_asset, only: [:show, :edit, :update, :destroy]
+
   def index
     @assets = FinancialAsset.order(:name)
   end
 
   def show
-    @asset = FinancialAsset.find params[:id]
   end
 
   def new
@@ -12,7 +13,6 @@ class FinancialAssetsController < ApplicationController
   end
 
   def edit
-    @asset = FinancialAsset.find params[:id]
   end
 
   def create
@@ -27,8 +27,6 @@ class FinancialAssetsController < ApplicationController
   end
 
   def update
-    @asset = FinancialAsset.find params[:id]
-
     if @asset.update_attributes params[:financial_asset]
       flash[:notice] = 'Asset was successfully updated.'
       redirect_to @asset
@@ -38,10 +36,15 @@ class FinancialAssetsController < ApplicationController
   end
 
   def destroy
-    @asset = FinancialAsset.find params[:id]
     @asset.destroy
 
     flash[:notice] = 'Asset was successfully deleted.'
     redirect_to financial_assets_path
+  end
+
+  private
+
+  def get_asset
+    @asset = FinancialAsset.find_by_permalink params[:id]
   end
 end

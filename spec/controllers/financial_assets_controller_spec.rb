@@ -14,11 +14,12 @@ describe FinancialAssetsController do
 
   describe 'GET show' do
     it 'assigns the requested asset as @asset' do
-      FinancialAsset.should_receive(:find).with(stub_asset.to_param).and_return(stub_asset)
+      asset = stub_asset(permalink: 'bank')
+      FinancialAsset.should_receive(:find_by_permalink).and_return(stub_asset)
 
-      get :show, id: stub_asset.to_param
+      get :show, id: asset.to_param
 
-      assigns(:asset).should == stub_asset
+      assigns(:asset).should == asset
     end
   end
 
@@ -32,11 +33,12 @@ describe FinancialAssetsController do
 
   describe 'GET edit' do
     it 'assigns the requested asset as @asset' do
-      FinancialAsset.should_receive(:find).with(stub_asset.to_param).and_return(stub_asset)
+      asset = stub_asset(permalink: 'bank')
+      FinancialAsset.should_receive(:find_by_permalink).and_return(stub_asset)
 
-      get :edit, id: stub_asset.to_param
+      get :edit, id: asset.to_param
 
-      assigns(:asset).should == stub_asset
+      assigns(:asset).should == asset
     end
   end
 
@@ -65,25 +67,26 @@ describe FinancialAssetsController do
 
   describe 'PUT update' do
     before do
-      FinancialAsset.should_receive(:find).and_return(stub_asset)
+      @asset = stub_asset(permalink: 'bank')
+      FinancialAsset.should_receive(:find_by_permalink).and_return(@asset)
     end
 
     describe 'with valid params' do
       it 'redirects to the asset' do
-        stub_asset.should_receive(:update_attributes).and_return(true)
+        @asset.should_receive(:update_attributes).and_return(true)
 
-        put :update, id: stub_asset.to_param, financial_asset: {}
+        put :update, id: @asset.to_param, financial_asset: {}
 
-        response.should redirect_to stub_asset
+        response.should redirect_to @asset
         flash[:notice].should match /updated/i
       end
     end
 
     describe 'with invalid params' do
       it "renders the 'edit' template" do
-        stub_asset.should_receive(:update_attributes).and_return(false)
+        @asset.should_receive(:update_attributes).and_return(false)
 
-        put :update, id: stub_asset.to_param, financial_asset: {}
+        put :update, id: @asset.to_param, financial_asset: {}
 
         response.should render_template :edit
       end
@@ -92,10 +95,11 @@ describe FinancialAssetsController do
 
   describe 'DELETE destroy' do
     it 'destroys the requested asset and redirects to the assets list' do
-      FinancialAsset.should_receive(:find).and_return(stub_asset)
-      stub_asset.should_receive(:destroy).and_return(true)
+      asset = stub_asset(permalink: 'bank')
+      FinancialAsset.should_receive(:find_by_permalink).and_return(asset)
+      asset.should_receive(:destroy).and_return(true)
 
-      delete :destroy, id: stub_asset.to_param
+      delete :destroy, id: asset.to_param
 
       response.should redirect_to financial_assets_path
       flash[:notice].should match /deleted/i
