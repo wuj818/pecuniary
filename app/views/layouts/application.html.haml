@@ -1,11 +1,32 @@
-%html
+!!! 5
+%html{lang: 'en'}
   %head
-    %title Pecuniary
+    %meta{charset: 'utf-8'}
+    %meta{'http-equiv' => 'X-UA-Compatible', content: 'IE=Edge,chrome=1'}
+    %meta{name: 'viewport', content: 'width=device-width', 'initial-scale' => '1.0'}
+
+    %title= @title.present? ? "#{@title} | Pecuniary" : 'Pecuniary'
 
     = stylesheet_link_tag :application, media: 'all'
-    = javascript_include_tag :application
 
     = csrf_meta_tags
 
   %body
-    = yield
+    .navbar.navbar-inverse.navbar-fixed-top
+      .navbar-inner
+        .container
+          %a.btn.btn-navbar{data: { target: '.nav-collapse', toggle: 'collapse' }}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+
+          = link_to 'Pecuniary', root_path, class: 'brand'
+
+          .container.nav-collapse
+            %ul.nav
+
+    .container
+      = bootstrap_flash
+      = yield
+
+    = javascript_include_tag :application
