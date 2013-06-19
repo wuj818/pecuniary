@@ -1,6 +1,6 @@
 class FinancialAssetsController < ApplicationController
   def index
-    @assets = FinancialAsset.all
+    @assets = FinancialAsset.order(:name)
   end
 
   def show

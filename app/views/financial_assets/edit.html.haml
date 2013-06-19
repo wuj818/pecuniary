@@ -1,7 +1,11 @@
-%h1 Editing asset
+- @title = 'Editing Asset'
+
+.page-header
+  .header-buttons
+    = link_to financial_assets_path, class: 'btn btn-large' do
+      %i.icon-arrow-left
+      Back
+
+  %h1= @title
 
 = render 'form'
-
-= link_to 'Show', @asset
-\|
-= link_to 'Back', financial_assets_path

@@ -1,19 +1,32 @@
-%h1 Listing assets
+- @title = 'Assets'
 
-%table
-  %tr
-    %th Name
-    %th
-    %th
-    %th
+.page-header
+  .header-buttons
+    = link_to new_financial_asset_path, class: 'btn btn-large btn-success' do
+      %i.icon-plus-sign
+      New Financial Asset
 
-  - @assets.each do |asset|
-    %tr
-      %td= asset.name
-      %td= link_to 'Show', asset
-      %td= link_to 'Edit', edit_financial_asset_path(asset)
-      %td= link_to 'Destroy', asset, method: 'delete', data: { confirm: t(:confirm) }
+  %h1= @title
 
-%br
+- unless @assets.blank?
+  %table.table.table-striped.table-bordered.table-hover
+    %thead
+      %tr
+        %th Name
+        %th
+        %th
 
-= link_to 'New Financial asset', new_financial_asset_path
+    %tbody
+      - @assets.each do |asset|
+        %tr
+          %td= link_to asset.name, asset
+          %td
+            = link_to [:edit, asset], class: 'btn btn-info' do
+              %i.icon-edit
+              Edit
+          %td
+            = link_to asset, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
+              %i.icon-trash
+              Delete
+- else
+  %p There are no assets.
