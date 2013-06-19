@@ -9,13 +9,12 @@
   %h1= @title
 
 - unless @assets.blank?
-  %table.table.table-striped.table-bordered.table-hover
+  %table.table.table-striped.table-bordered.table-hover#assets-table
     %thead
       %tr
         %th Name
         %th Permalink
-        %th
-        %th
+        %th#table-actions
 
     %tbody
       - @assets.each do |asset|
@@ -25,10 +24,7 @@
           %td
             = link_to [:edit, asset], class: 'btn btn-info' do
               %i.icon-edit
-              Edit
-          %td
             = link_to asset, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
               %i.icon-trash
-              Delete
 - else
   %p There are no assets.
