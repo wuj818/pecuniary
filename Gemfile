@@ -23,3 +23,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '2.13.2'
 end
+
+group :test do
+  gem 'machinist', '2.0'
+end

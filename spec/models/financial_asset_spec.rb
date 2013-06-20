@@ -8,15 +8,16 @@ describe FinancialAsset do
     end
 
     it 'requires a unique name' do
-      asset1 = FinancialAsset.create name: 'Bank'
-      asset2 = FinancialAsset.create name: 'Bank'
+      asset1 = FinancialAsset.make!
+      asset2 = FinancialAsset.make name: asset1.name
+      asset2.save
       asset2.errors[:name].should include 'has already been taken'
     end
   end
 
   describe 'callbacks' do
     it 'creates a parameterized permalink' do
-      asset = FinancialAsset.create name: 'Roth IRA'
+      asset = FinancialAsset.make! name: 'Roth IRA'
       asset.permalink.should == 'roth-ira'
     end
   end
