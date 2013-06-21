@@ -8,6 +8,9 @@ gem 'jquery-rails', '3.0.1'
 gem 'quiet_assets', '1.0.2'
 gem 'therubyracer', '0.11.4'
 
+gem 'hirb', '0.7.1'
+gem 'wirble', '0.1.3'
+
 group :assets do
   gem 'coffee-rails', '3.2.1'
   gem 'less-rails', '2.3.3'
