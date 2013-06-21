@@ -16,7 +16,9 @@
 
   %h1= @title
 
-- unless @snapshots.blank?
+- unless @snapshots.length.zero?
+  = asset_line_graph @snapshots
+
   %table.table.table-striped.table-bordered.table-hover#asset-snapshots-table
     %thead
       %tr
