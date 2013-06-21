@@ -20,6 +20,24 @@ describe AssetSnapshot do
     it 'creates a permalink from the asset, month, and year' do
       snapshot.permalink.should == 'bank-july-2010'
     end
+
+    it "updates its asset's current value with the most recent value" do
+      asset = snapshot.asset
+      snapshot.value.should == asset.current_value
+
+      expect do
+        snapshot.update_attribute :value, snapshot.value + 1
+      end.to change(asset, :current_value).from(asset.current_value).to(asset.current_value + 1)
+
+      expect do
+        AssetSnapshot.make! date: Date.new(2011, 3, 28), value: 9000, asset: snapshot.asset
+      end.to change(asset, :current_value).from(asset.current_value).to(9000)
+
+      expect do
+        asset.snapshots.order('date DESC').first.destroy
+        asset.reload
+      end.to change(asset, :current_value).from(9000).to(snapshot.value)
+    end
   end
 
   describe 'instance methods' do

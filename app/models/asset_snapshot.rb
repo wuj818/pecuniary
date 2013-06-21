@@ -18,6 +18,10 @@ class AssetSnapshot < ActiveRecord::Base
 
   before_validation :format_date
 
+  after_save :update_asset_current_value
+
+  after_destroy :update_asset_current_value
+
   def formatted_date
     date.to_time.strftime '%B %Y'
   end
@@ -40,5 +44,10 @@ class AssetSnapshot < ActiveRecord::Base
 
   def format_date
     self.date = date.end_of_month if date.present?
+  end
+
+  def update_asset_current_value
+    current_value = asset.snapshots.order('date DESC').first.value rescue 0
+    asset.update_attribute :current_value, current_value
   end
 end

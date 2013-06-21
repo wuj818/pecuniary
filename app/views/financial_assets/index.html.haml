@@ -13,6 +13,7 @@
     %thead
       %tr
         %th Name
+        %th Current Value
         %th Permalink
         %th.table-actions
 
@@ -20,6 +21,7 @@
       - @assets.each do |asset|
         %tr
           %td= link_to asset.name, asset
+          %td= asset.current_value
           %td
             = link_to asset.permalink, asset
           %td

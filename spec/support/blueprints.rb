@@ -2,6 +2,7 @@ require 'machinist/active_record'
 
 FinancialAsset.blueprint do
   name { "Asset-#{sn}" }
+  current_value { 350 }
 end
 
 AssetSnapshot.blueprint do
