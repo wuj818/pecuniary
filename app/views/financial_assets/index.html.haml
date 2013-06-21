@@ -8,7 +8,9 @@
 
   %h1= @title
 
-- unless @assets.blank?
+- unless @assets.length.zero?
+  = assets_stacked_area_graph @assets
+
   %table.table.table-striped.table-bordered.table-hover#assets-table
     %thead
       %tr

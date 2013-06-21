@@ -31,7 +31,7 @@ class AssetSnapshot < ActiveRecord::Base
   end
 
   def to_s
-    "#{asset} (#{formatted_date})"
+    [asset, formatted_date].join ' - '
   end
 
   private

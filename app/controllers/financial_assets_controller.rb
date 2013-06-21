@@ -2,7 +2,7 @@ class FinancialAssetsController < ApplicationController
   before_filter :get_asset, only: [:show, :edit, :update, :destroy]
 
   def index
-    @assets = FinancialAsset.order(:name)
+    @assets = FinancialAsset.includes(:snapshots).order(:name)
   end
 
   def show
