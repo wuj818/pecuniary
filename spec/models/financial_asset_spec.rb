@@ -18,6 +18,22 @@ describe FinancialAsset do
     end
   end
 
+  describe 'instance methods' do
+    describe 'to_param' do
+      it "doesn't change until after the record is saved" do
+        asset = FinancialAsset.make! name: 'Bank'
+        old_to_param = asset.to_param
+
+        asset.permalink = 'test'
+        asset.to_param.should == old_to_param
+
+        asset.name = 'Roth IRA'
+        asset.save
+        asset.to_param.should_not == old_to_param
+      end
+    end
+  end
+
   describe 'validations' do
     it 'has required attributes' do
       asset = FinancialAsset.create

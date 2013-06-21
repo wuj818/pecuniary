@@ -12,7 +12,7 @@ class FinancialAsset < ActiveRecord::Base
   before_validation :create_permalink
 
   def to_param
-    permalink
+    permalink_was.present? ? permalink_was : permalink
   end
 
   def to_s

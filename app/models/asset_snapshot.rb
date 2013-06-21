@@ -23,7 +23,7 @@ class AssetSnapshot < ActiveRecord::Base
   end
 
   def to_param
-    permalink
+    permalink_was.present? ? permalink_was : permalink
   end
 
   def to_s

@@ -22,6 +22,22 @@ describe AssetSnapshot do
     end
   end
 
+  describe 'instance methods' do
+    describe 'to_param' do
+      it "doesn't change until after the record is saved" do
+        snapshot = AssetSnapshot.make! date: Date.new(2010, 7, 28), asset: FinancialAsset.make!(name: 'Bank')
+        old_to_param = snapshot.to_param
+
+        snapshot.permalink = 'test'
+        snapshot.to_param.should == old_to_param
+
+        snapshot.date = Date.new(2011, 3, 28)
+        snapshot.save
+        snapshot.to_param.should_not == old_to_param
+      end
+    end
+  end
+
   describe 'validations' do
     it 'has required attributes' do
       snapshot = AssetSnapshot.create
