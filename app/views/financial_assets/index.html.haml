@@ -21,7 +21,7 @@
       - @assets.each do |asset|
         %tr
           %td= link_to asset.name, asset
-          %td= asset.current_value
+          %td= currency asset.current_value
           %td
             = link_to asset.permalink, asset
           %td

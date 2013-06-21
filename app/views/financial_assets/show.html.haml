@@ -29,7 +29,7 @@
       - @snapshots.each do |snapshot|
         %tr
           %td= snapshot.date.strftime '%B %Y'
-          %td= snapshot.value
+          %td= currency snapshot.value
           %td
             = link_to snapshot.permalink, snapshot
           %td
