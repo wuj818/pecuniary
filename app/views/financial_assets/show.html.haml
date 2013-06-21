@@ -1,12 +1,41 @@
 - @title = @asset.name
 
 .page-header
+  .header-buttons
+    = link_to :financial_assets, class: 'btn btn-large' do
+      %i.icon-arrow-left
+      Back
+
+    = link_to [:edit, @asset], class: 'btn btn-large btn-info' do
+      %i.icon-edit
+      Edit
+
+    = link_to [:new, @asset, :snapshot], class: 'btn btn-large btn-success' do
+      %i.icon-plus-sign
+      New Snapshot
+
   %h1= @title
 
-%p
-  %b Name:
-  = @asset.name
+- unless @snapshots.blank?
+  %table.table.table-striped.table-bordered.table-hover#asset-snapshots-table
+    %thead
+      %tr
+        %th Date
+        %th Value
+        %th Permalink
+        %th.table-actions
 
-= link_to 'Edit', edit_financial_asset_path(@asset)
-\|
-= link_to 'Back', financial_assets_path
+    %tbody
+      - @snapshots.each do |snapshot|
+        %tr
+          %td= snapshot.date.strftime '%B %Y'
+          %td= snapshot.value
+          %td
+            = link_to snapshot.permalink, snapshot
+          %td
+            = link_to [:edit, snapshot], class: 'btn btn-info' do
+              %i.icon-edit
+            = link_to snapshot, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
+              %i.icon-trash
+- else
+  %p There are no snapshots for this asset.

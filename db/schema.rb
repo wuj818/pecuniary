@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130619025120) do
+ActiveRecord::Schema.define(:version => 20130620025911) do
+
+  create_table "asset_snapshots", :force => true do |t|
+    t.integer  "financial_asset_id"
+    t.integer  "value",              :default => 0
+    t.date     "date"
+    t.string   "permalink"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  add_index "asset_snapshots", ["financial_asset_id"], :name => "index_asset_snapshots_on_financial_asset_id"
+  add_index "asset_snapshots", ["permalink"], :name => "index_asset_snapshots_on_permalink", :unique => true
 
   create_table "financial_assets", :force => true do |t|
     t.string   "name"

@@ -1,0 +1,11 @@
+- @title = 'Editing Snapshot'
+
+.page-header
+  .header-buttons
+    = link_to @snapshot, class: 'btn btn-large' do
+      %i.icon-arrow-left
+      Back
+
+  %h1= @title
+
+= render 'form'

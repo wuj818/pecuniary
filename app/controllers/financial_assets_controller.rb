@@ -6,6 +6,7 @@ class FinancialAssetsController < ApplicationController
   end
 
   def show
+    @snapshots = @asset.snapshots.order('date DESC')
   end
 
   def new
@@ -19,7 +20,7 @@ class FinancialAssetsController < ApplicationController
     @asset = FinancialAsset.new params[:financial_asset]
 
     if @asset.save
-      flash[:notice] = 'Asset was successfully created.'
+      flash[:success] = 'Asset was successfully created.'
       redirect_to financial_assets_path
     else
       render :new
@@ -28,7 +29,7 @@ class FinancialAssetsController < ApplicationController
 
   def update
     if @asset.update_attributes params[:financial_asset]
-      flash[:notice] = 'Asset was successfully updated.'
+      flash[:success] = 'Asset was successfully updated.'
       redirect_to @asset
     else
       render :edit
@@ -38,7 +39,7 @@ class FinancialAssetsController < ApplicationController
   def destroy
     @asset.destroy
 
-    flash[:notice] = 'Asset was successfully deleted.'
+    flash[:success] = 'Asset was successfully deleted.'
     redirect_to financial_assets_path
   end
 

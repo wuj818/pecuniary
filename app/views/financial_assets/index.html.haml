@@ -14,13 +14,14 @@
       %tr
         %th Name
         %th Permalink
-        %th#table-actions
+        %th.table-actions
 
     %tbody
       - @assets.each do |asset|
         %tr
           %td= link_to asset.name, asset
-          %td= asset.permalink
+          %td
+            = link_to asset.permalink, asset
           %td
             = link_to [:edit, asset], class: 'btn btn-info' do
               %i.icon-edit

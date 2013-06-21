@@ -13,13 +13,17 @@ describe FinancialAssetsController do
   end
 
   describe 'GET show' do
-    it 'assigns the requested asset as @asset' do
+    it 'assigns the requested asset as @asset and its snapshots as @snapshots' do
       asset = stub_asset(permalink: 'bank')
       FinancialAsset.should_receive(:find_by_permalink).and_return(stub_asset)
+      asset.should_receive(:snapshots).and_return(mock_relation)
+      mock_relation.should_receive(:order).with('date DESC').and_return(mock_relation)
 
       get :show, id: asset.to_param
 
+      response.should render_template :show
       assigns(:asset).should == asset
+      assigns(:snapshots).should == mock_relation
     end
   end
 
@@ -27,18 +31,8 @@ describe FinancialAssetsController do
     it 'assigns a new asset as @asset' do
       get :new
 
+      response.should render_template :new
       assigns(:asset).should be_a_new FinancialAsset
-    end
-  end
-
-  describe 'GET edit' do
-    it 'assigns the requested asset as @asset' do
-      asset = stub_asset(permalink: 'bank')
-      FinancialAsset.should_receive(:find_by_permalink).and_return(stub_asset)
-
-      get :edit, id: asset.to_param
-
-      assigns(:asset).should == asset
     end
   end
 
@@ -50,7 +44,7 @@ describe FinancialAssetsController do
         post :create, financial_asset: {}
 
         response.should redirect_to financial_assets_path
-        flash[:notice].should match /created/i
+        flash[:success].should match /created/i
       end
     end
 
@@ -62,6 +56,18 @@ describe FinancialAssetsController do
 
         response.should render_template :new
       end
+    end
+  end
+
+  describe 'GET edit' do
+    it 'assigns the requested asset as @asset' do
+      asset = stub_asset(permalink: 'bank')
+      FinancialAsset.should_receive(:find_by_permalink).and_return(stub_asset)
+
+      get :edit, id: asset.to_param
+
+      response.should render_template :edit
+      assigns(:asset).should == asset
     end
   end
 
@@ -78,7 +84,7 @@ describe FinancialAssetsController do
         put :update, id: @asset.to_param, financial_asset: {}
 
         response.should redirect_to @asset
-        flash[:notice].should match /updated/i
+        flash[:success].should match /updated/i
       end
     end
 
@@ -102,7 +108,7 @@ describe FinancialAssetsController do
       delete :destroy, id: asset.to_param
 
       response.should redirect_to financial_assets_path
-      flash[:notice].should match /deleted/i
+      flash[:success].should match /deleted/i
     end
   end
 end
