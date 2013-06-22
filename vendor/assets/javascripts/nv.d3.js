@@ -5275,7 +5275,7 @@ nv.models.lineWithFocusChart = function() {
 
               d3.select(this).select('.right')
                 .attr('x', x2(d[1]))
-                .attr('width', rightWidth < 0 ? 0 : rightWidth);
+                .attr('width', rightWidth.toFixed() <= 0 ? 0 : rightWidth);
             });
       }
 
