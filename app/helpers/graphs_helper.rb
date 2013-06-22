@@ -1,13 +1,18 @@
 module GraphsHelper
   def asset_line_graph(snapshots)
+    y_max = 0
+
     graph_data = [
       {
         key: 'Value',
         values: snapshots.inject([]) do |points, snapshot|
+          y_max = snapshot.value if snapshot.value > y_max
+
           points << {
             x: snapshot.date.to_time.to_i * 1000,
             y: snapshot.value
           }
+
           points
         end
       }
@@ -15,7 +20,7 @@ module GraphsHelper
 
     data = {
       'graph-data' => graph_data,
-      'y-max' => snapshots.maximum(:value),
+      'y-max' => y_max,
     }
 
     content_tag :div, id: 'asset-line-graph', data: data do

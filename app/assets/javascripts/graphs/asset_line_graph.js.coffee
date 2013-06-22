@@ -3,16 +3,15 @@ $ ->
   if $graph.length isnt 0
     nv.addGraph ->
       chart = nv.models.lineChart()
+        .margin(left: 65, right: 30, top: 10)
+        .yDomain([0, $graph.data 'y-max'])
+        .showLegend false
 
       chart.xAxis
         .tickFormat( (d) -> d3.time.format('%b %Y') new Date d )
 
       chart.yAxis
         .tickFormat( (d) -> '$' + d3.format(',f') d)
-
-      chart
-        .margin(left: 65, right: 30)
-        .yDomain [0, $graph.data 'y-max']
 
       d3.select("##{$graph.attr 'id'} svg")
         .datum($graph.data('graph-data'))
