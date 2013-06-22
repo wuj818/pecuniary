@@ -11,6 +11,8 @@ class FinancialAsset < ActiveRecord::Base
 
   before_validation :create_permalink
 
+  after_update :update_snapshot_permalinks
+
   def to_param
     permalink_was.present? ? permalink_was : permalink
   end
@@ -23,5 +25,9 @@ class FinancialAsset < ActiveRecord::Base
 
   def create_permalink
     self.permalink = name.parameterize if name.present?
+  end
+
+  def update_snapshot_permalinks
+    snapshots.each(&:save) if name_changed?
   end
 end

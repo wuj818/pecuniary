@@ -16,6 +16,18 @@ describe FinancialAsset do
       asset = FinancialAsset.make! name: 'Roth IRA'
       asset.permalink.should == 'roth-ira'
     end
+
+    it "updates all of its snapshot's permalinks when its name changes" do
+      asset = FinancialAsset.make! name: 'Bank'
+      snapshot = AssetSnapshot.make! asset: asset
+
+      snapshot.permalink.should match /bank/
+      asset.update_attributes name: 'Roth IRA'
+
+      snapshot.reload
+      snapshot.permalink.should_not match /bank/
+      snapshot.permalink.should match /roth-ira/
+    end
   end
 
   describe 'instance methods' do
