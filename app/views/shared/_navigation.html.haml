@@ -10,7 +10,7 @@
 
       .nav-collapse.collapse
         %ul.nav
-          %li.dropdown
+          %li.dropdown{class: nav_class(:financial_assets)}
             = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
               Assets
               %b.caret
