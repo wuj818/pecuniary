@@ -53,4 +53,34 @@ module GraphsHelper
       content_tag :svg
     end
   end
+
+  def net_worth_line_with_focus_graph
+    history = AssetSnapshot.select([:date, 'SUM(value) AS value']).group(:date).order(:date)
+    y_max = 0
+
+    graph_data = [
+      {
+        key: 'Net Worth',
+        values: history.inject([]) do |points, snapshot|
+          y_max = snapshot.value if snapshot.value > y_max
+
+          points << {
+            x: snapshot.date.to_time.to_i * 1000,
+            y: snapshot.value
+          }
+
+          points
+        end
+      }
+    ].to_json
+
+    data = {
+      'graph-data' => graph_data,
+      'y-max' => y_max,
+    }
+
+    content_tag :div, id: 'net-worth-line-with-focus-graph', data: data do
+      content_tag :svg
+    end
+  end
 end
