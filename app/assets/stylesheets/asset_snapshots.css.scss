@@ -1,15 +1,23 @@
 #asset-snapshots-table {
+  .date {
+    width: 126px;
+  }
+
   .table-actions {
     width: 81px;
   }
-}
 
-#asset_snapshot_date_2i {
-  width: 110px;
+  .value {
+    width: 70px;
+  }
 }
 
 #asset_snapshot_date_1i {
   width: 70px;
+}
+
+#asset_snapshot_date_2i {
+  width: 110px;
 }
 
 #asset_snapshot_value {

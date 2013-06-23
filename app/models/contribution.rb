@@ -1,9 +1,12 @@
-class AssetSnapshot < ActiveRecord::Base
-  attr_accessible :date, :permalink, :value
+class Contribution < ActiveRecord::Base
+  attr_accessible :amount, :date, :permalink
 
   belongs_to :asset, class_name: 'FinancialAsset', foreign_key: 'financial_asset_id'
 
   validates_presence_of :asset
+
+  validates :amount,
+    numericality: { greater_than: 0 }
 
   validates :date,
     presence: true,
@@ -16,14 +19,12 @@ class AssetSnapshot < ActiveRecord::Base
 
   before_validation :create_permalink
 
-  before_validation :format_date
+  after_save :update_asset_total_contributions
 
-  after_save :update_asset_current_value
-
-  after_destroy :update_asset_current_value
+  after_destroy :update_asset_total_contributions
 
   def formatted_date
-    date.to_time.strftime '%B %Y'
+    date.to_time.strftime '%B %d %Y'
   end
 
   def to_param
@@ -31,7 +32,7 @@ class AssetSnapshot < ActiveRecord::Base
   end
 
   def to_s
-    ["#{asset} Snapshot", formatted_date].join ' - '
+    ["#{asset} Contribution", formatted_date].join ' - '
   end
 
   private
@@ -42,12 +43,8 @@ class AssetSnapshot < ActiveRecord::Base
     end
   end
 
-  def format_date
-    self.date = date.end_of_month if date.present?
-  end
-
-  def update_asset_current_value
-    current_value = asset.snapshots.order('date DESC').first.value rescue 0
-    asset.update_attribute :current_value, current_value
+  def update_asset_total_contributions
+    total_contributions = asset.contributions.sum(:amount)
+    asset.update_attribute :total_contributions, total_contributions
   end
 end

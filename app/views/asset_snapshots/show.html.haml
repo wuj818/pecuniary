@@ -12,7 +12,7 @@
 
   %h1
     = link_to @asset, @asset
-    \-
+    Snapshot -
     = @snapshot.formatted_date
 
 %table.table.table-striped.table-bordered.table-hover#asset-snapshots-table
@@ -25,7 +25,7 @@
 
   %tbody
     %tr
-      %td= @snapshot.date.strftime '%B %Y'
+      %td= @snapshot.formatted_date
       %td= currency @snapshot.value
       %td
         = link_to @snapshot.permalink, @snapshot

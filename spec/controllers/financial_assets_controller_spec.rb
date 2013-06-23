@@ -14,10 +14,11 @@ describe FinancialAssetsController do
   end
 
   describe 'GET show' do
-    it 'assigns the requested asset as @asset and its snapshots as @snapshots' do
+    it 'assigns the requested asset as @asset, its snapshots as @snapshots, and its contributions as @contributions' do
       asset = stub_asset(permalink: 'bank')
       FinancialAsset.should_receive(:find_by_permalink).and_return(stub_asset)
       asset.should_receive(:snapshots).and_return(mock_relation)
+      asset.should_receive(:contributions).and_return(mock_relation)
       mock_relation.should_receive(:order).with('date DESC').and_return(mock_relation)
 
       get :show, id: asset.to_param
@@ -25,6 +26,7 @@ describe FinancialAssetsController do
       response.should render_template :show
       assigns(:asset).should == asset
       assigns(:snapshots).should == mock_relation
+      assigns(:contributions).should == mock_relation
     end
   end
 

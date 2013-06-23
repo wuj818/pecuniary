@@ -3,6 +3,8 @@ class FinancialAsset < ActiveRecord::Base
 
   has_many :snapshots, class_name: 'AssetSnapshot', dependent: :destroy
 
+  has_many :contributions, dependent: :destroy
+
   validates :name,
     presence: true,
     uniqueness: true
@@ -11,7 +13,7 @@ class FinancialAsset < ActiveRecord::Base
 
   before_validation :create_permalink
 
-  after_update :update_snapshot_permalinks
+  after_update :update_association_permalinks
 
   def to_param
     permalink_was.present? ? permalink_was : permalink
@@ -27,7 +29,10 @@ class FinancialAsset < ActiveRecord::Base
     self.permalink = name.parameterize if name.present?
   end
 
-  def update_snapshot_permalinks
-    snapshots.each(&:save) if name_changed?
+  def update_association_permalinks
+    if name_changed?
+      contributions.each &:save
+      snapshots.each &:save
+    end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130621010437) do
+ActiveRecord::Schema.define(:version => 20130623021013) do
 
   create_table "asset_snapshots", :force => true do |t|
     t.integer  "financial_asset_id"
@@ -25,12 +25,25 @@ ActiveRecord::Schema.define(:version => 20130621010437) do
   add_index "asset_snapshots", ["financial_asset_id"], :name => "index_asset_snapshots_on_financial_asset_id"
   add_index "asset_snapshots", ["permalink"], :name => "index_asset_snapshots_on_permalink", :unique => true
 
+  create_table "contributions", :force => true do |t|
+    t.integer  "financial_asset_id"
+    t.integer  "amount",             :default => 0
+    t.date     "date"
+    t.string   "permalink"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  add_index "contributions", ["financial_asset_id"], :name => "index_contributions_on_financial_asset_id"
+  add_index "contributions", ["permalink"], :name => "index_contributions_on_permalink", :unique => true
+
   create_table "financial_assets", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "permalink"
-    t.integer  "current_value", :default => 0
+    t.integer  "current_value",       :default => 0
+    t.integer  "total_contributions", :default => 0
   end
 
   add_index "financial_assets", ["permalink"], :name => "index_financial_assets_on_permalink", :unique => true

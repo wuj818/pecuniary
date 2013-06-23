@@ -12,18 +12,24 @@
 
     = link_to [:new, @asset, :snapshot], class: 'btn btn-large btn-success' do
       %i.icon-plus-sign
-      New Snapshot
+      Snapshot
+
+    = link_to [:new, @asset, :contribution], class: 'btn btn-large btn-success' do
+      %i.icon-plus-sign
+      Contribution
 
   %h1= @title
 
+= asset_line_graph @snapshots
+
 - unless @snapshots.length.zero?
-  = asset_line_graph @snapshots
+  %h2 Snapshots
 
   %table.table.table-striped.table-bordered.table-hover#asset-snapshots-table
     %thead
       %tr
-        %th Date
-        %th Value
+        %th.date Date
+        %th.value Value
         %th Permalink
         %th.table-actions
 
@@ -41,3 +47,31 @@
               %i.icon-trash
 - else
   %p There are no snapshots for this asset.
+
+%hr
+
+- unless @contributions.length.zero?
+  %h2 Contributions
+
+  %table.table.table-striped.table-bordered.table-hover#contributions-table
+    %thead
+      %tr
+        %th.date Date
+        %th.amount Amount
+        %th Permalink
+        %th.table-actions
+
+    %tbody
+      - @contributions.each do |contribution|
+        %tr
+          %td= contribution.date.strftime '%B %d %Y'
+          %td= currency contribution.amount
+          %td
+            = link_to contribution.permalink, contribution
+          %td
+            = link_to [:edit, contribution], class: 'btn btn-info' do
+              %i.icon-edit
+            = link_to contribution, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
+              %i.icon-trash
+- else
+  %p There are no contributions for this asset.

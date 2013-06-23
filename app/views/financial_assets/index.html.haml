@@ -4,7 +4,7 @@
   .header-buttons
     = link_to new_financial_asset_path, class: 'btn btn-large btn-success' do
       %i.icon-plus-sign
-      New Financial Asset
+      Asset
 
   %h1= @title
 
@@ -16,6 +16,7 @@
       %tr
         %th Name
         %th Current Value
+        %th Total Contributions
         %th Permalink
         %th.table-actions
 
@@ -24,6 +25,7 @@
         %tr
           %td= link_to asset.name, asset
           %td= currency asset.current_value
+          %td= currency asset.total_contributions
           %td
             = link_to asset.permalink, asset
           %td
