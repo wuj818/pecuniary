@@ -1,5 +1,7 @@
 module GraphsHelper
-  def asset_line_graph(snapshots)
+  def asset_line_graph(snapshots, contributions = [])
+    return if snapshots.length.zero?
+
     y_max = 0
 
     graph_data = [
@@ -16,10 +18,39 @@ module GraphsHelper
           points
         end
       }
-    ].to_json
+    ]
+
+    unless contributions.length.zero?
+      grouped_contributions = contributions.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)')
+      grouped_contributions = grouped_contributions.inject({}) do |dates, contribution|
+        dates[contribution.date.end_of_month.to_time.to_i * 1000] = contribution.total
+        dates
+      end
+
+      snapshots.reorder(:date).pluck(:date).inject(0) do |base, date|
+        date = date.to_time.to_i * 1000
+        grouped_contributions[date] = base + grouped_contributions[date].to_i
+      end
+
+      graph_data << {
+        key: 'Total Contributions',
+        values: grouped_contributions.sort_by { |date, total| date }.inject([]) do |points, pair|
+          date, total = pair
+
+          y_max = total if total > y_max
+
+          points << {
+            x: date,
+            y: total
+          }
+
+          points
+        end
+      }
+    end
 
     data = {
-      'graph-data' => graph_data,
+      'graph-data' => graph_data.to_json,
       'y-max' => y_max,
     }
 
@@ -29,6 +60,8 @@ module GraphsHelper
   end
 
   def assets_stacked_area_graph(assets)
+    return if assets.length.zero?
+
     empty_dates = AssetSnapshot.pluck(:date).uniq.inject({}) do |dates, date|
       dates[date.to_time.to_i * 1000] = 0
       dates
@@ -56,6 +89,8 @@ module GraphsHelper
 
   def net_worth_line_with_focus_graph
     history = AssetSnapshot.select([:date, 'SUM(value) AS value']).group(:date).order(:date)
+    return if history.length.zero?
+
     y_max = 0
 
     graph_data = [
