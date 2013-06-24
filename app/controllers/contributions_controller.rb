@@ -2,6 +2,10 @@ class ContributionsController < ApplicationController
   before_filter :get_asset, only: [:new, :create]
   before_filter :get_contribution, only: [:show, :edit, :update, :destroy]
 
+  def index
+    @contributions = Contribution.includes(:asset).order('date DESC')
+  end
+
   def show
   end
 

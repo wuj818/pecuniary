@@ -15,6 +15,9 @@ class FinancialAsset < ActiveRecord::Base
 
   after_update :update_association_permalinks
 
+  scope :investments, where(investment: true)
+  scope :non_investments, where(investment: false)
+
   def to_param
     permalink_was.present? ? permalink_was : permalink
   end

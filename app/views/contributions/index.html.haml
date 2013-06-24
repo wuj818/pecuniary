@@ -1,0 +1,30 @@
+- @title = 'Contributions'
+
+.page-header
+  %h1= @title
+
+- unless @contributions.length.zero?
+  %table.table.table-striped.table-bordered.table-hover#contributions-table
+    %thead
+      %tr
+        %th.date Date
+        %th.amount Amount
+        %th Asset
+        %th Permalink
+        %th.table-actions
+
+    %tbody
+      - @contributions.each do |contribution|
+        %tr
+          %td= contribution.formatted_date
+          %td= currency contribution.amount
+          %td= contribution.asset
+          %td
+            = link_to contribution.permalink, contribution
+          %td
+            = link_to [:edit, contribution], class: 'btn btn-info' do
+              %i.icon-edit
+            = link_to contribution, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
+              %i.icon-trash
+- else
+  %p There are no contributions.

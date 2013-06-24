@@ -1,6 +1,18 @@
 require 'spec_helper'
 
 describe ContributionsController do
+  describe 'GET index' do
+    it 'assigns all contributions as @contributions' do
+      Contribution.should_receive(:includes).with(:asset).and_return(mock_relation)
+      mock_relation.should_receive(:order).with('date DESC').and_return(mock_relation)
+
+      get :index
+
+      response.should render_template :index
+      assigns(:contributions).should == mock_relation
+    end
+  end
+
   describe 'GET show' do
     it 'assigns the requested contribution as @contribution and its asset as @asset' do
       contribution = stub_contribution(permalink: 'bank-july-2010')
