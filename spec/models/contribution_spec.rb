@@ -75,6 +75,13 @@ describe Contribution do
       end
     end
 
+    it 'requires an investment asset' do
+      contribution = Contribution.new
+      contribution.asset = FinancialAsset.make! name: 'Bank', investment: false
+      contribution.save
+      contribution.errors[:base].should include 'Bank is not a contributable investment'
+    end
+
     it 'is destroyed when the asset is destroyed' do
       contribution = Contribution.make!
       contribution.asset.destroy

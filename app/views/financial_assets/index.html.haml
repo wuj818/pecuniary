@@ -17,6 +17,7 @@
         %th Name
         %th Current Value
         %th Total Contributions
+        %th Investment?
         %th Permalink
         %th.table-actions
 
@@ -26,6 +27,7 @@
           %td= link_to asset.name, asset
           %td= currency asset.current_value
           %td= currency asset.total_contributions
+          %td= asset.investment? ? 'yes' : 'no'
           %td
             = link_to asset.permalink, asset
           %td

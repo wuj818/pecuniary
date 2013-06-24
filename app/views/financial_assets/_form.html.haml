@@ -6,5 +6,11 @@
     .controls
       = f.text_field :name, autofocus: true
 
+  .control-group
+    = f.label :investment, 'Investment?', class: 'control-label'
+    .controls
+      %label.checkbox
+        = f.check_box :investment
+
   .form-actions
     = f.submit 'Save', class: 'btn btn-primary'

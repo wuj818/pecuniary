@@ -17,6 +17,8 @@ class Contribution < ActiveRecord::Base
 
   validates_uniqueness_of :permalink
 
+  validate :investment_asset
+
   before_validation :create_permalink
 
   after_save :update_asset_total_contributions
@@ -40,6 +42,12 @@ class Contribution < ActiveRecord::Base
   def create_permalink
     if date.present?
       self.permalink = [asset.permalink, formatted_date.parameterize].join '-'
+    end
+  end
+
+  def investment_asset
+    if asset.present? && !asset.investment?
+      errors.add :base, "#{asset} is not a contributable investment"
     end
   end
 

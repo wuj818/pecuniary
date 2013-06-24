@@ -7,7 +7,7 @@ class FinancialAssetsController < ApplicationController
 
   def show
     @snapshots = @asset.snapshots.order('date DESC')
-    @contributions = @asset.contributions.order('date DESC')
+    @contributions = @asset.investment? ? @asset.contributions.order('date DESC') : []
   end
 
   def new
