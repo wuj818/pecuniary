@@ -2,14 +2,11 @@ $ ->
   $graph = $('#assets-stacked-area-graph')
 
   if $graph.length isnt 0
-    colors = d3.scale.category10()
-    keyColor = (d, i) -> colors d.key
-
     nv.addGraph ->
       chart = nv.models.stackedAreaChart()
         .x( (d) -> d[0] )
         .y( (d) -> d[1] )
-        .color(keyColor)
+        .color(d3.scale.category10().range())
         .clipEdge true
 
       chart.xAxis

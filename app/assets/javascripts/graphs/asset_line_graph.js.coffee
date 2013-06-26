@@ -2,14 +2,11 @@ $ ->
   $graph = $('#asset-line-graph')
 
   if $graph.length isnt 0
-    colors = d3.scale.category10()
-    keyColor = (d, i) -> colors d.key
-
     nv.addGraph ->
       chart = nv.models.lineChart()
         .margin(left: 65, right: 30)
         .yDomain([0, $graph.data 'y-max'])
-        .color keyColor
+        .color d3.scale.category10().range()
 
       chart.xAxis
         .tickFormat( (d) -> d3.time.format('%b %Y') new Date d )
