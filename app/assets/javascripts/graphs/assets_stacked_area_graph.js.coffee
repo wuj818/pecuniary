@@ -9,15 +9,11 @@ $ ->
         .color(d3.scale.category10().range())
         .clipEdge true
 
-      chart.xAxis
-        .showMaxMin(false)
-        .tickFormat( (d) -> d3.time.format('%b %Y') new Date d )
+      chart.xAxis.tickFormat (d) -> d3.time.format('%b %Y') new Date d
 
-      chart.yAxis
-        .tickFormat( (d) -> '$' + d3.format(',f') d)
+      chart.yAxis.tickFormat (d) -> '$' + d3.format(',f') d
 
-      chart
-        .margin(left: 65, right: 10)
+      chart.margin left: 65, right: 10
 
       d3.select("##{$graph.attr 'id'} svg")
         .datum($graph.data('graph-data'))

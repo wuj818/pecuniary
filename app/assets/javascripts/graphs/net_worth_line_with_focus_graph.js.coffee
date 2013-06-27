@@ -10,17 +10,13 @@ $ ->
         .showLegend(false)
         .clipEdge false
 
-      chart.xAxis
-        .tickFormat( (d) -> d3.time.format('%b %Y') new Date d )
+      chart.xAxis.tickFormat (d) -> d3.time.format('%b %Y') new Date d
 
-      chart.x2Axis
-        .tickFormat( (d) -> d3.time.format('%b %Y') new Date d )
+      chart.x2Axis.tickFormat (d) -> d3.time.format('%b %Y') new Date d
 
-      chart.yAxis
-        .tickFormat( (d) -> '$' + d3.format(',f') d)
+      chart.yAxis.tickFormat (d) -> '$' + d3.format(',f') d
 
-      chart.y2Axis
-        .tickFormat( (d) -> '$' + d3.format(',f') d)
+      chart.y2Axis.tickFormat (d) -> '$' + d3.format(',f') d
 
       d3.select("##{$graph.attr 'id'} svg")
         .datum($graph.data('graph-data'))
