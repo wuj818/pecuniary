@@ -1,60 +1,51 @@
 module GraphsHelper
-  def asset_line_graph(snapshots, contributions = [])
-    return if snapshots.length.zero?
+  def asset_line_plus_bar_graph(asset)
+    return if asset.snapshots.count.zero?
 
-    y_max = 0
+    all_dates = asset.snapshots.order(:date).inject({}) do |dates, snapshot|
+      dates[snapshot.date.to_time.to_i * 1000] = snapshot.value
+      dates
+    end
 
     graph_data = [
       {
-        key: 'Value',
-        values: snapshots.inject([]) do |points, snapshot|
-          y_max = snapshot.value if snapshot.value > y_max
-
-          points << {
-            x: snapshot.date.to_time.to_i * 1000,
-            y: snapshot.value
-          }
-
-          points
-        end
+        key: 'Account Value',
+        values: all_dates.sort_by { |date, value| date }
       }
     ]
 
-    unless contributions.length.zero?
-      grouped_contributions = contributions.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)')
-      grouped_contributions = grouped_contributions.inject({}) do |dates, contribution|
+    if asset.investment?
+      all_dates.each { |date, value| all_dates[date] = 0 }
+
+      grouped_contributions = asset.contributions.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)').inject({}) do |dates, contribution|
         dates[contribution.date.end_of_month.to_time.to_i * 1000] = contribution.total
         dates
       end
 
-      snapshots.reorder(:date).pluck(:date).inject(0) do |base, date|
-        date = date.to_time.to_i * 1000
-        grouped_contributions[date] = base + grouped_contributions[date].to_i
+      graph_data << {
+        key: 'Contributions',
+        bar: true,
+        values: all_dates.merge(grouped_contributions).sort_by { |date, total| date }
+      }
+
+      cumulative_contributions = []
+
+      graph_data.last[:values].inject(0) do |sum, pair|
+        date, amount = pair
+        sum += amount
+        cumulative_contributions << [date, sum]
+        sum
       end
 
       graph_data << {
-        key: 'Total Contributions',
-        values: grouped_contributions.sort_by { |date, total| date }.inject([]) do |points, pair|
-          date, total = pair
-
-          y_max = total if total > y_max
-
-          points << {
-            x: date,
-            y: total
-          }
-
-          points
-        end
+        key: 'Cumulative Contributions',
+        values: cumulative_contributions
       }
     end
 
-    data = {
-      'graph-data' => graph_data.to_json,
-      'y-max' => y_max,
-    }
+    data = { 'graph-data' => graph_data.to_json }
 
-    content_tag :div, id: 'asset-line-graph', data: data do
+    content_tag :div, id: 'asset-line-plus-bar-graph', data: data do
       content_tag :svg
     end
   end
@@ -111,7 +102,7 @@ module GraphsHelper
 
     data = {
       'graph-data' => graph_data,
-      'y-max' => y_max,
+      'y-max' => y_max
     }
 
     content_tag :div, id: 'net-worth-line-with-focus-graph', data: data do
