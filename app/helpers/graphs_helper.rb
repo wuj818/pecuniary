@@ -23,23 +23,23 @@ module GraphsHelper
       end
 
       graph_data << {
-        key: 'Contributions',
+        key: 'Contribution',
         bar: true,
         values: all_dates.merge(grouped_contributions).sort_by { |date, total| date }
       }
 
-      cumulative_contributions = []
+      total_contributions = []
 
       graph_data.last[:values].inject(0) do |sum, pair|
         date, amount = pair
         sum += amount
-        cumulative_contributions << [date, sum]
+        total_contributions << [date, sum]
         sum
       end
 
       graph_data << {
-        key: 'Cumulative Contributions',
-        values: cumulative_contributions
+        key: 'Total Contributions',
+        values: total_contributions
       }
     end
 
@@ -78,6 +78,85 @@ module GraphsHelper
     end
   end
 
+  def contributions_multi_bar_graph
+    all_months = all_end_of_months_between Contribution.minimum(:date), Contribution.maximum(:date)
+
+    graph_data = FinancialAsset.investments.includes(:contributions).order(:name).inject([]) do |array, asset|
+      contributions = asset.contributions.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)').inject({}) do |hash, contribution|
+        hash[contribution.date.end_of_month.to_time.to_i * 1000] = contribution.total
+        hash
+      end
+
+      contributions = all_months.merge contributions
+
+      array << {
+        key: asset.name,
+        values: contributions.keys.sort.inject([]) do |hash, month|
+          hash << {
+            x: month,
+            y: contributions[month]
+          }
+
+          hash
+        end
+      }
+
+      array
+    end.to_json
+
+    data = { 'graph-data' => graph_data }
+
+    content_tag :div, id: 'contributions-multi-bar-graph', data: data do
+      content_tag :svg
+    end
+  end
+
+  def contributions_line_graph
+    return if Contribution.count.zero?
+
+    all_months = all_end_of_months_between Contribution.minimum(:date), Contribution.maximum(:date)
+
+    contributions = Contribution.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)').inject({}) do |hash, contribution|
+      hash[contribution.date.end_of_month.to_time.to_i * 1000] = contribution.total
+      hash
+    end
+
+    contributions = all_months.merge(contributions).sort_by { |date, total| date }
+    total_contributions = {}
+
+    contributions.inject(0) do |sum, pair|
+      date, amount = pair
+      sum += amount
+      total_contributions[date] = sum
+      sum
+    end
+
+    graph_data = [
+      {
+        key: 'Total Contributions',
+        values: total_contributions.inject([]) do |array, pair|
+          date, total = pair
+
+          array << {
+            x: date,
+            y: total
+          }
+
+          array
+        end
+      }
+    ]
+
+    data = {
+      'graph-data' => graph_data.to_json,
+      'y-max' => graph_data.first[:values].last[:y]
+    }
+
+    content_tag :div, id: 'contributions-line-graph', data: data do
+      content_tag :svg
+    end
+  end
+
   def net_worth_line_with_focus_graph
     history = AssetSnapshot.select([:date, 'SUM(value) AS value']).group(:date).order(:date)
     return if history.length.zero?
@@ -107,6 +186,21 @@ module GraphsHelper
 
     content_tag :div, id: 'net-worth-line-with-focus-graph', data: data do
       content_tag :svg
+    end
+  end
+
+  def all_end_of_months_between(start, stop)
+    current, stop = start.end_of_month, stop.end_of_month
+    months = []
+
+    until current > stop
+      months << current
+      current = current.next_month.end_of_month
+    end
+
+    months.inject({}) do |hash, month|
+      hash[month.to_time.to_i * 1000] = 0
+      hash
     end
   end
 end
