@@ -18,6 +18,10 @@ class FinancialAsset < ActiveRecord::Base
   scope :investments, where(investment: true)
   scope :non_investments, where(investment: false)
 
+  def total_return
+    (current_value - total_contributions.to_f) / total_contributions * 100
+  end
+
   def to_param
     permalink_was.present? ? permalink_was : permalink
   end
