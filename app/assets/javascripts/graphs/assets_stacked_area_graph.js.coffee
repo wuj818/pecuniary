@@ -13,10 +13,10 @@ $ ->
 
       chart.yAxis.tickFormat (d) -> '$' + d3.format(',f') d
 
-      chart.margin left: 65, right: 10
+      chart.margin left: 65, right: 25
 
       d3.select("##{$graph.attr 'id'} svg")
-        .datum($graph.data('graph-data'))
+        .datum($graph.data 'graph-data')
         .transition()
         .duration(500)
         .call chart
