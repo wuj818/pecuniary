@@ -7,7 +7,7 @@ $ ->
         .x( (d) -> d[0] )
         .y( (d) -> d[1] )
         .color(d3.scale.category10().range())
-        .clipEdge true
+        .clipEdge false
 
       chart.xAxis.tickFormat (d) -> d3.time.format('%b %Y') new Date d
 

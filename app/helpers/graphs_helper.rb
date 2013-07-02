@@ -2,44 +2,41 @@ module GraphsHelper
   def asset_line_plus_bar_graph(asset)
     return if asset.snapshots.count.zero?
 
-    all_dates = asset.snapshots.order(:date).inject({}) do |dates, snapshot|
-      dates[snapshot.date.to_time.to_i * 1000] = snapshot.value
-      dates
+    all_months = asset.snapshots.order(:date).inject({}) do |hash, snapshot|
+      hash[snapshot.date.to_js_time] = snapshot.value
+      hash
     end
 
-    graph_data = [
-      {
-        key: 'Account Value',
-        values: all_dates.sort_by { |date, value| date }
-      }
-    ]
+    values = all_months.sort_by { |month, value| month }
+
+    graph_data = [ { key: 'Account Value', values: values } ]
 
     if asset.investment?
-      all_dates.each { |date, value| all_dates[date] = 0 }
+      all_months.each { |month, value| all_months[month] = 0 }
 
-      grouped_contributions = asset.contributions.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)').inject({}) do |dates, contribution|
-        dates[contribution.date.end_of_month.to_time.to_i * 1000] = contribution.total
-        dates
+      query = asset.contributions.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)')
+
+      grouped_contributions = query.inject({}) do |hash, contribution|
+        hash[contribution.date.end_of_month.to_js_time] = contribution.total
+        hash
       end
 
-      graph_data << {
-        key: 'Contribution',
-        bar: true,
-        values: all_dates.merge(grouped_contributions).sort_by { |date, total| date }
-      }
+      values = all_months.merge(grouped_contributions).sort_by { |month, total| month }
 
-      total_contributions = []
+      graph_data << { key: 'Contribution', bar: true, values: values }
 
-      graph_data.last[:values].inject(0) do |sum, pair|
-        date, amount = pair
-        sum += amount
-        total_contributions << [date, sum]
+      cumulative_contributions = []
+
+      graph_data.last[:values].sort.inject(0) do |sum, pair|
+        month, total = pair
+        sum += total
+        cumulative_contributions << [month, sum]
         sum
       end
 
       graph_data << {
-        key: 'Total Contributions',
-        values: total_contributions
+        key: 'Cumulative Contributions',
+        values: cumulative_contributions
       }
     end
 
@@ -50,25 +47,22 @@ module GraphsHelper
     end
   end
 
-  def assets_stacked_area_graph(assets)
-    return if assets.length.zero?
+  def assets_stacked_area_graph
+    return if AssetSnapshot.count.zero?
 
-    empty_dates = AssetSnapshot.pluck(:date).uniq.inject({}) do |dates, date|
-      dates[date.to_time.to_i * 1000] = 0
-      dates
-    end
+    empty_months = end_of_months_since AssetSnapshot.minimum(:date)
 
-    graph_data = assets.inject([]) do |groups, asset|
-      values = asset.snapshots.inject({}) do |points, snapshot|
-        points[snapshot.date.to_time.to_i * 1000] = snapshot.value
-        points
+    query = FinancialAsset.includes(:snapshots).order(:name)
+
+    graph_data = query.inject([]) do |array, asset|
+      values = asset.snapshots.inject({}) do |hash, snapshot|
+        hash[snapshot.date.to_js_time] = snapshot.value
+        hash
       end
 
-      groups << {
-        key: asset.name,
-        values: empty_dates.merge(values).sort_by { |date, value| date }
-      }
-      groups
+      values = empty_months.merge(values).sort_by { |month, value| month }
+
+      array << { key: asset.name, values: values }
     end.to_json
 
     data = { 'graph-data' => graph_data }
@@ -79,29 +73,27 @@ module GraphsHelper
   end
 
   def contributions_multi_bar_graph
-    all_months = all_end_of_months_between Contribution.minimum(:date), Contribution.maximum(:date)
+    return if Contribution.count.zero?
 
-    graph_data = FinancialAsset.investments.includes(:contributions).order(:name).inject([]) do |array, asset|
-      contributions = asset.contributions.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)').inject({}) do |hash, contribution|
-        hash[contribution.date.end_of_month.to_time.to_i * 1000] = contribution.total
+    empty_months = end_of_months_since Contribution.minimum(:date)
+
+    query = FinancialAsset.investments.includes(:contributions).order(:name)
+
+    graph_data = query.inject([]) do |array, asset|
+      query = asset.contributions.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)')
+
+      contributions = query.inject({}) do |hash, contribution|
+        hash[contribution.date.end_of_month.to_js_time] = contribution.total
         hash
       end
 
-      contributions = all_months.merge contributions
+      contributions = empty_months.merge contributions
 
-      array << {
-        key: asset.name,
-        values: contributions.keys.sort.inject([]) do |hash, month|
-          hash << {
-            x: month,
-            y: contributions[month]
-          }
+      values = contributions.keys.sort.inject([]) do |hash, month|
+        hash << { x: month, y: contributions[month] }
+      end
 
-          hash
-        end
-      }
-
-      array
+      array << { key: asset.name, values: values }
     end.to_json
 
     data = { 'graph-data' => graph_data }
@@ -114,38 +106,29 @@ module GraphsHelper
   def contributions_line_graph
     return if Contribution.count.zero?
 
-    all_months = all_end_of_months_between Contribution.minimum(:date), Contribution.maximum(:date)
+    empty_months = end_of_months_since Contribution.minimum(:date)
 
-    contributions = Contribution.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)').inject({}) do |hash, contribution|
-      hash[contribution.date.end_of_month.to_time.to_i * 1000] = contribution.total
+    query = Contribution.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)')
+
+    contributions = query.inject({}) do |hash, contribution|
+      hash[contribution.date.end_of_month.to_js_time] = contribution.total
       hash
     end
 
-    contributions = all_months.merge(contributions).sort_by { |date, total| date }
-    total_contributions = {}
+    contributions = empty_months.merge contributions
+    cumulative_contributions = {}
 
-    contributions.inject(0) do |sum, pair|
-      date, amount = pair
-      sum += amount
-      total_contributions[date] = sum
-      sum
+    contributions.keys.sort.inject(0) do |sum, month|
+      sum += contributions[month]
+      cumulative_contributions[month] = sum
     end
 
-    graph_data = [
-      {
-        key: 'Total Contributions',
-        values: total_contributions.inject([]) do |array, pair|
-          date, total = pair
+    values = cumulative_contributions.inject([]) do |array, pair|
+      month, total = pair
+      array << { x: month, y: total }
+    end
 
-          array << {
-            x: date,
-            y: total
-          }
-
-          array
-        end
-      }
-    ]
+    graph_data = [ { key: 'Cumulative Contributions', values: values } ]
 
     data = {
       'graph-data' => graph_data.to_json,
@@ -158,26 +141,17 @@ module GraphsHelper
   end
 
   def net_worth_line_with_focus_graph
-    history = AssetSnapshot.select([:date, 'SUM(value) AS value']).group(:date).order(:date)
-    return if history.length.zero?
+    return if AssetSnapshot.count.zero?
 
+    query = AssetSnapshot.select([:date, 'SUM(value) AS value']).group(:date).order(:date)
     y_max = 0
 
-    graph_data = [
-      {
-        key: 'Net Worth',
-        values: history.inject([]) do |points, snapshot|
-          y_max = snapshot.value if snapshot.value > y_max
+    values = query.inject([]) do |array, snapshot|
+      y_max = snapshot.value if snapshot.value > y_max
+      array << { x: snapshot.date.to_js_time, y: snapshot.value }
+    end
 
-          points << {
-            x: snapshot.date.to_time.to_i * 1000,
-            y: snapshot.value
-          }
-
-          points
-        end
-      }
-    ].to_json
+    graph_data = [ { key: 'Net Worth', values: values } ].to_json
 
     data = {
       'graph-data' => graph_data,
@@ -189,8 +163,8 @@ module GraphsHelper
     end
   end
 
-  def all_end_of_months_between(start, stop)
-    current, stop = start.end_of_month, stop.end_of_month
+  def end_of_months_since(start)
+    current, stop = start.end_of_month, Time.zone.now.to_date.end_of_month
     months = []
 
     until current > stop
@@ -199,7 +173,7 @@ module GraphsHelper
     end
 
     months.inject({}) do |hash, month|
-      hash[month.to_time.to_i * 1000] = 0
+      hash[month.to_js_time] = 0
       hash
     end
   end
