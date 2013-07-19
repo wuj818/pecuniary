@@ -1,4 +1,6 @@
 class FinancialAssetsController < ApplicationController
+  before_filter :authorize, only: [:new, :create, :edit, :update, :destroy]
+
   before_filter :get_asset, only: [:show, :edit, :update, :destroy]
 
   def index

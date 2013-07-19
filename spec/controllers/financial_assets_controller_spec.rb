@@ -31,87 +31,160 @@ describe FinancialAssetsController do
   end
 
   describe 'GET new' do
-    it 'assigns a new asset as @asset' do
-      get :new
+    context 'when logged in' do
+      it 'assigns a new asset as @asset' do
+        controller.login
 
-      response.should render_template :new
-      assigns(:asset).should be_a_new FinancialAsset
+        get :new
+
+        response.should render_template :new
+        assigns(:asset).should be_a_new FinancialAsset
+      end
+    end
+
+    context 'when logged out' do
+      it 'redirects to the login page' do
+        get :new
+
+        response.should redirect_to login_path
+        flash[:warning].should match /must be logged in/i
+      end
     end
   end
 
   describe 'POST create' do
-    describe 'with valid params' do
-      it 'creates a new asset and redirects to the assets list' do
-        FinancialAsset.any_instance.should_receive(:save).and_return(true)
+    context 'when logged in' do
+      before do
+        controller.login
+      end
 
-        post :create, financial_asset: {}
+      describe 'with valid params' do
+        it 'creates a new asset and redirects to the assets list' do
+          FinancialAsset.any_instance.should_receive(:save).and_return(true)
 
-        response.should redirect_to financial_assets_path
-        flash[:success].should match /created/i
+          post :create, financial_asset: {}
+
+          response.should redirect_to financial_assets_path
+          flash[:success].should match /created/i
+        end
+      end
+
+      describe 'with invalid params' do
+        it "renders the 'new' template" do
+          FinancialAsset.any_instance.should_receive(:save).and_return(false)
+
+          post :create, financial_asset: {}
+
+          response.should render_template :new
+        end
       end
     end
 
-    describe 'with invalid params' do
-      it "renders the 'new' template" do
-        FinancialAsset.any_instance.should_receive(:save).and_return(false)
-
+    context 'when logged out' do
+      it 'redirects to the login page' do
         post :create, financial_asset: {}
 
-        response.should render_template :new
+        response.should redirect_to login_path
+        flash[:warning].should match /must be logged in/i
       end
     end
   end
 
   describe 'GET edit' do
-    it 'assigns the requested asset as @asset' do
-      asset = stub_asset(permalink: 'bank')
-      FinancialAsset.should_receive(:find_by_permalink).and_return(stub_asset)
+    before do
+      @asset = stub_asset(permalink: 'bank')
+    end
 
-      get :edit, id: asset.to_param
+    context 'when logged in' do
+      it 'assigns the requested asset as @asset' do
+        controller.login
+        FinancialAsset.should_receive(:find_by_permalink).and_return(@asset)
 
-      response.should render_template :edit
-      assigns(:asset).should == asset
+        get :edit, id: @asset.to_param
+
+        response.should render_template :edit
+        assigns(:asset).should == @asset
+      end
+    end
+
+    context 'when logged out' do
+      it 'redirects to the login page' do
+        get :edit, id: @asset.to_param
+
+        response.should redirect_to login_path
+        flash[:warning].should match /must be logged in/i
+      end
     end
   end
 
   describe 'PUT update' do
     before do
       @asset = stub_asset(permalink: 'bank')
-      FinancialAsset.should_receive(:find_by_permalink).and_return(@asset)
     end
 
-    describe 'with valid params' do
-      it 'redirects to the asset' do
-        @asset.should_receive(:update_attributes).and_return(true)
+    context 'when logged in' do
+      before do
+        controller.login
+        FinancialAsset.should_receive(:find_by_permalink).and_return(@asset)
+      end
 
-        put :update, id: @asset.to_param, financial_asset: {}
+      describe 'with valid params' do
+        it 'redirects to the asset' do
+          @asset.should_receive(:update_attributes).and_return(true)
 
-        response.should redirect_to @asset
-        flash[:success].should match /updated/i
+          put :update, id: @asset.to_param, financial_asset: {}
+
+          response.should redirect_to @asset
+          flash[:success].should match /updated/i
+        end
+      end
+
+      describe 'with invalid params' do
+        it "renders the 'edit' template" do
+          @asset.should_receive(:update_attributes).and_return(false)
+
+          put :update, id: @asset.to_param, financial_asset: {}
+
+          response.should render_template :edit
+        end
       end
     end
 
-    describe 'with invalid params' do
-      it "renders the 'edit' template" do
-        @asset.should_receive(:update_attributes).and_return(false)
-
+    context 'when logged out' do
+      it 'redirects to the login page' do
         put :update, id: @asset.to_param, financial_asset: {}
 
-        response.should render_template :edit
+        response.should redirect_to login_path
+        flash[:warning].should match /must be logged in/i
       end
     end
   end
 
   describe 'DELETE destroy' do
-    it 'destroys the requested asset and redirects to the assets list' do
-      asset = stub_asset(permalink: 'bank')
-      FinancialAsset.should_receive(:find_by_permalink).and_return(asset)
-      asset.should_receive(:destroy).and_return(true)
+    before do
+      @asset = stub_asset(permalink: 'bank')
+    end
 
-      delete :destroy, id: asset.to_param
+    context 'when logged in' do
+      it 'destroys the requested asset and redirects to the assets list' do
+        controller.login
+        FinancialAsset.should_receive(:find_by_permalink).and_return(@asset)
+        @asset.should_receive(:destroy).and_return(true)
 
-      response.should redirect_to financial_assets_path
-      flash[:success].should match /deleted/i
+        delete :destroy, id: @asset.to_param
+
+        response.should redirect_to financial_assets_path
+        flash[:success].should match /deleted/i
+      end
+    end
+
+    context 'when logged out' do
+      it 'redirects to the login page' do
+        delete :destroy, id: @asset.to_param
+
+        response.should redirect_to login_path
+        flash[:warning].should match /must be logged in/i
+      end
     end
   end
 end

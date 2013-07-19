@@ -1,4 +1,6 @@
 class ContributionsController < ApplicationController
+  before_filter :authorize, only: [:new, :create, :edit, :update, :destroy]
+
   before_filter :get_asset, only: [:new, :create]
   before_filter :get_contribution, only: [:show, :edit, :update, :destroy]
 
