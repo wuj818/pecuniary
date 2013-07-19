@@ -9,5 +9,9 @@ Pecuniary::Application.routes.draw do
     resources :contributions, only: [:new, :create]
   end
 
+  resources :sessions, only: [:new, :create, :destroy]
+  get '/login' => 'sessions#new'
+  delete '/logout' => 'sessions#destroy'
+
   root to: 'pages#main'
 end

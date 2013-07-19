@@ -34,3 +34,9 @@
 
           %li{class: nav_class(:contributions)}
             = link_to 'Contributions', contributions_path
+
+        %p.navbar-text.pull-right
+          - if admin?
+            = link_to 'Logout', logout_path, method: 'delete'
+          - else
+            = link_to 'Login', login_path
