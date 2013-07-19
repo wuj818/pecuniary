@@ -14,9 +14,6 @@ class FinancialAssetsController < ApplicationController
     @asset = FinancialAsset.new
   end
 
-  def edit
-  end
-
   def create
     @asset = FinancialAsset.new params[:financial_asset]
 
@@ -26,6 +23,9 @@ class FinancialAssetsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def edit
   end
 
   def update

@@ -69,6 +69,19 @@ describe ContributionsController do
     end
   end
 
+  describe 'GET edit' do
+    it 'assigns the requested contribution as @contribution' do
+      @asset = stub_asset(permalink: 'bank')
+      @contribution = stub_contribution(permalink: 'july-2010', asset: @asset)
+      Contribution.should_receive(:find_by_permalink).and_return(@contribution)
+
+      get :edit, id: @contribution.to_param
+
+      response.should render_template :edit
+      assigns(:contribution).should == @contribution
+    end
+  end
+
   describe 'PUT update' do
     before do
       @asset = stub_asset(permalink: 'bank')

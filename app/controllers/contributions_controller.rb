@@ -13,9 +13,6 @@ class ContributionsController < ApplicationController
     @contribution = @asset.contributions.build
   end
 
-  def edit
-  end
-
   def create
     @contribution = @asset.contributions.build params[:contribution]
 
@@ -25,6 +22,9 @@ class ContributionsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def edit
   end
 
   def update

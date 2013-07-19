@@ -9,9 +9,6 @@ class AssetSnapshotsController < ApplicationController
     @snapshot = @asset.snapshots.build
   end
 
-  def edit
-  end
-
   def create
     @snapshot = @asset.snapshots.build params[:asset_snapshot]
 
@@ -21,6 +18,9 @@ class AssetSnapshotsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def edit
   end
 
   def update

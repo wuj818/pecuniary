@@ -57,6 +57,19 @@ describe AssetSnapshotsController do
     end
   end
 
+  describe 'GET edit' do
+    it 'assigns the requested snapshot as @snapshot' do
+      @asset = stub_asset(permalink: 'bank')
+      @snapshot = stub_asset_snapshot(permalink: 'july-2010', asset: @asset)
+      AssetSnapshot.should_receive(:find_by_permalink).and_return(@snapshot)
+
+      get :edit, id: @snapshot.to_param
+
+      response.should render_template :edit
+      assigns(:snapshot).should == @snapshot
+    end
+  end
+
   describe 'PUT update' do
     before do
       @asset = stub_asset(permalink: 'bank')
