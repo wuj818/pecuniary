@@ -1,0 +1,4 @@
+PECUNIARY_PASSWORD: dev
+
+production:
+  PECUNIARY_PASSWORD: prod

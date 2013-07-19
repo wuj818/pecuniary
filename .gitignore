@@ -15,3 +15,6 @@
 /tmp
 .DS_STORE
 .gitkeep
+
+# Ignore application configuration
+/config/application.yml
