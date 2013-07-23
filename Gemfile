@@ -16,6 +16,8 @@ group :assets do
   gem 'less-rails', '2.3.3'
   gem 'sass-rails', '3.2.6'
   gem 'twitter-bootstrap-rails', '2.2.7'
+
+  gem 'turbo-sprockets-rails3', '0.3.6'
   gem 'uglifier', '1.0.3'
 end
 
