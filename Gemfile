@@ -30,6 +30,10 @@ group :development, :test do
   gem 'rspec-rails', '2.13.2'
 end
 
+group :production do
+  gem 'unicorn', '4.6.3'
+end
+
 group :test do
   gem 'machinist', '2.0'
 end
