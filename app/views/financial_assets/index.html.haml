@@ -20,7 +20,7 @@
         %th Total Return
         %th Investment?
         %th Permalink
-        %th.table-actions
+        %th
 
     %tbody
       - @assets.each do |asset|
@@ -32,7 +32,7 @@
           %td= asset.investment? ? 'yes' : 'no'
           %td
             = link_to asset.permalink, asset
-          %td
+          %td.table-actions
             = link_to [:edit, asset], class: 'btn btn-info' do
               %i.icon-edit
             = link_to asset, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do

@@ -9,4 +9,24 @@ body {
 
 .header-buttons {
   float: right;
+
+  a {
+    margin-right: 4px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.table-actions {
+  width: 81px;
+
+  a {
+    margin-right: 4px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }

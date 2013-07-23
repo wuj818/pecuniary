@@ -40,7 +40,7 @@
             %th.date Date
             %th.value Value
             %th Permalink
-            %th.table-actions
+            %th
 
         %tbody
           - @snapshots.each do |snapshot|
@@ -49,7 +49,7 @@
               %td= currency snapshot.value
               %td
                 = link_to snapshot.permalink, snapshot
-              %td
+              %td.table-actions
                 = link_to [:edit, snapshot], class: 'btn btn-info' do
                   %i.icon-edit
                 = link_to snapshot, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
@@ -66,7 +66,7 @@
               %th.date Date
               %th.amount Amount
               %th Permalink
-              %th.table-actions
+              %th
 
           %tbody
             - @contributions.each do |contribution|
@@ -75,7 +75,7 @@
                 %td= currency contribution.amount
                 %td
                   = link_to contribution.permalink, contribution
-                %td
+                %td.table-actions
                   = link_to [:edit, contribution], class: 'btn btn-info' do
                     %i.icon-edit
                   = link_to contribution, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do

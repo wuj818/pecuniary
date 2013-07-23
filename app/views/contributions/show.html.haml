@@ -21,7 +21,7 @@
       %th Date
       %th Amount
       %th Permalink
-      %th.table-actions
+      %th
 
   %tbody
     %tr
@@ -29,7 +29,7 @@
       %td= currency @contribution.amount
       %td
         = link_to @contribution.permalink, @contribution
-      %td
+      %td.table-actions
         = link_to [:edit, @contribution], class: 'btn btn-info' do
           %i.icon-edit
         = link_to @contribution, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
