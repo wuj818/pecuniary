@@ -4,6 +4,7 @@
   %h1 Login
 
 = form_for :session, url: sessions_path, html: { class: 'form-inline' } do |f|
-  = f.password_field :password, autofocus: true, required: true
+  .form-group
+    = f.password_field :password, autofocus: true, required: true, class: 'form-control', id: 'login-field'
 
-  = f.submit 'Login', class: 'btn'
+  = f.submit 'Login', class: 'btn btn-primary'
