@@ -1,0 +1,13 @@
+td {
+  vertical-align: middle !important;
+}
+
+.navbar-text {
+  &.navbar-right {
+    padding-right: 15px; 
+  }
+}
+
+.page-header {
+  margin-top: 25px;
+}

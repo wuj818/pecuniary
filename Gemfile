@@ -15,7 +15,7 @@ group :assets do
   gem 'coffee-rails', '3.2.1'
   gem 'less-rails', '2.3.3'
   gem 'sass-rails', '3.2.6'
-  gem 'twitter-bootstrap-rails', '2.2.7'
+  gem 'bootstrap-sass', '3.0.3.0'
 
   gem 'turbo-sprockets-rails3', '0.3.6'
   gem 'uglifier', '1.0.3'
