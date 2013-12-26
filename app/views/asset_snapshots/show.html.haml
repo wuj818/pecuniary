@@ -3,11 +3,11 @@
 .page-header
   .header-buttons
     = link_to @asset, class: 'btn btn-lg btn-default' do
-      %i.icon-arrow-left
+      = icon :arrow_left
       Back
 
     = link_to [:edit, @snapshot], class: 'btn btn-lg btn-info' do
-      %i.icon-edit
+      = icon :edit
       Edit
 
   %h1
@@ -31,6 +31,6 @@
         = link_to @snapshot.permalink, @snapshot
       %td.table-actions
         = link_to [:edit, @snapshot], class: 'btn btn-info' do
-          %i.icon-edit
+          = icon :edit
         = link_to @snapshot, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
-          %i.icon-trash
+          = icon :trash

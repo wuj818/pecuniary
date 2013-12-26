@@ -3,7 +3,7 @@
 .page-header
   .header-buttons
     = link_to new_financial_asset_path, class: 'btn btn-lg btn-success' do
-      %i.icon-plus-sign
+      = icon :plus_sign
       Asset
 
   %h1= @title
@@ -34,8 +34,8 @@
             = link_to asset.permalink, asset
           %td.table-actions
             = link_to [:edit, asset], class: 'btn btn-info' do
-              %i.icon-edit
+              = icon :edit
             = link_to asset, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
-              %i.icon-trash
+              = icon :trash
 - else
   %p There are no assets.
