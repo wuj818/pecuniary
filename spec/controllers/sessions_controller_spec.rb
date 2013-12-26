@@ -50,7 +50,7 @@ describe SessionsController do
           post :create, session: { password: 'test' }
 
           response.should render_template :new
-          flash.now[:error].should match /incorrect/i
+          flash.now[:danger].should match /incorrect/i
           controller.should_not be_admin
         end
       end

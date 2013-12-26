@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
       flash[:success] = 'Logged in successfully.'
       redirect_to root_path
     else
-      flash.now[:error] = 'Incorrect password.'
+      flash.now[:danger] = 'Incorrect password.'
       render :new
     end
   end
