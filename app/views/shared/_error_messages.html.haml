@@ -1,6 +1,6 @@
 - if obj.errors.any?
-  .alert.alert-error
-    %h3
+  .bs-callout.bs-callout-danger
+    %h4
       = pluralize obj.errors.count, 'error'
       prohibited this
       = obj.class.name.titleize

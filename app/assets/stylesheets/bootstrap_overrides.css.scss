@@ -2,6 +2,53 @@ td {
   vertical-align: middle !important;
 }
 
+.bs-callout {
+  border-left: 3px solid #eee;
+  margin: 20px 0;
+  padding: 20px;
+
+  h4 {
+    margin-bottom: 5px;
+    margin-top: 0;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  ul {
+    margin-bottom: 0;
+    margin-top: 20px;
+  }
+}
+
+.bs-callout-danger {
+  background-color: #fdf7f7;
+  border-color: #eed3d7;
+
+  h4 {
+    color: #b94a48;
+  }
+}
+
+.bs-callout-warning {
+  background-color: #faf8f0;
+  border-color: #faebcc;
+
+  h4 {
+    color: #8a6d3b;
+  }
+}
+
+.bs-callout-info {
+  background-color: #f4f8fa;
+  border-color: #bce8f1;
+
+  h4 {
+    color: #34789a;
+  }
+}
+
 .navbar-text {
   &.navbar-right {
     padding-right: 15px; 
