@@ -25,6 +25,10 @@ class Expense < ActiveRecord::Base
 
   validates_uniqueness_of :permalink
 
+  def frequency_label
+    FREQUENCIES.invert[frequency]
+  end
+
   def to_param
     permalink_was.present? ? permalink_was : permalink
   end

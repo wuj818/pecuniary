@@ -9,6 +9,16 @@ describe Expense do
   end
 
   describe 'instance methods' do
+    describe 'frequency_label' do
+      it 'produces a readable version of the frequency' do
+        expense = Expense.make! name: 'Rent', frequency: 12
+        expense.frequency_label.should == 'Monthly'
+
+        expense.frequency = 1
+        expense.frequency_label.should == 'Yearly'
+      end
+    end
+
     describe 'to_param' do
       it "doesn't change until after the record is saved" do
         expense = Expense.make! name: 'Rent'
