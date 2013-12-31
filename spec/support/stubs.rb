@@ -10,4 +10,8 @@ module Stubs
   def stub_contribution(stubs = {})
     @stub_contribution ||= stub_model(Contribution, stubs).as_null_object
   end
+
+  def stub_expense(stubs = {})
+    @stub_expense ||= stub_model(Expense, stubs).as_null_object
+  end
 end

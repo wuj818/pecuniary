@@ -1,0 +1,11 @@
+- @title = "Editing Expense - #{@expense}"
+
+.page-header
+  .header-buttons
+    = link_to expenses_path, class: 'btn btn-lg btn-default' do
+      = icon :arrow_left
+      Back
+
+  %h1= @title
+
+= render 'form'
