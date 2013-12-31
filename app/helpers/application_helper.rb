@@ -1,7 +1,6 @@
 module ApplicationHelper
   def currency(number)
-    amount = "$#{number_with_delimiter number.abs}"
-    number < 0 ? "-#{amount}" : amount
+    number_to_currency number, precision: 0
   end
 
   def icon(name)
