@@ -2,13 +2,15 @@ require 'spec_helper'
 
 describe ExpensesController do
   describe 'GET index' do
-    it 'assigns all expenses as @expenses' do
-      Expense.should_receive(:scoped).and_return(mock_relation)
+    it 'assigns all monthly expenses as @monthly_expenses and all yearly expenses as @yearly_expenses' do
+      Expense.should_receive(:monthly).and_return(mock_relation)
+      Expense.should_receive(:yearly).and_return(mock_relation)
 
       get :index
 
       response.should render_template :index
-      assigns(:expenses).should == mock_relation
+      assigns(:monthly_expenses).should == mock_relation
+      assigns(:yearly_expenses).should == mock_relation
     end
   end
 

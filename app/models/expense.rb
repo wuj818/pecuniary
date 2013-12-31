@@ -25,6 +25,19 @@ class Expense < ActiveRecord::Base
 
   validates_uniqueness_of :permalink
 
+  scope :monthly, where(frequency: 12)
+  scope :yearly, where(frequency: 1)
+
+  class << self
+    def monthly_costs
+      monthly.sum(:cost)
+    end
+
+    def yearly_costs
+      yearly.sum(:cost)
+    end
+  end
+
   def frequency_label
     FREQUENCIES.invert[frequency]
   end

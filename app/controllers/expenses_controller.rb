@@ -4,7 +4,8 @@ class ExpensesController < ApplicationController
   before_filter :get_expense, only: [:show, :edit, :update, :destroy]
 
   def index
-    @expenses = Expense.scoped
+    @monthly_expenses = Expense.monthly.order(:name)
+    @yearly_expenses = Expense.yearly.order(:name)
   end
 
   def show

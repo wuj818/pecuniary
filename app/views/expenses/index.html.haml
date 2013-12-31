@@ -8,30 +8,44 @@
 
   %h1= @title
 
-- unless @expenses.length.zero?
-  %table.table.table-striped.table-bordered.table-hover#expenses-table
-    %thead
-      %tr
-        %th Name
-        %th Cost
-        %th Frequency
-        %th Notes
-        %th Permalink
-        %th
+.row#expenses
+  .col-sm-6
+    .panel.panel-primary
+      .panel-heading
+        %strong Monthly Expenses
 
-    %tbody
-      - @expenses.each do |expense|
-        %tr
-          %td= link_to expense.name, expense
-          %td= currency expense.cost
-          %td= expense.frequency_label
-          %td= expense.notes
-          %td
-            = link_to expense.permalink, expense
-          %td.table-actions
-            = link_to [:edit, expense], class: 'btn btn-info' do
-              = icon :edit
-            = link_to expense, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
-              = icon :trash
-- else
-  %p There are no expenses.
+        %span.label.label-danger.pull-right
+          = currency Expense.monthly_costs
+          total
+
+      %ul.list-group
+        - unless @monthly_expenses.length.zero?
+          - @monthly_expenses.each do |expense|
+            %li.list-group-item
+              = link_to expense.name, expense
+
+              %span.badge= currency expense.cost
+        - else
+          %li.list-group-item
+            none
+
+
+  .col-sm-6
+    .panel.panel-primary
+      .panel-heading
+        %strong Yearly Expenses
+
+        %span.label.label-danger.pull-right
+          = currency Expense.yearly_costs
+          total
+
+      %ul.list-group
+        - unless @yearly_expenses.length.zero?
+          - @yearly_expenses.each do |expense|
+            %li.list-group-item
+              = link_to expense.name, expense
+
+              %span.badge= currency expense.cost
+        - else
+          %li.list-group-item
+            none
