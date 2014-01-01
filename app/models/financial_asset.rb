@@ -18,6 +18,12 @@ class FinancialAsset < ActiveRecord::Base
   scope :investments, where(investment: true)
   scope :non_investments, where(investment: false)
 
+  class << self
+    def net_worth
+      sum :current_value
+    end
+  end
+
   def total_return
     (current_value - total_contributions.to_f) / total_contributions * 100
   end

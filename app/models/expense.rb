@@ -29,12 +29,20 @@ class Expense < ActiveRecord::Base
   scope :yearly, where(frequency: 1)
 
   class << self
+    def annual_total
+      monthly_costs * 12 + yearly_costs
+    end
+
     def monthly_costs
       monthly.sum(:cost)
     end
 
     def yearly_costs
       yearly.sum(:cost)
+    end
+
+    def financial_independence_goal
+      annual_total * 25
     end
   end
 
