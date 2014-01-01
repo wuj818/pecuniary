@@ -1,0 +1,26 @@
+.col-sm-6
+  .panel.panel-default
+    .panel-heading
+      %strong
+        = "#{frequency.capitalize} Expenses"
+
+      %span.label.label-danger.pull-right
+        = currency Expense.send "#{frequency}_costs"
+        total
+
+    %ul.list-group
+      - unless expenses.length.zero?
+        - expenses.each do |expense|
+          %li.list-group-item
+            = link_to expense.name, expense
+
+            .pull-right
+              = currency expense.cost
+
+            - if expense.notes.present?
+              %p.list-group-item-text
+                %small.text-muted
+                  = expense.notes
+      - else
+        %li.list-group-item
+          none

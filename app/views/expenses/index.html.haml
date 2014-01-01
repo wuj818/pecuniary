@@ -9,43 +9,6 @@
   %h1= @title
 
 .row#expenses
-  .col-sm-6
-    .panel.panel-default
-      .panel-heading
-        %strong Monthly Expenses
+  = render 'expenses/index/list', frequency: 'monthly', expenses: @monthly_expenses
 
-        %span.label.label-danger.pull-right
-          = currency Expense.monthly_costs
-          total
-
-      %ul.list-group
-        - unless @monthly_expenses.length.zero?
-          - @monthly_expenses.each do |expense|
-            %li.list-group-item
-              = link_to expense.name, expense
-
-              .pull-right= currency expense.cost
-        - else
-          %li.list-group-item
-            none
-
-
-  .col-sm-6
-    .panel.panel-default
-      .panel-heading
-        %strong Yearly Expenses
-
-        %span.label.label-danger.pull-right
-          = currency Expense.yearly_costs
-          total
-
-      %ul.list-group
-        - unless @yearly_expenses.length.zero?
-          - @yearly_expenses.each do |expense|
-            %li.list-group-item
-              = link_to expense.name, expense
-
-              .pull-right= currency expense.cost
-        - else
-          %li.list-group-item
-            none
+  = render 'expenses/index/list', frequency: 'yearly', expenses: @yearly_expenses
