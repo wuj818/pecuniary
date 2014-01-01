@@ -23,62 +23,36 @@
 
 = asset_line_plus_bar_graph @asset
 
-%ul.nav.nav-tabs
-  %li.active
-    = link_to 'Snapshots', '#snapshots', data: { toggle: 'tab' }
+.row
+  %div.col-sm-6{class: @asset.investment? ? nil : 'col-sm-offset-3'}
+    .panel.panel-default
+      .panel-heading
+        %strong Snapshots
 
-  - if @asset.investment?
-    %li
-      = link_to 'Contributions', '#contributions', data: { toggle: 'tab' }
-
-.tab-content
-  #snapshots.tab-pane.active
-    - unless @snapshots.length.zero?
-      %table.table.table-striped.table-bordered.table-hover#asset-snapshots-table
-        %thead
-          %tr
-            %th.date Date
-            %th.value Value
-            %th Permalink
-            %th
-
-        %tbody
+      %ul.list-group
+        - unless @snapshots.length.zero?
           - @snapshots.each do |snapshot|
-            %tr
-              %td= snapshot.formatted_date
-              %td= currency snapshot.value
-              %td
-                = link_to snapshot.permalink, snapshot
-              %td.table-actions
-                = link_to [:edit, snapshot], class: 'btn btn-info' do
-                  = icon :edit
-                = link_to snapshot, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
-                  = icon :trash
-    - else
-      %p There are no snapshots for this asset.
+            %li.list-group-item
+              = link_to snapshot.formatted_date, snapshot
+
+              .pull-right= currency snapshot.value
+        - else
+          %li.list-group-item
+            There are no snapshots for this asset.
 
   - if @asset.investment?
-    #contributions.tab-pane
-      - unless @contributions.length.zero?
-        %table.table.table-striped.table-bordered.table-hover#contributions-table
-          %thead
-            %tr
-              %th.date Date
-              %th.amount Amount
-              %th Permalink
-              %th
+    .col-sm-6
+      .panel.panel-default
+        .panel-heading
+          %strong Contributions
 
-          %tbody
+        %ul.list-group
+          - unless @contributions.length.zero?
             - @contributions.each do |contribution|
-              %tr
-                %td= contribution.formatted_date
-                %td= currency contribution.amount
-                %td
-                  = link_to contribution.permalink, contribution
-                %td.table-actions
-                  = link_to [:edit, contribution], class: 'btn btn-info' do
-                    = icon :edit
-                  = link_to contribution, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
-                    = icon :trash
-      - else
-        %p There are no contributions for this asset.
+              %li.list-group-item
+                = link_to contribution.formatted_date, contribution
+
+                .pull-right= currency contribution.amount
+          - else
+            %li.list-group-item
+              There are no contributions for this asset.

@@ -10,7 +10,7 @@
 
 .row#expenses
   .col-sm-6
-    .panel.panel-primary
+    .panel.panel-default
       .panel-heading
         %strong Monthly Expenses
 
@@ -24,14 +24,14 @@
             %li.list-group-item
               = link_to expense.name, expense
 
-              %span.badge= currency expense.cost
+              .pull-right= currency expense.cost
         - else
           %li.list-group-item
             none
 
 
   .col-sm-6
-    .panel.panel-primary
+    .panel.panel-default
       .panel-heading
         %strong Yearly Expenses
 
@@ -45,7 +45,7 @@
             %li.list-group-item
               = link_to expense.name, expense
 
-              %span.badge= currency expense.cost
+              .pull-right= currency expense.cost
         - else
           %li.list-group-item
             none
