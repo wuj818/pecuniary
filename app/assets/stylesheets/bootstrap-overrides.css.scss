@@ -1,11 +1,5 @@
-td {
-  vertical-align: middle !important;
-}
-
-.navbar-text {
-  &.navbar-right {
-    padding-right: 15px;
-  }
+.table > tbody > tr > td {
+  vertical-align: middle;
 }
 
 .nav-tabs {
@@ -17,5 +11,9 @@ td {
 
   h1 {
     margin-top: 0;
+  }
+
+  .btn:not(:last-child) {
+    margin-right: 6px;
   }
 }
