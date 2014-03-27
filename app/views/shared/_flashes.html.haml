@@ -2,4 +2,6 @@
   - flash.each do |kind, msg|
     = content_tag :div, class: "alert alert-#{kind}" do
       = msg
-      %a.close{data: { dismiss: 'alert' }} &times;
+
+      %a.close{data: { dismiss: 'alert' }}
+        &times;

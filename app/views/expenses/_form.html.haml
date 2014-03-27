@@ -3,21 +3,25 @@
 = form_for @expense, html: { class: 'form-horizontal' } do |f|
   .form-group
     = f.label :name, class: 'control-label col-sm-2'
+
     .col-sm-4
       = f.text_field :name, autofocus: true, class: 'form-control'
 
   .form-group
     = f.label :cost, class: 'control-label col-sm-2'
+
     .col-sm-10
       = f.number_field :cost, class: 'form-control'
 
   .form-group
     = f.label :frequency, class: 'control-label col-sm-2'
+
     .col-sm-4
       = f.select :frequency, Expense::FREQUENCIES, {}, class: 'form-control'
 
   .form-group
     = f.label :notes, class: 'control-label col-sm-2'
+
     .col-sm-4
       = f.text_area :notes, class: 'form-control', rows: 4
 

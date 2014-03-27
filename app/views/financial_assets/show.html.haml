@@ -19,12 +19,13 @@
         = icon :plus_sign
         Contribution
 
-  %h1= @title
+  %h1
+    = @title
 
 = asset_line_plus_bar_graph @asset
 
 .row
-  %div.col-sm-6{class: @asset.investment? ? nil : 'col-sm-offset-3'}
+  .col-sm-6{class: @asset.investment? ? nil : 'col-sm-offset-3'}
     .panel.panel-default
       .panel-heading
         %strong Snapshots
@@ -35,7 +36,8 @@
             %li.list-group-item
               = link_to snapshot.formatted_date, snapshot
 
-              .pull-right= currency snapshot.value
+              .pull-right
+                = currency snapshot.value
         - else
           %li.list-group-item
             There are no snapshots for this asset.
@@ -52,7 +54,8 @@
               %li.list-group-item
                 = link_to contribution.formatted_date, contribution
 
-                .pull-right= currency contribution.amount
+                .pull-right
+                  = currency contribution.amount
           - else
             %li.list-group-item
               There are no contributions for this asset.

@@ -6,7 +6,8 @@
       = icon :plus_sign
       Expense
 
-  %h1= @title
+  %h1
+    = @title
 
 .row#expenses
   = render 'expenses/index/list', frequency: 'monthly', expenses: @monthly_expenses

@@ -10,11 +10,13 @@
 = form_for @snapshot, url: url, method: method, html: { class: 'form-horizontal' } do |f|
   .form-group
     = f.label :date, class: 'control-label col-sm-2'
+
     #date-select.col-sm-10
       = f.date_select :date, { order: [:month, :year], end_year: Time.zone.now.year }, class: 'form-control'
 
   .form-group
     = f.label :value, class: 'control-label col-sm-2'
+
     .col-sm-10
       = f.number_field :value, class: 'form-control'
 
