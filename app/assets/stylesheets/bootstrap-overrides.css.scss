@@ -1,0 +1,21 @@
+td {
+  vertical-align: middle !important;
+}
+
+.navbar-text {
+  &.navbar-right {
+    padding-right: 15px;
+  }
+}
+
+.nav-tabs {
+  margin-bottom: 15px;
+}
+
+.page-header {
+  margin-top: 0;
+
+  h1 {
+    margin-top: 0;
+  }
+}
