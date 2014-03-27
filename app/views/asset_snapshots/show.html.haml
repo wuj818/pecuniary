@@ -15,24 +15,26 @@
     Snapshot -
     = @snapshot.formatted_date
 
-%table.table.table-striped.table-bordered.table-hover#asset-snapshots-table
-  %thead
-    %tr
-      %th Date
-      %th Value
-      %th Permalink
-      %th
+.row
+  .col-md-8
+    %table.table.table-striped.table-bordered.table-hover#asset-snapshots-table
+      %thead
+        %tr
+          %th Date
+          %th Value
+          %th Permalink
+          %th
 
-  %tbody
-    %tr
-      %td
-        = @snapshot.formatted_date
-      %td
-        = currency @snapshot.value
-      %td
-        = link_to @snapshot.permalink, @snapshot
-      %td.table-actions
-        = link_to [:edit, @snapshot], class: 'btn btn-info' do
-          = icon :edit
-        = link_to @snapshot, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
-          = icon :trash
+      %tbody
+        %tr
+          %td
+            = @snapshot.formatted_date
+          %td
+            = currency @snapshot.value
+          %td
+            = link_to @snapshot.permalink, @snapshot
+          %td.table-actions
+            = link_to [:edit, @snapshot], class: 'btn btn-info' do
+              = icon :edit
+            = link_to @snapshot, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
+              = icon :trash

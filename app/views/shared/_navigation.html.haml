@@ -1,47 +1,48 @@
 .navbar.navbar-inverse.navbar-fixed-top
-  .navbar-header
-    %button.navbar-toggle{type: 'button', data: { toggle: 'collapse', target: '#navigation' }}
-      %span.icon-bar
-      %span.icon-bar
-      %span.icon-bar
+  .container
+    .navbar-header
+      %button.navbar-toggle{type: 'button', data: { toggle: 'collapse', target: '#navigation' }}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
 
-    = link_to 'Pecuniary', root_path, class: 'navbar-brand'
+      = link_to 'Pecuniary', root_path, class: 'navbar-brand'
 
-  #navigation.navbar-collapse.collapse
-    %ul.nav.navbar-nav
-      %li.dropdown{class: nav_class(:financial_assets)}
-        = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
-          Assets
-          %b.caret
+    #navigation.navbar-collapse.collapse
+      %ul.nav.navbar-nav
+        %li.dropdown{class: nav_class(:financial_assets)}
+          = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do
+            Assets
+            %b.caret
 
-        %ul.dropdown-menu
-          %li
-            = link_to 'All', financial_assets_path
+          %ul.dropdown-menu
+            %li
+              = link_to 'All', financial_assets_path
 
-          %li.divider
+            %li.divider
 
-          %li.dropdown-header Regular Accounts
-          - non_investments = FinancialAsset.non_investments.order(:name)
-          - unless non_investments.length.zero?
-            - non_investments.each do |asset|
-              %li
-                = link_to asset, asset
+            %li.dropdown-header Regular Accounts
+            - non_investments = FinancialAsset.non_investments.order(:name)
+            - unless non_investments.length.zero?
+              - non_investments.each do |asset|
+                %li
+                  = link_to asset, asset
 
-          %li.dropdown-header Investments
-          - investments = FinancialAsset.investments.order(:name)
-          - unless investments.length.zero?
-            - investments.each do |asset|
-              %li
-                = link_to asset, asset
+            %li.dropdown-header Investments
+            - investments = FinancialAsset.investments.order(:name)
+            - unless investments.length.zero?
+              - investments.each do |asset|
+                %li
+                  = link_to asset, asset
 
-      %li{class: nav_class(:contributions)}
-        = link_to 'Contributions', contributions_path
+        %li{class: nav_class(:contributions)}
+          = link_to 'Contributions', contributions_path
 
-      %li{class: nav_class(:expenses)}
-        = link_to 'Expenses', expenses_path
+        %li{class: nav_class(:expenses)}
+          = link_to 'Expenses', expenses_path
 
-    %p.navbar-text.navbar-right
-      - if admin?
-        = link_to 'Logout', logout_path, method: 'delete'
-      - else
-        = link_to 'Login', login_path
+      %p.navbar-text.navbar-right
+        - if admin?
+          = link_to 'Logout', logout_path, method: 'delete'
+        - else
+          = link_to 'Login', login_path
