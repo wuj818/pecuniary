@@ -9,7 +9,9 @@ gem 'jquery-rails', '3.0.1'
 gem 'hirb', '0.7.1'
 gem 'wirble', '0.1.3'
 
+gem 'bootstrap3-datetimepicker-rails', '3.0.0'
 gem 'figaro', '0.7.0'
+gem 'momentjs-rails', '2.5.1'
 
 group :assets do
   gem 'coffee-rails', '3.2.1'
