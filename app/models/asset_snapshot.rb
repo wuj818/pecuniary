@@ -14,6 +14,8 @@ class AssetSnapshot < ActiveRecord::Base
 
   validates_uniqueness_of :permalink
 
+  after_initialize lambda { self.date ||= Time.zone.now.to_date.end_of_month }
+
   before_validation :create_permalink
 
   before_validation :format_date
@@ -37,7 +39,7 @@ class AssetSnapshot < ActiveRecord::Base
   private
 
   def create_permalink
-    if date.present?
+    if date.present? && asset.present?
       self.permalink = [asset.permalink, formatted_date.parameterize].join '-'
     end
   end

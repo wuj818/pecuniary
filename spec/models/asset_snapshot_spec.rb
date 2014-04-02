@@ -12,6 +12,12 @@ describe AssetSnapshot do
     let(:date) { Date.new 2010, 7, 28 }
     let(:snapshot) { AssetSnapshot.make! date: date, asset: FinancialAsset.make!(name: 'Bank') }
 
+    it 'sets the date to the end of the current month by default' do
+      Timecop.freeze
+      snapshot = AssetSnapshot.new
+      snapshot.date.should == Time.zone.now.to_date.end_of_month
+    end
+
     it 'sets the date to the end of the month' do
       snapshot.date.should_not == date
       snapshot.date.should == date.end_of_month
@@ -60,7 +66,7 @@ describe AssetSnapshot do
     it 'has required attributes' do
       snapshot = AssetSnapshot.create
 
-      [:asset, :date].each do |attribute|
+      [:asset].each do |attribute|
         snapshot.errors[attribute].should include "can't be blank"
       end
     end
