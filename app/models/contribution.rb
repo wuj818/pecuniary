@@ -30,7 +30,7 @@ class Contribution < ActiveRecord::Base
   after_destroy :update_asset_total_contributions
 
   def formatted_date
-    date.to_time.strftime '%B %-d, %Y'
+    date.to_time.strftime '%B %-d, %Y' rescue nil
   end
 
   def to_param
@@ -38,7 +38,7 @@ class Contribution < ActiveRecord::Base
   end
 
   def to_s
-    ["#{asset} Contribution", formatted_date].join ' - '
+    ["#{asset} Contribution", formatted_date].compact.join ' - '
   end
 
   private

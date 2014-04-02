@@ -25,7 +25,7 @@ class AssetSnapshot < ActiveRecord::Base
   after_destroy :update_asset_current_value
 
   def formatted_date
-    date.to_time.strftime '%B %Y'
+    date.to_time.strftime '%B %Y' rescue nil
   end
 
   def to_param
@@ -33,7 +33,7 @@ class AssetSnapshot < ActiveRecord::Base
   end
 
   def to_s
-    ["#{asset} Snapshot", formatted_date].join ' - '
+    ["#{asset} Snapshot", formatted_date].compact.join ' - '
   end
 
   private
