@@ -21,6 +21,8 @@ class Contribution < ActiveRecord::Base
 
   validate :investment_asset
 
+  after_initialize lambda { self.date ||= Time.zone.now.to_date }
+
   before_validation :create_permalink
 
   after_save :update_asset_total_contributions
@@ -42,7 +44,7 @@ class Contribution < ActiveRecord::Base
   private
 
   def create_permalink
-    if date.present?
+    if date.present? && asset.present?
       self.permalink = [asset.permalink, formatted_date.parameterize].join '-'
     end
   end
