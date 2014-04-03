@@ -90,7 +90,7 @@ describe AssetSnapshotsController do
   describe 'GET edit' do
     before do
       @asset = stub_asset(permalink: 'bank')
-      @snapshot = stub_asset_snapshot(permalink: 'july-2010', asset: @asset)
+      @snapshot = stub_asset_snapshot(permalink: 'bank-july-2010', asset: @asset)
     end
 
     context 'when logged in' do
@@ -118,7 +118,7 @@ describe AssetSnapshotsController do
   describe 'PUT update' do
     before do
       @asset = stub_asset(permalink: 'bank')
-      @snapshot = stub_asset_snapshot(permalink: 'july-2010', asset: @asset)
+      @snapshot = stub_asset_snapshot(permalink: 'bank-july-2010', asset: @asset)
     end
 
     context 'when logged in' do
@@ -162,7 +162,7 @@ describe AssetSnapshotsController do
   describe 'DELETE destroy' do
     before do
       @asset = stub_asset(permalink: 'bank')
-      @snapshot = stub_asset_snapshot(permalink: 'july-2010', asset: @asset)
+      @snapshot = stub_asset_snapshot(permalink: 'bank-july-2010', asset: @asset)
     end
 
     context 'when logged in' do

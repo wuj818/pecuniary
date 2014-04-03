@@ -10,4 +10,8 @@ module Stubs
   def stub_contribution(stubs = {})
     @stub_contribution ||= stub_model(Contribution, stubs).as_null_object
   end
+
+  def stub_milestone(stubs = {})
+    @stub_milestone ||= stub_model(Milestone, stubs).as_null_object
+  end
 end

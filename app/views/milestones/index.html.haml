@@ -1,0 +1,40 @@
+- @title = 'Milestones'
+
+.page-header
+  .pull-right
+    = link_to new_milestone_path, class: 'btn btn-lg btn-success' do
+      = icon :plus_sign
+      Milestone
+
+  %h1
+    = @title
+
+- unless @milestones.length.zero?
+  %table.table.table-striped.table-bordered.table-hover.table-stacked#milestones-table
+    %thead
+      %tr
+        %th.date Date
+        %th Notes
+        %th Permalink
+        %th
+
+    %tbody
+      - @milestones.each do |milestone|
+        %tr
+          %td
+            = milestone.formatted_date
+
+          %td
+            = milestone.notes
+
+          %td
+            = link_to milestone.permalink, milestone
+
+          %td.table-actions
+            = link_to [:edit, milestone], class: 'btn btn-info' do
+              = icon :edit
+
+            = link_to milestone, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
+              = icon :trash
+- else
+  %p There are no milestones.

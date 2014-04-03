@@ -9,6 +9,8 @@ Pecuniary::Application.routes.draw do
     resources :contributions, only: [:new, :create]
   end
 
+  resources :milestones
+
   resources :sessions, only: [:new, :create, :destroy]
   get '/login' => 'sessions#new'
   delete '/logout' => 'sessions#destroy'

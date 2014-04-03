@@ -15,7 +15,7 @@ describe ContributionsController do
 
   describe 'GET show' do
     it 'assigns the requested contribution as @contribution and its asset as @asset' do
-      contribution = stub_contribution(permalink: 'bank-july-2010')
+      contribution = stub_contribution(permalink: 'bank-july-28-2010')
       Contribution.should_receive(:find_by_permalink).and_return(contribution)
 
       get :show, id: contribution.to_param
@@ -102,7 +102,7 @@ describe ContributionsController do
   describe 'GET edit' do
     before do
       @asset = stub_asset(permalink: 'bank')
-      @contribution = stub_contribution(permalink: 'july-2010', asset: @asset)
+      @contribution = stub_contribution(permalink: 'bank-july-28-2010', asset: @asset)
     end
 
     context 'when logged in' do
@@ -130,7 +130,7 @@ describe ContributionsController do
   describe 'PUT update' do
     before do
       @asset = stub_asset(permalink: 'bank')
-      @contribution = stub_contribution(permalink: 'july-2010', asset: @asset)
+      @contribution = stub_contribution(permalink: 'bank-july-28-2010', asset: @asset)
     end
 
     context 'when logged in' do
@@ -174,7 +174,7 @@ describe ContributionsController do
   describe 'DELETE destroy' do
     before do
       @asset = stub_asset(permalink: 'bank')
-      @contribution = stub_contribution(permalink: 'july-2010', asset: @asset)
+      @contribution = stub_contribution(permalink: 'bank-july-28-2010', asset: @asset)
     end
 
     context 'when logged in' do

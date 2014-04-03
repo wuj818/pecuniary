@@ -1,0 +1,12 @@
+- @title = 'New Milestone'
+
+.page-header
+  .pull-right
+    = link_to milestones_path, class: 'btn btn-lg btn-default' do
+      = icon :arrow_left
+      Back
+
+  %h1
+    = @title
+
+= render 'form'

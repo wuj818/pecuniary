@@ -12,7 +12,7 @@ describe Contribution do
     let(:date) { Date.new 2010, 7, 28 }
     let(:contribution) { Contribution.make! date: date, asset: FinancialAsset.make!(name: 'Bank') }
 
-    it 'sets the date to the end of the current month by default' do
+    it 'sets the date to the current date by default' do
       Timecop.freeze
       contribution = Contribution.new
       contribution.date.should == Time.zone.now.to_date

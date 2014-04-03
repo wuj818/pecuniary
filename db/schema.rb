@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140403171829) do
+ActiveRecord::Schema.define(:version => 20140403173309) do
 
   create_table "asset_snapshots", :force => true do |t|
     t.integer  "financial_asset_id"
@@ -48,5 +48,16 @@ ActiveRecord::Schema.define(:version => 20140403171829) do
   end
 
   add_index "financial_assets", ["permalink"], :name => "index_financial_assets_on_permalink", :unique => true
+
+  create_table "milestones", :force => true do |t|
+    t.date     "date"
+    t.text     "notes"
+    t.string   "permalink"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "milestones", ["date"], :name => "index_milestones_on_date", :unique => true
+  add_index "milestones", ["permalink"], :name => "index_milestones_on_permalink", :unique => true
 
 end

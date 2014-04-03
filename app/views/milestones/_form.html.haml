@@ -1,0 +1,24 @@
+= render 'shared/error_messages', obj: @milestone
+
+= form_for @milestone, html: { class: 'form-horizontal' } do |f|
+  .form-group
+    = f.label :date, class: 'control-label col-sm-2'
+
+    .col-sm-3
+      .input-group.date-picker
+        = f.text_field :date, required: true, class: 'form-control'
+
+        %span.input-group-addon
+          = icon :calendar
+
+  .form-group
+    = f.label :notes, class: 'control-label col-sm-2'
+
+    .col-sm-6
+      = f.text_area :notes, autofocus: true, required: true, rows: 5, class: 'form-control'
+
+  %hr
+
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Save', class: 'btn btn-lg btn-primary'
