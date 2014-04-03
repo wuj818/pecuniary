@@ -17,10 +17,3 @@ FinancialAsset.blueprint do
   current_value { 350 }
   investment { true }
 end
-
-Expense.blueprint do
-  name { "Expense-#{sn}" }
-  cost { 350 }
-  frequency { 12 }
-  notes { 'too damn high' }
-end

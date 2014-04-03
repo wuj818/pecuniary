@@ -3,8 +3,6 @@ Pecuniary::Application.routes.draw do
 
   resources :contributions, only: [:index, :show, :edit, :update, :destroy]
 
-  resources :expenses
-
   resources :financial_assets, path: 'financial-assets' do
     resources :asset_snapshots, path: 'snapshots', as: 'snapshots', only: [:new, :create]
 
