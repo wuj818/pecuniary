@@ -37,6 +37,10 @@ module ApplicationHelper
     content_tag :span, nil, class: "glyphicon glyphicon-#{name.to_s.dasherize}"
   end
 
+  def kramdown(text)
+    Kramdown::Document.new(text).to_html.html_safe
+  end
+
   def nav_class(controller)
     controller.to_s == controller_name ? 'active' : nil
   end

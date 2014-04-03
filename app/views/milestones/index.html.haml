@@ -26,7 +26,6 @@
               = link_to milestone, milestone
 
           .timeline-body
-            %p
-              = milestone.notes
+            = kramdown milestone.notes
 - else
   %p There are no milestones.

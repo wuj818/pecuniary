@@ -12,6 +12,7 @@ gem 'wirble', '0.1.3'
 gem 'bootstrap3-datetimepicker-rails', '3.0.0'
 gem 'figaro', '0.7.0'
 gem 'momentjs-rails', '2.5.1'
+gem 'kramdown', '1.3.3'
 
 group :assets do
   gem 'coffee-rails', '3.2.1'
