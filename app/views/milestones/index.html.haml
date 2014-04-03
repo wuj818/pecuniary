@@ -10,31 +10,23 @@
     = @title
 
 - unless @milestones.length.zero?
-  %table.table.table-striped.table-bordered.table-hover.table-stacked#milestones-table
-    %thead
-      %tr
-        %th Date
-        %th Notes
-        %th Permalink
-        %th
+  %ul.timeline
+    - @milestones.each do |milestone|
+      %li{class: cycle(nil, 'timeline-inverted')}
+        .timeline-panel
+          .timeline-heading
+            .pull-right
+              = link_to [:edit, milestone], class: 'btn btn-info btn-xs' do
+                = icon :edit
 
-    %tbody
-      - @milestones.each do |milestone|
-        %tr
-          %td
-            = milestone.formatted_date
+              = link_to milestone, method: 'delete', class: 'btn btn-danger btn-xs', data: { confirm: t(:confirm) } do
+                = icon :trash
 
-          %td
-            = milestone.notes
+            %h4.timeline-title
+              = link_to milestone, milestone
 
-          %td
-            = link_to milestone.permalink, milestone
-
-          %td.table-actions
-            = link_to [:edit, milestone], class: 'btn btn-info' do
-              = icon :edit
-
-            = link_to milestone, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
-              = icon :trash
+          .timeline-body
+            %p
+              = milestone.notes
 - else
   %p There are no milestones.
