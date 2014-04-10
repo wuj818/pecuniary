@@ -3,7 +3,7 @@
 .page-header
   .pull-right
     = link_to :milestones, class: 'btn btn-lg btn-default' do
-      = icon :arrow_left
+      = icon 'arrow-left'
       Back
 
     = link_to [:edit, @milestone], class: 'btn btn-lg btn-info' do
@@ -39,4 +39,4 @@
               = icon :edit
 
             = link_to @milestone, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
-              = icon :trash
+              = icon 'trash-o'

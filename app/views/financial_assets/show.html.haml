@@ -3,7 +3,7 @@
 .page-header
   .pull-right
     = link_to :financial_assets, class: 'btn btn-lg btn-default' do
-      = icon :arrow_left
+      = icon 'arrow-left'
       Back
 
     = link_to [:edit, @asset], class: 'btn btn-lg btn-info' do
@@ -11,12 +11,12 @@
       Edit
 
     = link_to [:new, @asset, :snapshot], class: 'btn btn-lg btn-success' do
-      = icon :plus_sign
+      = icon 'plus-circle'
       Snapshot
 
     - if @asset.investment?
       = link_to [:new, @asset, :contribution], class: 'btn btn-lg btn-success' do
-        = icon :plus_sign
+        = icon 'plus-circle'
         Contribution
 
   %h1
