@@ -4,6 +4,7 @@ $ ->
   if $graph.length isnt 0
     nv.addGraph ->
       chart = nv.models.stackedAreaChart()
+        .useInteractiveGuideline(true)
         .x( (d) -> d[0] )
         .y( (d) -> d[1] )
         .color(d3.scale.category10().range())

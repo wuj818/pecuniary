@@ -6,6 +6,7 @@ $ ->
 
     nv.addGraph ->
       chart = nv.models.lineChart()
+        .useInteractiveGuideline(true)
         .color(d3.scale.category10().range())
         .margin(left: 65, right: 30, top: 10)
         .yDomain([0, $graph.data 'y-max'])
