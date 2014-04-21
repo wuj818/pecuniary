@@ -29,7 +29,7 @@ gem 'quiet_assets', '1.0.2'
 gem 'therubyracer', '0.11.4'
 
 group :development do
-  gem 'rvm-capistrano', '1.4.1'
+  gem 'rvm-capistrano', '1.5.1'
   gem 'webrick', '1.3.1'
 end
 
