@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.17'
-gem 'sqlite3', '1.3.7'
+gem 'sqlite3', '1.3.9'
 
 gem 'haml-rails', '0.4'
 gem 'jquery-rails', '3.1.0'
@@ -34,7 +34,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '2.13.2'
+  gem 'rspec-rails', '2.14.2'
 end
 
 group :production do
