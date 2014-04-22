@@ -23,7 +23,7 @@ $ ->
       d3.select("##{$graph.attr 'id'} svg")
         .datum($graph.data('graph-data'))
         .transition()
-        .duration(500)
+        .duration(0)
         .call chart
 
       nv.utils.windowResize chart.update

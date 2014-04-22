@@ -17,12 +17,10 @@ $ ->
 
       chart.yAxis.tickFormat (d) -> '$' + d3.format(',f') d
 
-      chart.tooltipContent (key, x, y, e, graph) -> "<h3>#{key}</h3><p>#{y} on #{x}</p>"
-
       d3.select("##{$graph.attr 'id'} svg")
         .datum(data)
         .transition()
-        .duration(500)
+        .duration(0)
         .call chart
 
       nv.utils.windowResize chart.update
