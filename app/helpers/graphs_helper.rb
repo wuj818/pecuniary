@@ -63,52 +63,6 @@ module GraphsHelper
 
   # specific graphs
 
-  def asset_line_plus_bar_graph(asset)
-    return if asset.snapshots.count.zero?
-
-    all_months = asset.snapshots.order(:date).inject({}) do |hash, snapshot|
-      hash[snapshot.date.to_js_time] = snapshot.value
-      hash
-    end
-
-    values = all_months.sort_by { |month, value| month }
-
-    graph_data = [ { key: 'Account Value', values: values } ]
-
-    if asset.investment?
-      all_months.each { |month, value| all_months[month] = 0 }
-
-      query = asset.contributions.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)')
-
-      grouped_contributions = query.inject({}) do |hash, contribution|
-        hash[contribution.date.end_of_month.to_js_time] = contribution.total
-        hash
-      end
-
-      values = all_months.merge(grouped_contributions).sort_by { |month, total| month }
-
-      graph_data << { key: 'Contribution', bar: true, values: values }
-
-      cumulative_contributions = []
-
-      graph_data.last[:values].sort.inject(0) do |sum, pair|
-        month, total = pair
-        sum += total
-        cumulative_contributions << [month, sum]
-        sum
-      end
-
-      graph_data << {
-        key: 'Cumulative Contributions',
-        values: cumulative_contributions
-      }
-    end
-
-    data = { 'graph-data' => graph_data.to_json }
-
-    line_plus_bar_graph id_prefix: 'asset', data: data
-  end
-
   def assets_stacked_area_graph
     return if AssetSnapshot.count.zero?
 
@@ -196,14 +150,60 @@ module GraphsHelper
     line_graph id_prefix: 'contributions', data: data
   end
 
+  def investment_asset_line_plus_bar_graph(asset)
+    return if asset.snapshots.count.zero?
+
+    # snapshots
+
+    all_months = asset.snapshots.order(:date).inject({}) do |hash, snapshot|
+      hash[snapshot.date.to_js_time] = snapshot.value
+      hash
+    end
+
+    values = all_months.sort_by { |month, value| month }
+
+    graph_data = [ { key: 'Account Value', values: values } ]
+
+    # contributions
+
+    all_months.each { |month, value| all_months[month] = 0 }
+
+    query = asset.contributions.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)')
+
+    grouped_contributions = query.inject({}) do |hash, contribution|
+      hash[contribution.date.end_of_month.to_js_time] = contribution.total
+      hash
+    end
+
+    values = all_months.merge(grouped_contributions).sort_by { |month, total| month }
+
+    graph_data << { key: 'Contribution', bar: true, values: values }
+
+    cumulative_contributions = []
+
+    graph_data.last[:values].sort.inject(0) do |sum, pair|
+      month, total = pair
+      sum += total
+      cumulative_contributions << [month, sum]
+      sum
+    end
+
+    graph_data << {
+      key: 'Cumulative Contributions',
+      values: cumulative_contributions
+    }
+
+    data = { 'graph-data' => graph_data.to_json }
+
+    line_plus_bar_graph id_prefix: 'asset', data: data
+  end
+
   def net_worth_line_with_focus_graph
     return if AssetSnapshot.count.zero?
 
     query = AssetSnapshot.select([:date, 'SUM(value) AS value']).group(:date).order(:date)
-    y_max = 0
 
     values = query.inject([]) do |array, snapshot|
-      y_max = snapshot.value if snapshot.value > y_max
       array << { x: snapshot.date.to_js_time, y: snapshot.value }
     end
 
@@ -211,10 +211,27 @@ module GraphsHelper
 
     data = {
       'graph-data' => graph_data,
-      'y-max' => y_max
+      'y-max' => values.map { |v| v[:y] }.max
     }
 
     line_with_focus_graph id_prefix: 'net-worth', data: data
+  end
+
+  def non_investment_asset_line_graph(asset)
+    return if asset.snapshots.count.zero?
+
+    values = asset.snapshots.order(:date).inject([]) do |array, snapshot|
+      array << { x: snapshot.date.to_js_time, y: snapshot.value }
+    end
+
+    graph_data = [ { key: 'Cumulative Contributions', values: values } ]
+
+    data = {
+      'graph-data' => graph_data.to_json,
+      'y-max' => values.map { |v| v[:y] }.max
+    }
+
+    line_graph id_prefix: 'asset', data: data
   end
 
   # helpers

@@ -22,7 +22,10 @@
   %h1
     = @title
 
-= asset_line_plus_bar_graph @asset
+- if @asset.investment?
+  = investment_asset_line_plus_bar_graph @asset
+- else
+  = non_investment_asset_line_graph @asset
 
 .row
   .col-sm-6{class: @asset.investment? ? nil : 'col-sm-offset-3'}
