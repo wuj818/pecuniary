@@ -42,7 +42,7 @@ module GraphsHelper
 
     data = { 'graph-data' => graph_data.to_json }
 
-    content_tag :div, id: 'asset-line-plus-bar-graph', data: data do
+    content_tag :div, id: 'asset-line-plus-bar-graph', class: 'line-plus-bar-graph', data: data do
       content_tag :svg
     end
   end
@@ -67,7 +67,7 @@ module GraphsHelper
 
     data = { 'graph-data' => graph_data }
 
-    content_tag :div, id: 'assets-stacked-area-graph', data: data do
+    content_tag :div, id: 'assets-stacked-area-graph', class: 'stacked-area-graph', data: data do
       content_tag :svg
     end
   end
@@ -98,7 +98,7 @@ module GraphsHelper
 
     data = { 'graph-data' => graph_data }
 
-    content_tag :div, id: 'contributions-multi-bar-graph', data: data do
+    content_tag :div, id: 'contributions-multi-bar-graph', class: 'multi-bar-graph', data: data do
       content_tag :svg
     end
   end
@@ -135,7 +135,7 @@ module GraphsHelper
       'y-max' => graph_data.first[:values].last[:y]
     }
 
-    content_tag :div, id: 'contributions-line-graph', data: data do
+    content_tag :div, id: 'contributions-line-graph', class: 'line-graph', data: data do
       content_tag :svg
     end
   end
@@ -158,7 +158,7 @@ module GraphsHelper
       'y-max' => y_max
     }
 
-    content_tag :div, id: 'net-worth-line-with-focus-graph', data: data do
+    content_tag :div, id: 'net-worth-line-with-focus-graph', class: 'line-with-focus-graph', data: data do
       content_tag :svg
     end
   end

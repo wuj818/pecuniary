@@ -1,8 +1,6 @@
 $ ->
-  $graph = $('#contributions-multi-bar-graph')
-
-  if $graph.length isnt 0
-    data = $graph.data 'graph-data'
+  $('.multi-bar-graph').each ->
+    $graph = $(@)
 
     nv.addGraph ->
       chart = nv.models.multiBarChart()
@@ -16,7 +14,7 @@ $ ->
       chart.yAxis.tickFormat (d) -> '$' + d3.format(',f') d
 
       d3.select("##{$graph.attr 'id'} svg")
-        .datum(data)
+        .datum($graph.data 'graph-data')
         .transition()
         .duration(0)
         .call chart

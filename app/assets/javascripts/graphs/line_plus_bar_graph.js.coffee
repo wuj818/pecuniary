@@ -1,8 +1,8 @@
 $ ->
-  $graph = $('#asset-line-plus-bar-graph')
+  $('.line-plus-bar-graph').each ->
+    $graph = $(@)
 
-  if $graph.length isnt 0
-    data = $graph.data 'graph-data'
+    data = $(@).data 'graph-data'
 
     nv.addGraph ->
       chart = nv.models.linePlusBarChart()

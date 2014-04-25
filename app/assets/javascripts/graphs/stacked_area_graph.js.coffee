@@ -1,7 +1,7 @@
 $ ->
-  $graph = $('#assets-stacked-area-graph')
+  $('.stacked-area-graph').each ->
+    $graph = $(@)
 
-  if $graph.length isnt 0
     nv.addGraph ->
       chart = nv.models.stackedAreaChart()
         .useInteractiveGuideline(true)
