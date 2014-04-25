@@ -51,6 +51,6 @@ module ApplicationHelper
   end
 
   def nav_class(controller)
-    controller.to_s == controller_name ? 'active' : nil
+    controller.to_s == controller_name ? :active : nil
   end
 end

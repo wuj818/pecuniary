@@ -22,18 +22,14 @@
             %li.divider
 
             %li.dropdown-header Regular Accounts
-            - non_investments = FinancialAsset.non_investments.order(:name)
-            - unless non_investments.length.zero?
-              - non_investments.each do |asset|
-                %li
-                  = link_to asset, asset
+            - FinancialAsset.non_investments.order(:name).each do |asset|
+              %li
+                = link_to asset, asset
 
             %li.dropdown-header Investments
-            - investments = FinancialAsset.investments.order(:name)
-            - unless investments.length.zero?
-              - investments.each do |asset|
-                %li
-                  = link_to asset, asset
+            - FinancialAsset.investments.order(:name).each do |asset|
+              %li
+                = link_to asset, asset
 
         %li{class: nav_class(:contributions)}
           = link_to 'Contributions', contributions_path
