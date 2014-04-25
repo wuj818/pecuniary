@@ -6,7 +6,7 @@ $ ->
       chart = nv.models.lineWithFocusChart()
         .margin(left: 65, right: 30, top: 10)
         .margin2(left: 65, right: 30, top: 0, bottom: 30)
-        .yDomain([0, $graph.data 'y-max'])
+        .forceY([0, $graph.data 'y-max'])
         .showLegend(false)
         .clipEdge false
 
