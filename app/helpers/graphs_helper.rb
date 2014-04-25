@@ -1,4 +1,37 @@
 module GraphsHelper
+  # generic graphs
+
+  def graph(options)
+    css_class = "#{options[:type]}-graph"
+    id = [options[:id_prefix], css_class].join '-'
+
+    content_tag :div, id: id, class: css_class, data: options[:data] do
+      content_tag :svg
+    end
+  end
+
+  def line_graph(options)
+    graph options.merge(type: 'line')
+  end
+
+  def line_plus_bar_graph(options)
+    graph options.merge(type: 'line-plus-bar')
+  end
+
+  def line_with_focus_graph(options)
+    graph options.merge(type: 'line-with-focus')
+  end
+
+  def multi_bar_graph(options)
+    graph options.merge(type: 'multi-bar')
+  end
+
+  def stacked_area_graph(options)
+    graph options.merge(type: 'stacked-area')
+  end
+
+  # specific graphs
+
   def asset_line_plus_bar_graph(asset)
     return if asset.snapshots.count.zero?
 
@@ -42,9 +75,7 @@ module GraphsHelper
 
     data = { 'graph-data' => graph_data.to_json }
 
-    content_tag :div, id: 'asset-line-plus-bar-graph', class: 'line-plus-bar-graph', data: data do
-      content_tag :svg
-    end
+    line_plus_bar_graph id_prefix: 'asset', data: data
   end
 
   def assets_stacked_area_graph
@@ -67,9 +98,7 @@ module GraphsHelper
 
     data = { 'graph-data' => graph_data }
 
-    content_tag :div, id: 'assets-stacked-area-graph', class: 'stacked-area-graph', data: data do
-      content_tag :svg
-    end
+    stacked_area_graph id_prefix: 'assets', data: data
   end
 
   def contributions_multi_bar_graph
@@ -98,9 +127,7 @@ module GraphsHelper
 
     data = { 'graph-data' => graph_data }
 
-    content_tag :div, id: 'contributions-multi-bar-graph', class: 'multi-bar-graph', data: data do
-      content_tag :svg
-    end
+    multi_bar_graph id_prefix: 'contributions', data: data
   end
 
   def contributions_line_graph
@@ -135,9 +162,7 @@ module GraphsHelper
       'y-max' => graph_data.first[:values].last[:y]
     }
 
-    content_tag :div, id: 'contributions-line-graph', class: 'line-graph', data: data do
-      content_tag :svg
-    end
+    line_graph id_prefix: 'contributions', data: data
   end
 
   def net_worth_line_with_focus_graph
@@ -158,9 +183,7 @@ module GraphsHelper
       'y-max' => y_max
     }
 
-    content_tag :div, id: 'net-worth-line-with-focus-graph', class: 'line-with-focus-graph', data: data do
-      content_tag :svg
-    end
+    line_with_focus_graph id_prefix: 'net-worth', data: data
   end
 
   def end_of_months_since(start)
