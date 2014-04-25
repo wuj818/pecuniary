@@ -1,25 +1,28 @@
 .page-header
   %h1 Investment History
 
+= investment_history_line_graph @snapshots, @cumulative_contributions
+
 %table.table.table-striped.table-bordered.table-hover.table-stacked#investments-table
   %thead
     %tr
       %th Date
       %th Cumulative Contributions
-      %th Cumulative Value
+      %th Investment Value
       %th Total Gain/Loss
       %th Total Return
 
-  %body
-    - @snapshots.each do |snapshot|
-      - cumulative_contributions = @cumulative_contributions[snapshot.date]
-      - cumulative_value = snapshot.total
+  %tbody
+    - @snapshots.each do |date, cumulative_value|
+      - cumulative_contributions = @cumulative_contributions[date]
+      - next if cumulative_contributions.blank?
+
       - total_gain = cumulative_value - cumulative_contributions
       - total_return = total_gain / cumulative_contributions.to_f * 100
 
       %tr
         %td
-          = snapshot.formatted_date
+          = date.to_time.strftime '%B %Y'
 
         %td
           = currency cumulative_contributions
