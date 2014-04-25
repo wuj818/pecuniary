@@ -11,6 +11,8 @@ Pecuniary::Application.routes.draw do
 
   resources :milestones
 
+  get '/investments' => 'investments#history'
+
   resources :sessions, only: [:new, :create, :destroy]
   get '/login' => 'sessions#new'
   delete '/logout' => 'sessions#destroy'

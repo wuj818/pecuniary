@@ -37,6 +37,9 @@
         %li{class: nav_class(:milestones)}
           = link_to 'Milestones', milestones_path
 
+        %li{class: nav_class(:investments)}
+          = link_to 'Investments', investments_path
+
       %p.navbar-text.navbar-right
         - if admin?
           = link_to 'Logout', logout_path, method: 'delete'
