@@ -11,22 +11,53 @@ module GraphsHelper
   end
 
   def line_graph(options)
+    # data format:
+    # [
+    #   {
+    #     key: string,
+    #     bar: boolean,
+    #     values: [
+    #       { x: js_time, y: value },
+    #     ]
+    #   },
+    # ]
+
     graph options.merge(type: 'line')
   end
 
   def line_plus_bar_graph(options)
+    # data format:
+    # [
+    #   {
+    #     key: string,
+    #     bar: boolean,
+    #     values: [
+    #       [js_time, y_value],
+    #     ]
+    #   },
+    # ]
+
     graph options.merge(type: 'line-plus-bar')
   end
 
   def line_with_focus_graph(options)
+    # data format:
+    # same as line graph
+
     graph options.merge(type: 'line-with-focus')
   end
 
   def multi_bar_graph(options)
+    # data format:
+    # same as line graph
+
     graph options.merge(type: 'multi-bar')
   end
 
   def stacked_area_graph(options)
+    # data format:
+    # same as line plus bar graph
+
     graph options.merge(type: 'stacked-area')
   end
 
@@ -185,6 +216,8 @@ module GraphsHelper
 
     line_with_focus_graph id_prefix: 'net-worth', data: data
   end
+
+  # helpers
 
   def end_of_months_since(start)
     current, stop = start.end_of_month, Time.zone.now.to_date.end_of_month
