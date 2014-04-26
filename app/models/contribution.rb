@@ -1,5 +1,5 @@
 class Contribution < ActiveRecord::Base
-  attr_accessible :amount, :date, :permalink
+  attr_accessible :amount, :employer, :date, :permalink
 
   belongs_to :asset, class_name: 'FinancialAsset', foreign_key: 'financial_asset_id'
 

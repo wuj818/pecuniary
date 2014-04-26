@@ -22,16 +22,20 @@
         %tr
           %th Date
           %th Amount
+          %th Employer Contribution?
           %th Permalink
           %th
 
       %tbody
-        %tr
+        %tr{class: (:info if @contribution.employer?)}
           %td
             = @contribution.formatted_date
 
           %td
             = currency @contribution.amount
+
+          %td
+            = @contribution.employer? ? 'yes' : 'no'
 
           %td
             = link_to @contribution.permalink, @contribution

@@ -54,7 +54,7 @@
         %ul.list-group
           - unless @contributions.length.zero?
             - @contributions.each do |contribution|
-              %li.list-group-item
+              %li.list-group-item{class: ('list-group-item-info' if contribution.employer?)}
                 = link_to contribution.formatted_date, contribution
 
                 .pull-right

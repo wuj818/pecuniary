@@ -24,6 +24,13 @@
     .col-sm-3
       = f.number_field :amount, autofocus: true, class: 'form-control'
 
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :employer
+          Employer Contribution?
+
   %hr
 
   .form-group

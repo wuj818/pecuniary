@@ -14,18 +14,22 @@
       %tr
         %th Date
         %th Amount
+        %th Employer Contribution?
         %th Asset
         %th Permalink
         %th
 
     %tbody
       - @contributions.each do |contribution|
-        %tr
+        %tr{class: (:info if contribution.employer?)}
           %td
             = contribution.formatted_date
 
           %td
             = currency contribution.amount
+
+          %td
+            = contribution.employer? ? 'yes' : 'no'
 
           %td
             = contribution.asset
