@@ -6,9 +6,10 @@
       = icon 'arrow-left'
       Back
 
-    = link_to [:edit, @snapshot], class: 'btn btn-lg btn-info' do
-      = icon :edit
-      Edit
+    - if admin?
+      = link_to [:edit, @snapshot], class: 'btn btn-lg btn-info' do
+        = icon :edit
+        Edit
 
   %h1
     = link_to @asset, @asset
@@ -23,7 +24,9 @@
           %th Date
           %th Value
           %th Permalink
-          %th
+
+          - if admin?
+            %th
 
       %tbody
         %tr
@@ -36,9 +39,10 @@
           %td
             = link_to @snapshot.permalink, @snapshot
 
-          %td.table-actions
-            = link_to [:edit, @snapshot], class: 'btn btn-info' do
-              = icon :edit
+          - if admin?
+            %td.table-actions
+              = link_to [:edit, @snapshot], class: 'btn btn-info' do
+                = icon :edit
 
-            = link_to @snapshot, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
-              = icon 'trash-o'
+              = link_to @snapshot, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
+                = icon 'trash-o'

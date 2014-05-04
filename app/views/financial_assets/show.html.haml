@@ -6,18 +6,19 @@
       = icon 'arrow-left'
       Back
 
-    = link_to [:edit, @asset], class: 'btn btn-lg btn-info' do
-      = icon :edit
-      Edit
+    - if admin?
+      = link_to [:edit, @asset], class: 'btn btn-lg btn-info' do
+        = icon :edit
+        Edit
 
-    = link_to [:new, @asset, :snapshot], class: 'btn btn-lg btn-success' do
-      = icon 'plus-circle'
-      Snapshot
-
-    - if @asset.investment?
-      = link_to [:new, @asset, :contribution], class: 'btn btn-lg btn-success' do
+      = link_to [:new, @asset, :snapshot], class: 'btn btn-lg btn-success' do
         = icon 'plus-circle'
-        Contribution
+        Snapshot
+
+      - if @asset.investment?
+        = link_to [:new, @asset, :contribution], class: 'btn btn-lg btn-success' do
+          = icon 'plus-circle'
+          Contribution
 
   %h1
     = @title
