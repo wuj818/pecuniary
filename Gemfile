@@ -11,7 +11,7 @@ gem 'wirble', '0.1.3'
 
 gem 'bootstrap3-datetimepicker-rails', '3.0.0'
 gem 'figaro', '0.7.0'
-gem 'font-awesome-rails', '4.0.3.1'
+gem 'font-awesome-rails', '4.0.3.2'
 gem 'momentjs-rails', '2.5.1'
 gem 'kramdown', '1.3.3'
 
@@ -26,7 +26,7 @@ group :assets do
 end
 
 gem 'quiet_assets', '1.0.2'
-gem 'therubyracer', '0.11.4'
+gem 'therubyracer', '0.12.1'
 
 group :development do
   gem 'rvm-capistrano', '1.5.1'
