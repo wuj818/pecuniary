@@ -1,4 +1,4 @@
-Pecuniary::Application.routes.draw do
+Rails.application.routes.draw do
   resources :asset_snapshots, path: 'asset-snapshots', only: [:show, :edit, :update, :destroy]
 
   resources :contributions, only: [:index, :show, :edit, :update, :destroy]
