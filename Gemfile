@@ -9,21 +9,18 @@ gem 'jquery-rails', '3.1.2'
 gem 'hirb', '0.7.1'
 gem 'wirble', '0.1.3'
 
+gem 'autoprefixer-rails', '3.1.2.20141016'
 gem 'bootstrap3-datetimepicker-rails', '3.0.0'
 gem 'figaro', '0.7.0'
 gem 'font-awesome-rails', '4.0.3.2'
 gem 'momentjs-rails', '2.5.1'
 gem 'kramdown', '1.3.3'
 
-group :assets do
-  gem 'coffee-rails', '4.0.1'
-  gem 'less-rails', '2.6.0'
-  gem 'sass-rails', '4.0.4'
-  gem 'bootstrap-sass', '3.1.1.1'
-
-  gem 'uglifier', '2.5.0'
-  # gem 'turbo-sprockets-rails3', '0.3.11'
-end
+gem 'bootstrap-sass', '3.3.1.0'
+gem 'coffee-rails', '4.0.1'
+gem 'less-rails', '2.6.0'
+gem 'sass-rails', '4.0.4'
+gem 'uglifier', '2.5.0'
 
 gem 'quiet_assets', '1.0.2'
 gem 'therubyracer', '0.12.1'
