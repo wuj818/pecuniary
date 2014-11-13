@@ -27,6 +27,7 @@ gem 'therubyracer', '0.12.1'
 
 group :development do
   gem 'rvm-capistrano', '1.5.1'
+  gem 'spring', '1.1.3'
   gem 'webrick', '1.3.1'
 end
 
