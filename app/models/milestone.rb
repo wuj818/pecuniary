@@ -1,6 +1,4 @@
 class Milestone < ActiveRecord::Base
-  attr_accessible :date, :notes, :permalink
-
   validates :date,
     presence: true,
     uniqueness: true

@@ -1,6 +1,4 @@
 class FinancialAsset < ActiveRecord::Base
-  attr_accessible :name, :investment
-
   has_many :snapshots, class_name: 'AssetSnapshot', dependent: :destroy
 
   has_many :contributions, dependent: :destroy
