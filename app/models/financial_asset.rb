@@ -13,8 +13,8 @@ class FinancialAsset < ActiveRecord::Base
 
   after_update :update_association_permalinks
 
-  scope :investments, where(investment: true)
-  scope :non_investments, where(investment: false)
+  scope :investments, -> { where(investment: true) }
+  scope :non_investments, -> { where(investment: false) }
 
   class << self
     def net_worth
