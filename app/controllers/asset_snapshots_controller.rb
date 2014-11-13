@@ -12,7 +12,7 @@ class AssetSnapshotsController < ApplicationController
   end
 
   def create
-    @snapshot = @asset.snapshots.build params[:asset_snapshot]
+    @snapshot = @asset.snapshots.build asset_snapshot_params
 
     if @snapshot.save
       flash[:success] = 'Snapshot was successfully created.'
@@ -26,7 +26,7 @@ class AssetSnapshotsController < ApplicationController
   end
 
   def update
-    if @snapshot.update_attributes params[:asset_snapshot]
+    if @snapshot.update_attributes asset_snapshot_params
       flash[:success] = 'Snapshot was successfully updated.'
       redirect_to @snapshot
     else
@@ -42,6 +42,10 @@ class AssetSnapshotsController < ApplicationController
   end
 
   private
+
+  def asset_snapshot_params
+    params.fetch(:asset_snapshot).permit(:date, :permalink, :value)
+  end
 
   def get_asset
     @asset = FinancialAsset.find_by_permalink params[:financial_asset_id]
