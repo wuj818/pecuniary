@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.7'
 gem 'sqlite3', '1.3.9'
 
-# gem 'haml-rails', '0.4'
+gem 'haml-rails', '0.5.3'
 gem 'jquery-rails', '3.1.0'
 
 gem 'hirb', '0.7.1'
