@@ -16,9 +16,9 @@ gem 'momentjs-rails', '2.5.1'
 gem 'kramdown', '1.3.3'
 
 group :assets do
-  # gem 'coffee-rails', '3.2.2'
-  gem 'less-rails', '2.5.0'
-  # gem 'sass-rails', '3.2.6'
+  gem 'coffee-rails', '4.0.1'
+  gem 'less-rails', '2.6.0'
+  gem 'sass-rails', '4.0.4'
   gem 'bootstrap-sass', '3.1.1.1'
 
   gem 'uglifier', '2.5.0'
