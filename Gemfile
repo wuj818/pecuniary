@@ -12,7 +12,7 @@ gem 'wirble', '0.1.3'
 gem 'autoprefixer-rails', '3.1.2.20141016'
 gem 'bootstrap3-datetimepicker-rails', '3.0.0'
 gem 'figaro', '0.7.0'
-gem 'font-awesome-rails', '4.0.3.2'
+gem 'font-awesome-rails', '4.2.0.0'
 gem 'momentjs-rails', '2.5.1'
 gem 'kramdown', '1.3.3'
 
