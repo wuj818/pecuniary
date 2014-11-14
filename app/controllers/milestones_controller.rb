@@ -19,7 +19,7 @@ class MilestonesController < ApplicationController
 
     if @milestone.save
       flash[:success] = 'Milestone was successfully created.'
-      redirect_to @milestone
+      redirect_to milestones_path
     else
       render :new
     end

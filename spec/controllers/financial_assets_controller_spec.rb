@@ -3,30 +3,30 @@ require 'rails_helper'
 RSpec.describe FinancialAssetsController do
   describe 'GET index' do
     it 'assigns all assets as @assets' do
-      FinancialAsset.should_receive(:includes).with(:snapshots).and_return(mock_relation)
-      mock_relation.should_receive(:order).with(:name).and_return(mock_relation)
+      expect(FinancialAsset).to receive(:includes).with(:snapshots).and_return(mock_relation)
+      expect(mock_relation).to receive(:order).with(:name).and_return(mock_relation)
 
       get :index
 
-      response.should render_template :index
-      assigns(:assets).should == mock_relation
+      expect(response).to render_template :index
+      expect(assigns(:assets)).to eq(mock_relation)
     end
   end
 
   describe 'GET show' do
     it 'assigns the requested asset as @asset, its snapshots as @snapshots, and its contributions as @contributions' do
       asset = stub_asset(permalink: 'bank')
-      FinancialAsset.should_receive(:find_by_permalink).and_return(stub_asset)
-      asset.should_receive(:snapshots).and_return(mock_relation)
-      asset.should_receive(:contributions).and_return(mock_relation)
-      mock_relation.should_receive(:order).with('date DESC').and_return(mock_relation)
+      expect(FinancialAsset).to receive(:find_by_permalink).and_return(stub_asset)
+      expect(asset).to receive(:snapshots).and_return(mock_relation)
+      expect(asset).to receive(:contributions).and_return(mock_relation)
+      expect(mock_relation).to receive(:order).with('date DESC').and_return(mock_relation)
 
       get :show, id: asset.to_param
 
-      response.should render_template :show
-      assigns(:asset).should == asset
-      assigns(:snapshots).should == mock_relation
-      assigns(:contributions).should == mock_relation
+      expect(response).to render_template :show
+      expect(assigns(:asset)).to eq(asset)
+      expect(assigns(:snapshots)).to eq(mock_relation)
+      expect(assigns(:contributions)).to eq(mock_relation)
     end
   end
 
@@ -37,8 +37,8 @@ RSpec.describe FinancialAssetsController do
 
         get :new
 
-        response.should render_template :new
-        assigns(:asset).should be_a_new FinancialAsset
+        expect(response).to render_template :new
+        expect(assigns(:asset)).to be_a_new FinancialAsset
       end
     end
 
@@ -46,8 +46,8 @@ RSpec.describe FinancialAssetsController do
       it 'redirects to the login page' do
         get :new
 
-        response.should redirect_to login_path
-        flash[:warning].should match /must be logged in/i
+        expect(response).to redirect_to login_path
+        expect(flash[:warning]).to match /must be logged in/i
       end
     end
   end
@@ -56,26 +56,28 @@ RSpec.describe FinancialAssetsController do
     context 'when logged in' do
       before do
         controller.login
+        @asset = stub_asset
+        expect(FinancialAsset).to receive(:new).and_return(@asset)
       end
 
       describe 'with valid params' do
         it 'creates a new asset and redirects to the assets list' do
-          FinancialAsset.any_instance.should_receive(:save).and_return(true)
+          expect(@asset).to receive(:save).and_return(true)
 
           post :create, financial_asset: {}
 
-          response.should redirect_to financial_assets_path
-          flash[:success].should match /created/i
+          expect(response).to redirect_to financial_assets_path
+          expect(flash[:success]).to match /created/i
         end
       end
 
       describe 'with invalid params' do
         it "renders the 'new' template" do
-          FinancialAsset.any_instance.should_receive(:save).and_return(false)
+          expect(@asset).to receive(:save).and_return(false)
 
           post :create, financial_asset: {}
 
-          response.should render_template :new
+          expect(response).to render_template :new
         end
       end
     end
@@ -84,8 +86,8 @@ RSpec.describe FinancialAssetsController do
       it 'redirects to the login page' do
         post :create, financial_asset: {}
 
-        response.should redirect_to login_path
-        flash[:warning].should match /must be logged in/i
+        expect(response).to redirect_to login_path
+        expect(flash[:warning]).to match /must be logged in/i
       end
     end
   end
@@ -98,12 +100,12 @@ RSpec.describe FinancialAssetsController do
     context 'when logged in' do
       it 'assigns the requested asset as @asset' do
         controller.login
-        FinancialAsset.should_receive(:find_by_permalink).and_return(@asset)
+        expect(FinancialAsset).to receive(:find_by_permalink).and_return(@asset)
 
         get :edit, id: @asset.to_param
 
-        response.should render_template :edit
-        assigns(:asset).should == @asset
+        expect(response).to render_template :edit
+        expect(assigns(:asset)).to eq(@asset)
       end
     end
 
@@ -111,8 +113,8 @@ RSpec.describe FinancialAssetsController do
       it 'redirects to the login page' do
         get :edit, id: @asset.to_param
 
-        response.should redirect_to login_path
-        flash[:warning].should match /must be logged in/i
+        expect(response).to redirect_to login_path
+        expect(flash[:warning]).to match /must be logged in/i
       end
     end
   end
@@ -125,27 +127,27 @@ RSpec.describe FinancialAssetsController do
     context 'when logged in' do
       before do
         controller.login
-        FinancialAsset.should_receive(:find_by_permalink).and_return(@asset)
+        expect(FinancialAsset).to receive(:find_by_permalink).and_return(@asset)
       end
 
       describe 'with valid params' do
         it 'redirects to the asset' do
-          @asset.should_receive(:update_attributes).and_return(true)
+          expect(@asset).to receive(:update_attributes).and_return(true)
 
           put :update, id: @asset.to_param, financial_asset: {}
 
-          response.should redirect_to @asset
-          flash[:success].should match /updated/i
+          expect(response).to redirect_to @asset
+          expect(flash[:success]).to match /updated/i
         end
       end
 
       describe 'with invalid params' do
         it "renders the 'edit' template" do
-          @asset.should_receive(:update_attributes).and_return(false)
+          expect(@asset).to receive(:update_attributes).and_return(false)
 
           put :update, id: @asset.to_param, financial_asset: {}
 
-          response.should render_template :edit
+          expect(response).to render_template :edit
         end
       end
     end
@@ -154,8 +156,8 @@ RSpec.describe FinancialAssetsController do
       it 'redirects to the login page' do
         put :update, id: @asset.to_param, financial_asset: {}
 
-        response.should redirect_to login_path
-        flash[:warning].should match /must be logged in/i
+        expect(response).to redirect_to login_path
+        expect(flash[:warning]).to match /must be logged in/i
       end
     end
   end
@@ -168,13 +170,13 @@ RSpec.describe FinancialAssetsController do
     context 'when logged in' do
       it 'destroys the requested asset and redirects to the assets list' do
         controller.login
-        FinancialAsset.should_receive(:find_by_permalink).and_return(@asset)
-        @asset.should_receive(:destroy).and_return(true)
+        expect(FinancialAsset).to receive(:find_by_permalink).and_return(@asset)
+        expect(@asset).to receive(:destroy).and_return(true)
 
         delete :destroy, id: @asset.to_param
 
-        response.should redirect_to financial_assets_path
-        flash[:success].should match /deleted/i
+        expect(response).to redirect_to financial_assets_path
+        expect(flash[:success]).to match /deleted/i
       end
     end
 
@@ -182,8 +184,8 @@ RSpec.describe FinancialAssetsController do
       it 'redirects to the login page' do
         delete :destroy, id: @asset.to_param
 
-        response.should redirect_to login_path
-        flash[:warning].should match /must be logged in/i
+        expect(response).to redirect_to login_path
+        expect(flash[:warning]).to match /must be logged in/i
       end
     end
   end

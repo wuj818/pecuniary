@@ -4,13 +4,13 @@ RSpec.describe AssetSnapshotsController do
   describe 'GET show' do
     it 'assigns the requested snapshot as @snapshot and its asset as @asset' do
       snapshot = stub_asset_snapshot(permalink: 'bank-july-2010')
-      AssetSnapshot.should_receive(:find_by_permalink).and_return(snapshot)
+      expect(AssetSnapshot).to receive(:find_by_permalink).and_return(snapshot)
 
       get :show, id: snapshot.to_param
 
-      response.should render_template :show
-      assigns(:snapshot).should == snapshot
-      assigns(:asset).should == snapshot.asset
+      expect(response).to render_template :show
+      expect(assigns(:snapshot)).to eq(snapshot)
+      expect(assigns(:asset)).to eq(snapshot.asset)
     end
   end
 
@@ -22,14 +22,14 @@ RSpec.describe AssetSnapshotsController do
     context 'when logged in' do
       it 'assigns a new snapshot as @snapshot' do
         controller.login
-        FinancialAsset.should_receive(:find_by_permalink).and_return(@asset)
-        @asset.snapshots.should_receive(:build).and_return(stub_asset_snapshot(new_record?: true, asset: @asset))
+        expect(FinancialAsset).to receive(:find_by_permalink).and_return(@asset)
+        expect(@asset.snapshots).to receive(:build).and_return(stub_asset_snapshot(new_record?: true, asset: @asset))
 
         get :new, financial_asset_id: @asset.to_param
 
-        response.should render_template :new
-        assigns(:snapshot).should be_a_new AssetSnapshot
-        assigns(:snapshot).asset.should == @asset
+        expect(response).to render_template :new
+        expect(assigns(:snapshot)).to be_a_new AssetSnapshot
+        expect(assigns(:snapshot).asset).to eq(@asset)
       end
     end
 
@@ -37,8 +37,8 @@ RSpec.describe AssetSnapshotsController do
       it 'redirects to the login page' do
         get :new, financial_asset_id: @asset.to_param
 
-        response.should redirect_to login_path
-        flash[:warning].should match /must be logged in/i
+        expect(response).to redirect_to login_path
+        expect(flash[:warning]).to match /must be logged in/i
       end
     end
   end
@@ -46,33 +46,34 @@ RSpec.describe AssetSnapshotsController do
   describe 'POST create' do
     before do
       @asset = stub_asset(permalink: 'bank')
+      @snapshot = stub_asset_snapshot(new_record?: true, asset: @asset)
     end
 
     context 'when logged in' do
       before do
         controller.login
-        FinancialAsset.should_receive(:find_by_permalink).and_return(@asset)
-        @asset.snapshots.should_receive(:build).and_return(stub_asset_snapshot(new_record?: true, asset: @asset))
+        expect(FinancialAsset).to receive(:find_by_permalink).and_return(@asset)
+        expect(@asset.snapshots).to receive(:build).and_return(@snapshot)
       end
 
       describe 'with valid params' do
         it 'creates a new snapshot and redirects to its asset' do
-          AssetSnapshot.any_instance.should_receive(:save).and_return(true)
+          expect(@snapshot).to receive(:save).and_return(true)
 
           post :create, financial_asset_id: @asset.to_param, asset_snapshot: {}
 
-          response.should redirect_to @asset
-          flash[:success].should match /created/i
+          expect(response).to redirect_to @asset
+          expect(flash[:success]).to match /created/i
         end
       end
 
       describe 'with invalid params' do
         it "renders the 'new' template" do
-          AssetSnapshot.any_instance.should_receive(:save).and_return(false)
+          expect(@snapshot).to receive(:save).and_return(false)
 
           post :create, financial_asset_id: @asset.to_param, asset_snapshot: {}
 
-          response.should render_template :new
+          expect(response).to render_template :new
         end
       end
     end
@@ -81,8 +82,8 @@ RSpec.describe AssetSnapshotsController do
       it 'redirects to the login page' do
         post :create, financial_asset_id: @asset.to_param, asset_snapshot: {}
 
-        response.should redirect_to login_path
-        flash[:warning].should match /must be logged in/i
+        expect(response).to redirect_to login_path
+        expect(flash[:warning]).to match /must be logged in/i
       end
     end
   end
@@ -96,12 +97,12 @@ RSpec.describe AssetSnapshotsController do
     context 'when logged in' do
       it 'assigns the requested snapshot as @snapshot' do
         controller.login
-        AssetSnapshot.should_receive(:find_by_permalink).and_return(@snapshot)
+        expect(AssetSnapshot).to receive(:find_by_permalink).and_return(@snapshot)
 
         get :edit, id: @snapshot.to_param
 
-        response.should render_template :edit
-        assigns(:snapshot).should == @snapshot
+        expect(response).to render_template :edit
+        expect(assigns(:snapshot)).to eq(@snapshot)
       end
     end
 
@@ -109,8 +110,8 @@ RSpec.describe AssetSnapshotsController do
       it 'redirects to the login page' do
         get :edit, id: @snapshot.to_param
 
-        response.should redirect_to login_path
-        flash[:warning].should match /must be logged in/i
+        expect(response).to redirect_to login_path
+        expect(flash[:warning]).to match /must be logged in/i
       end
     end
   end
@@ -124,27 +125,27 @@ RSpec.describe AssetSnapshotsController do
     context 'when logged in' do
       before do
         controller.login
-        AssetSnapshot.should_receive(:find_by_permalink).and_return(@snapshot)
+        expect(AssetSnapshot).to receive(:find_by_permalink).and_return(@snapshot)
       end
 
       describe 'with valid params' do
         it 'redirects to the snapshot' do
-          @snapshot.should_receive(:update_attributes).and_return(true)
+          expect(@snapshot).to receive(:update_attributes).and_return(true)
 
           put :update, id: @snapshot.to_param, asset_snapshot: {}
 
-          response.should redirect_to @snapshot
-          flash[:success].should match /updated/i
+          expect(response).to redirect_to @snapshot
+          expect(flash[:success]).to match /updated/i
         end
       end
 
       describe 'with invalid params' do
         it "renders the 'edit' template" do
-          @snapshot.should_receive(:update_attributes).and_return(false)
+          expect(@snapshot).to receive(:update_attributes).and_return(false)
 
           put :update, id: @snapshot.to_param, asset_snapshot: {}
 
-          response.should render_template :edit
+          expect(response).to render_template :edit
         end
       end
     end
@@ -153,8 +154,8 @@ RSpec.describe AssetSnapshotsController do
       it 'redirects to the login page' do
         put :update, id: @snapshot.to_param, asset_snapshot: {}
 
-        response.should redirect_to login_path
-        flash[:warning].should match /must be logged in/i
+        expect(response).to redirect_to login_path
+        expect(flash[:warning]).to match /must be logged in/i
       end
     end
   end
@@ -168,13 +169,13 @@ RSpec.describe AssetSnapshotsController do
     context 'when logged in' do
       it 'destroys the requested snapshot and redirects to its asset' do
         controller.login
-        AssetSnapshot.should_receive(:find_by_permalink).and_return(@snapshot)
-        @snapshot.should_receive(:destroy).and_return(true)
+        expect(AssetSnapshot).to receive(:find_by_permalink).and_return(@snapshot)
+        expect(@snapshot).to receive(:destroy).and_return(true)
 
         delete :destroy, id: @snapshot.to_param
 
-        response.should redirect_to @asset
-        flash[:success].should match /deleted/i
+        expect(response).to redirect_to @asset
+        expect(flash[:success]).to match /deleted/i
       end
     end
 
@@ -182,8 +183,8 @@ RSpec.describe AssetSnapshotsController do
       it 'redirects to the login page' do
         delete :destroy, id: @snapshot.to_param
 
-        response.should redirect_to login_path
-        flash[:warning].should match /must be logged in/i
+        expect(response).to redirect_to login_path
+        expect(flash[:warning]).to match /must be logged in/i
       end
     end
   end

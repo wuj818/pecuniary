@@ -4,7 +4,7 @@ RSpec.describe Contribution do
   describe 'associations' do
     it 'belongs to asset' do
       contribution = Contribution.make!
-      contribution.asset.should be_a FinancialAsset
+      expect(contribution.asset).to be_a FinancialAsset
     end
   end
 
@@ -15,16 +15,16 @@ RSpec.describe Contribution do
     it 'sets the date to the current date by default' do
       Timecop.freeze
       contribution = Contribution.new
-      contribution.date.should == Time.zone.now.to_date
+      expect(contribution.date).to eq(Time.zone.now.to_date)
     end
 
     it 'creates a permalink from the asset, month, day, and year' do
-      contribution.permalink.should == 'bank-july-28-2010'
+      expect(contribution.permalink).to eq('bank-july-28-2010')
     end
 
     it "updates its asset's total contributions with the sum of all contributions" do
       asset = contribution.asset
-      contribution.amount.should == asset.total_contributions
+      expect(contribution.amount).to eq(asset.total_contributions)
 
       expect do
         contribution.update_attribute :amount, contribution.amount + 1
@@ -48,11 +48,11 @@ RSpec.describe Contribution do
         old_to_param = contribution.to_param
 
         contribution.permalink = 'test'
-        contribution.to_param.should == old_to_param
+        expect(contribution.to_param).to eq(old_to_param)
 
         contribution.date = Date.new(2011, 3, 28)
         contribution.save
-        contribution.to_param.should_not == old_to_param
+        expect(contribution.to_param).to_not eq(old_to_param)
       end
     end
   end
@@ -62,7 +62,7 @@ RSpec.describe Contribution do
       contribution = Contribution.create
 
       [:asset].each do |attribute|
-        contribution.errors[attribute].should include "can't be blank"
+        expect(contribution.errors[attribute]).to include "can't be blank"
       end
     end
 
@@ -71,13 +71,13 @@ RSpec.describe Contribution do
       contribution2 = Contribution.make asset: contribution1.asset, date: contribution1.date
       contribution2.save
 
-      contribution2.errors[:date].should include 'has already been taken for this asset'
+      expect(contribution2.errors[:date]).to include 'has already been taken for this asset'
     end
 
     it 'requires a positive non-zero amount' do
       [-1, 0].each do |amount|
         contribution = Contribution.create amount: amount
-        contribution.errors[:amount].should include 'must be greater than 0'
+        expect(contribution.errors[:amount]).to include 'must be greater than 0'
       end
     end
 
@@ -85,7 +85,7 @@ RSpec.describe Contribution do
       contribution = Contribution.new
       contribution.asset = FinancialAsset.make! name: 'Bank', investment: false
       contribution.save
-      contribution.errors[:base].should include 'Bank is not a contributable investment'
+      expect(contribution.errors[:base]).to include 'Bank is not a contributable investment'
     end
 
     it 'is destroyed when the asset is destroyed' do

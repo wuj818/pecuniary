@@ -8,8 +8,8 @@ RSpec.describe SessionsController do
 
         get :new
 
-        response.should redirect_to root_path
-        flash[:info].should match /already logged in/i
+        expect(response).to redirect_to root_path
+        expect(flash[:info]).to match /already logged in/i
       end
     end
 
@@ -17,7 +17,7 @@ RSpec.describe SessionsController do
       it "renders the 'new' template" do
         get :new
 
-        response.should render_template :new
+        expect(response).to render_template :new
       end
     end
   end
@@ -29,8 +29,8 @@ RSpec.describe SessionsController do
 
         post :create
 
-        response.should redirect_to root_path
-        flash[:info].should match /already logged in/i
+        expect(response).to redirect_to root_path
+        expect(flash[:info]).to match /already logged in/i
       end
     end
 
@@ -39,9 +39,9 @@ RSpec.describe SessionsController do
         it 'logs in the admin and redirects to the home page' do
           post :create, session: { password: Figaro.env.pecuniary_password }
 
-          response.should redirect_to root_path
-          flash[:success].should match /successfully/i
-          controller.should be_admin
+          expect(response).to redirect_to root_path
+          expect(flash[:success]).to match /successfully/i
+          expect(controller).to be_admin
         end
       end
 
@@ -49,9 +49,9 @@ RSpec.describe SessionsController do
         it "renders the 'new' template" do
           post :create, session: { password: 'test' }
 
-          response.should render_template :new
-          flash.now[:danger].should match /incorrect/i
-          controller.should_not be_admin
+          expect(response).to render_template :new
+          expect(flash.now[:danger]).to match /incorrect/i
+          expect(controller).to_not be_admin
         end
       end
     end
@@ -64,9 +64,9 @@ RSpec.describe SessionsController do
 
         delete :destroy
 
-        response.should redirect_to root_path
-        flash[:success].should match /successfully/i
-        controller.should_not be_admin
+        expect(response).to redirect_to root_path
+        expect(flash[:success]).to match /successfully/i
+        expect(controller).to_not be_admin
       end
     end
 
@@ -74,9 +74,9 @@ RSpec.describe SessionsController do
       it 'redirects to the home page' do
         delete :destroy
 
-        response.should redirect_to root_path
-        flash[:info].should match /not logged in/i
-        controller.should_not be_admin
+        expect(response).to redirect_to root_path
+        expect(flash[:info]).to match /not logged in/i
+        expect(controller).to_not be_admin
       end
     end
   end

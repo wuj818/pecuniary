@@ -4,7 +4,7 @@ RSpec.describe AssetSnapshot do
   describe 'associations' do
     it 'belongs to asset' do
       snapshot = AssetSnapshot.make!
-      snapshot.asset.should be_a FinancialAsset
+      expect(snapshot.asset).to be_a FinancialAsset
     end
   end
 
@@ -15,21 +15,21 @@ RSpec.describe AssetSnapshot do
     it 'sets the date to the end of the current month by default' do
       Timecop.freeze
       snapshot = AssetSnapshot.new
-      snapshot.date.should == Time.zone.now.to_date.end_of_month
+      expect(snapshot.date).to eq(Time.zone.now.to_date.end_of_month)
     end
 
     it 'sets the date to the end of the month' do
-      snapshot.date.should_not == date
-      snapshot.date.should == date.end_of_month
+      expect(snapshot.date).to_not eq(date)
+      expect(snapshot.date).to eq(date.end_of_month)
     end
 
     it 'creates a permalink from the asset, month, and year' do
-      snapshot.permalink.should == 'bank-july-2010'
+      expect(snapshot.permalink).to eq('bank-july-2010')
     end
 
     it "updates its asset's current value with the most recent value" do
       asset = snapshot.asset
-      snapshot.value.should == asset.current_value
+      expect(snapshot.value).to eq(asset.current_value)
 
       expect do
         snapshot.update_attribute :value, snapshot.value + 1
@@ -53,11 +53,11 @@ RSpec.describe AssetSnapshot do
         old_to_param = snapshot.to_param
 
         snapshot.permalink = 'test'
-        snapshot.to_param.should == old_to_param
+        expect(snapshot.to_param).to eq(old_to_param)
 
         snapshot.date = Date.new(2011, 3, 28)
         snapshot.save
-        snapshot.to_param.should_not == old_to_param
+        expect(snapshot.to_param).to_not eq(old_to_param)
       end
     end
   end
@@ -67,7 +67,7 @@ RSpec.describe AssetSnapshot do
       snapshot = AssetSnapshot.create
 
       [:asset].each do |attribute|
-        snapshot.errors[attribute].should include "can't be blank"
+        expect(snapshot.errors[attribute]).to include "can't be blank"
       end
     end
 
@@ -76,7 +76,7 @@ RSpec.describe AssetSnapshot do
       snapshot2 = AssetSnapshot.make asset: snapshot1.asset, date: snapshot1.date
       snapshot2.save
 
-      snapshot2.errors[:date].should include 'has already been taken for this asset'
+      expect(snapshot2.errors[:date]).to include 'has already been taken for this asset'
     end
 
     it 'is destroyed when the asset is destroyed' do

@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe ApplicationHelper do
   describe 'currency(number)' do
     it 'returns a comma delimited dollar amount' do
-      helper.currency(1).should == '$1'
-      helper.currency(1000).should == '$1,000'
-      helper.currency(-1000).should == '-$1,000'
+      expect(helper.currency(1)).to eq('$1')
+      expect(helper.currency(1000)).to eq('$1,000')
+      expect(helper.currency(-1000)).to eq('-$1,000')
     end
   end
 end

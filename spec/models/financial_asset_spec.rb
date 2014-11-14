@@ -6,15 +6,15 @@ RSpec.describe FinancialAsset do
       asset = FinancialAsset.make!
       snapshot = AssetSnapshot.make! asset: asset
 
-      asset.snapshots.count.should == 1
-      asset.snapshots.first.should be_an AssetSnapshot
+      expect(asset.snapshots.count).to eq(1)
+      expect(asset.snapshots.first).to be_an AssetSnapshot
     end
   end
 
   describe 'callbacks' do
     it 'creates a parameterized permalink' do
       asset = FinancialAsset.make! name: 'Roth IRA'
-      asset.permalink.should == 'roth-ira'
+      expect(asset.permalink).to eq('roth-ira')
     end
 
     it "updates all of its association's permalinks when its name changes" do
@@ -22,18 +22,18 @@ RSpec.describe FinancialAsset do
       snapshot = AssetSnapshot.make! asset: asset
       contribution = Contribution.make! asset: asset
 
-      snapshot.permalink.should match /bank/
-      contribution.permalink.should match /bank/
+      expect(snapshot.permalink).to match /bank/
+      expect(contribution.permalink).to match /bank/
 
       asset.update_attributes name: 'Roth IRA'
 
       snapshot.reload
-      snapshot.permalink.should_not match /bank/
-      snapshot.permalink.should match /roth-ira/
+      expect(snapshot.permalink).to_not match /bank/
+      expect(snapshot.permalink).to match /roth-ira/
 
       contribution.reload
-      contribution.permalink.should_not match /bank/
-      contribution.permalink.should match /roth-ira/
+      expect(contribution.permalink).to_not match /bank/
+      expect(contribution.permalink).to match /roth-ira/
     end
   end
 
@@ -44,11 +44,11 @@ RSpec.describe FinancialAsset do
         old_to_param = asset.to_param
 
         asset.permalink = 'test'
-        asset.to_param.should == old_to_param
+        expect(asset.to_param).to eq(old_to_param)
 
         asset.name = 'Roth IRA'
         asset.save
-        asset.to_param.should_not == old_to_param
+        expect(asset.to_param).to_not eq(old_to_param)
       end
     end
   end
@@ -58,7 +58,7 @@ RSpec.describe FinancialAsset do
       asset = FinancialAsset.create
 
       [:name].each do |attribute|
-        asset.errors[attribute].should include "can't be blank"
+        expect(asset.errors[attribute]).to include "can't be blank"
       end
     end
 
@@ -67,7 +67,7 @@ RSpec.describe FinancialAsset do
       asset2 = FinancialAsset.make name: asset1.name
       asset2.save
 
-      asset2.errors[:name].should include 'has already been taken'
+      expect(asset2.errors[:name]).to include 'has already been taken'
     end
   end
 end
