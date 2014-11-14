@@ -20,9 +20,9 @@ gem 'bootstrap-sass', '3.3.1.0'
 gem 'coffee-rails', '4.0.1'
 gem 'less-rails', '2.6.0'
 gem 'sass-rails', '4.0.4'
-gem 'uglifier', '2.5.0'
+gem 'uglifier', '2.5.3'
 
-gem 'quiet_assets', '1.0.2'
+gem 'quiet_assets', '1.0.3'
 gem 'therubyracer', '0.12.1'
 
 group :development do
