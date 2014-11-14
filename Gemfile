@@ -26,7 +26,8 @@ gem 'quiet_assets', '1.0.3'
 gem 'therubyracer', '0.12.1'
 
 group :development do
-  gem 'rvm-capistrano', '1.5.1'
+  gem 'capistrano-rails', '1.1.2'
+  gem 'capistrano-rvm', '0.1.2'
   gem 'spring', '1.1.3'
   gem 'webrick', '1.3.1'
 end

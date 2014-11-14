@@ -1,3 +1,11 @@
-load 'deploy'
-load 'deploy/assets'
-load 'config/deploy' # remove this line to skip loading any of the default tasks
+# Load DSL and Setup Up Stages
+require 'capistrano/setup'
+
+# Includes default deployment tasks
+require 'capistrano/deploy'
+
+require 'capistrano/rvm'
+require 'capistrano/rails'
+
+# Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
+Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
