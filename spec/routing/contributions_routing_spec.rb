@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe ContributionsController do
+RSpec.describe ContributionsController do
   describe 'routing' do
   end
 end

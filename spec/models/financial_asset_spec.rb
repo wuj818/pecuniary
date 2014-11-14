@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe FinancialAsset do
+RSpec.describe FinancialAsset do
   describe 'associations' do
     it 'has many snapshots' do
       asset = FinancialAsset.make!

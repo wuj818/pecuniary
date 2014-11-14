@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe SessionsController do
+RSpec.describe SessionsController do
   describe 'GET new' do
     context 'when logged in' do
       it 'redirects to the home page' do

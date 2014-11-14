@@ -32,7 +32,8 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '2.14.2'
+  gem 'rspec-rails', '3.1.0'
+  gem 'rspec-activemodel-mocks', '1.0.1'
 end
 
 group :production do

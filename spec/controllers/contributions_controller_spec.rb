@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe ContributionsController do
+RSpec.describe ContributionsController do
   describe 'GET index' do
     it 'assigns all contributions as @contributions' do
       Contribution.should_receive(:includes).with(:asset).and_return(mock_relation)

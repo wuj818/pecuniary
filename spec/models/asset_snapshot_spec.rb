@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe AssetSnapshot do
+RSpec.describe AssetSnapshot do
   describe 'associations' do
     it 'belongs to asset' do
       snapshot = AssetSnapshot.make!

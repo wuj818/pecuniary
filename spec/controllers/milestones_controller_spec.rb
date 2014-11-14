@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe MilestonesController do
+RSpec.describe MilestonesController do
   describe 'GET index' do
     it 'assigns all milestones as @milestones' do
       Milestone.should_receive(:order).with('date DESC').and_return(mock_relation)

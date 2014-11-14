@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe FinancialAssetsController do
+RSpec.describe FinancialAssetsController do
   describe 'routing' do
   end
 end

@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe MilestonesController do
+RSpec.describe MilestonesController do
   describe 'routing' do
   end
 end

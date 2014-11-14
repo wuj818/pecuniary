@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe PagesController do
+RSpec.describe PagesController do
   describe 'routing' do
   end
 end

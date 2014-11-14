@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe FinancialAssetsController do
+RSpec.describe FinancialAssetsController do
   describe 'GET index' do
     it 'assigns all assets as @assets' do
       FinancialAsset.should_receive(:includes).with(:snapshots).and_return(mock_relation)

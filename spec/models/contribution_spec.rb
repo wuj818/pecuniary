@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Contribution do
+RSpec.describe Contribution do
   describe 'associations' do
     it 'belongs to asset' do
       contribution = Contribution.make!

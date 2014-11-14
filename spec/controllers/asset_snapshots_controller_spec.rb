@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe AssetSnapshotsController do
+RSpec.describe AssetSnapshotsController do
   describe 'GET show' do
     it 'assigns the requested snapshot as @snapshot and its asset as @asset' do
       snapshot = stub_asset_snapshot(permalink: 'bank-july-2010')

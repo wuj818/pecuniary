@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe AssetSnapshotsController do
+RSpec.describe AssetSnapshotsController do
   describe 'routing' do
   end
 end
