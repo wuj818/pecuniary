@@ -9,6 +9,7 @@ gem 'jquery-rails', '3.1.2'
 gem 'hirb', '0.7.1'
 gem 'wirble', '0.1.3'
 
+gem 'acts-as-taggable-on', '3.4.2'
 gem 'autoprefixer-rails', '3.1.2.20141016'
 gem 'bootstrap3-datetimepicker-rails', '3.0.0'
 gem 'figaro', '0.7.0'
