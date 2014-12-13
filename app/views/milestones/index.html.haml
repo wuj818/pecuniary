@@ -27,7 +27,16 @@
             %h4.timeline-title
               = link_to milestone, milestone
 
+          %hr
+
           .timeline-body
             = kramdown milestone.notes
+
+            - if milestone.tags.present?
+              %hr
+
+              %small.tag-list
+                - milestone.tags.order(:name).each do |tag|
+                  = link_to "##{tag}", 'javascript:;'
 - else
   %p There are no milestones.

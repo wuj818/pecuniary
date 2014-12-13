@@ -1,4 +1,6 @@
 class Milestone < ActiveRecord::Base
+  acts_as_taggable
+
   validates :date,
     presence: true,
     uniqueness: true

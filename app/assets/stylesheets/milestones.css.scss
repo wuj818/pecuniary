@@ -1,0 +1,9 @@
+.tag-list {
+  a {
+    margin-right: 4px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
