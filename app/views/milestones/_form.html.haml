@@ -21,7 +21,7 @@
     = f.label :tag_list, 'Tags', class: 'control-label col-sm-2'
 
     .col-sm-6
-      = f.text_field :tag_list, class: 'form-control'
+      = f.text_field :tag_list, value: @milestone.tag_list.to_s, class: 'form-control'
 
   %hr
 
