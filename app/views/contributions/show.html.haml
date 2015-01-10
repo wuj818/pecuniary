@@ -16,37 +16,35 @@
     Contribution -
     = @contribution.formatted_date
 
-.row
-  .col-md-8
-    %table.table.table-striped.table-bordered.table-hover.table-stacked#contributions-table
-      %thead
-        %tr
-          %th Date
-          %th Amount
-          %th Employer Contribution?
-          %th Permalink
+%table.table.table-striped.table-bordered.table-hover.table-stacked#contributions-table
+  %thead
+    %tr
+      %th Date
+      %th Amount
+      %th Employer Contribution?
+      %th Permalink
 
-          - if admin?
-            %th
+      - if admin?
+        %th
 
-      %tbody
-        %tr{class: (:info if @contribution.employer?)}
-          %td
-            = @contribution.formatted_date
+  %tbody
+    %tr{class: (:info if @contribution.employer?)}
+      %td
+        = @contribution.formatted_date
 
-          %td
-            = currency @contribution.amount
+      %td
+        = currency @contribution.amount
 
-          %td
-            = @contribution.employer? ? 'yes' : 'no'
+      %td
+        = @contribution.employer? ? 'yes' : 'no'
 
-          %td
-            = link_to @contribution.permalink, @contribution
+      %td
+        = link_to @contribution.permalink, @contribution
 
-          - if admin?
-            %td.table-actions
-              = link_to [:edit, @contribution], class: 'btn btn-info' do
-                = icon :edit
+      - if admin?
+        %td.table-actions
+          = link_to [:edit, @contribution], class: 'btn btn-info' do
+            = icon :edit
 
-              = link_to @contribution, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
-                = icon 'trash-o'
+          = link_to @contribution, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
+            = icon 'trash-o'
