@@ -10,12 +10,26 @@ module GraphsHelper
     end
   end
 
-  def line_graph(options)
+  def cumulative_line_graph(options)
     # data format:
     # [
     #   {
     #     key: string,
     #     bar: boolean,
+    #     values: [
+    #       [js_time, y_value],
+    #     ]
+    #   },
+    # ]
+
+    graph options.merge(type: 'cumulative-line')
+  end
+
+  def line_graph(options)
+    # data format:
+    # [
+    #   {
+    #     key: string,
     #     values: [
     #       { x: js_time, y: value },
     #     ]
@@ -228,6 +242,27 @@ module GraphsHelper
     }
 
     line_graph id_prefix: 'investment-history', data: data
+  end
+
+  def investment_history_cumulative_line_graph(snapshots, cumulative_contributions)
+    graph_data = [
+      {
+        key: 'Total Return',
+        values: snapshots.keys.sort.inject([]) do |array, date|
+          value = snapshots[date]
+          contributions = cumulative_contributions[date]
+          gain = (value - contributions) / contributions.to_f
+
+          array << [date.to_js_time, gain]
+        end
+      }
+    ]
+
+    data = {
+      'graph-data' => graph_data.to_json
+    }
+
+    cumulative_line_graph id_prefix: 'investment-history', data: data
   end
 
   def net_worth_line_with_focus_graph
