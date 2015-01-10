@@ -4,12 +4,10 @@
   .pull-right
     = link_to @asset, class: 'btn btn-lg btn-default' do
       = icon 'arrow-left'
-      Back
 
     - if admin?
       = link_to [:edit, @contribution], class: 'btn btn-lg btn-info' do
         = icon :edit
-        Edit
 
   %h1
     = link_to @asset, @asset

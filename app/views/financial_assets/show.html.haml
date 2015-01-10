@@ -4,12 +4,10 @@
   .pull-right
     = link_to :financial_assets, class: 'btn btn-lg btn-default' do
       = icon 'arrow-left'
-      Back
 
     - if admin?
       = link_to [:edit, @asset], class: 'btn btn-lg btn-info' do
         = icon :edit
-        Edit
 
       = link_to [:new, @asset, :snapshot], class: 'btn btn-lg btn-success' do
         = icon 'plus-circle'
