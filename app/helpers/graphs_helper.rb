@@ -164,6 +164,55 @@ module GraphsHelper
     line_graph id_prefix: 'contributions', data: data
   end
 
+  def investment_asset_cumulative_line_graph(asset)
+    return if asset.snapshots.count.zero?
+
+    snapshots = asset.snapshots.inject({}) do |hash, snapshot|
+      hash[snapshot.date] = snapshot.value
+      hash
+    end
+
+    empty_months = snapshots.keys.inject({}) do |hash, month|
+      hash[month] = 0
+      hash
+    end
+
+    query = asset.contributions.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)').order(:date)
+
+    contributions = query.inject({}) do |hash, contribution|
+      hash[contribution.date.end_of_month] = contribution.total
+      hash
+    end
+
+    contributions = empty_months.merge contributions
+
+    cumulative_contributions = {}
+
+    contributions.keys.sort.inject(0) do |sum, month|
+      sum += contributions[month]
+      cumulative_contributions[month] = sum
+    end
+
+    graph_data = [
+      {
+        key: 'Total Return',
+        values: snapshots.keys.sort.inject([]) do |array, date|
+          value = snapshots[date]
+          contributions = cumulative_contributions[date]
+          gain = (value - contributions) / contributions.to_f
+
+          array << [date.to_js_time, gain]
+        end
+      }
+    ]
+
+    data = {
+      'graph-data' => graph_data.to_json
+    }
+
+    cumulative_line_graph id_prefix: 'asset', data: data
+  end
+
   def investment_asset_line_plus_bar_graph(asset)
     return if asset.snapshots.count.zero?
 
