@@ -20,5 +20,4 @@
 /config/application.yml
 /config/database.yml
 /config/deploy.rb
-/config/unicorn.rb
 /config/deploy/production.rb

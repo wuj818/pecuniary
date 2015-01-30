@@ -38,10 +38,6 @@ group :development, :test do
   gem 'rspec-activemodel-mocks', '1.0.1'
 end
 
-group :production do
-  gem 'unicorn', '4.8.3'
-end
-
 group :test do
   gem 'machinist', '2.0'
   gem 'timecop', '0.7.1'
