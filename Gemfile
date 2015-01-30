@@ -27,6 +27,7 @@ gem 'quiet_assets', '1.0.3'
 gem 'therubyracer', '0.12.1'
 
 group :development do
+  gem 'capistrano3-puma', '0.8.5'
   gem 'capistrano-rails', '1.1.2'
   gem 'capistrano-rvm', '0.1.2'
   gem 'spring', '1.1.3'
@@ -36,6 +37,10 @@ end
 group :development, :test do
   gem 'rspec-rails', '3.1.0'
   gem 'rspec-activemodel-mocks', '1.0.1'
+end
+
+group :production do
+  gem 'puma', '2.11.0'
 end
 
 group :test do
