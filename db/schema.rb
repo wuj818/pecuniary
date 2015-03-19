@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141230190232) do
+ActiveRecord::Schema.define(version: 20150319020824) do
 
   create_table "asset_snapshots", force: :cascade do |t|
     t.integer  "financial_asset_id"
