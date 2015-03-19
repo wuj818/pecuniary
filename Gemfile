@@ -13,7 +13,7 @@ gem 'acts-as-taggable-on', '3.4.2'
 gem 'autoprefixer-rails', '3.1.2.20141016'
 gem 'bootstrap3-datetimepicker-rails', '3.0.0'
 gem 'figaro', '0.7.0'
-gem 'font-awesome-rails', '4.2.0.0'
+gem 'font-awesome-rails', '4.3.0.0'
 gem 'momentjs-rails', '2.5.1'
 gem 'kramdown', '1.3.3'
 
