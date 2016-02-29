@@ -74,13 +74,6 @@ RSpec.describe Contribution do
       expect(contribution2.errors[:date]).to include 'has already been taken for this asset'
     end
 
-    it 'requires a positive non-zero amount' do
-      [-1, 0].each do |amount|
-        contribution = Contribution.create amount: amount
-        expect(contribution.errors[:amount]).to include 'must be greater than 0'
-      end
-    end
-
     it 'requires an investment asset' do
       contribution = Contribution.new
       contribution.asset = FinancialAsset.make! name: 'Bank', investment: false

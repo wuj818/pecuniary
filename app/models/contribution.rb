@@ -3,11 +3,6 @@ class Contribution < ActiveRecord::Base
 
   validates_presence_of :asset
 
-  validates :amount,
-    numericality: {
-      greater_than: 0
-    }
-
   validates :date,
     presence: true,
     uniqueness: {
