@@ -1,49 +1,48 @@
 source 'https://rubygems.org'
 
 gem 'rails', '5.2.1'
-# gem 'sqlite3'# , '1.3.10'
-#
-# gem 'haml-rails'# , '0.5.3'
-# gem 'jquery-rails'# , '3.1.2'
-#
-# gem 'hirb'# , '0.7.1'
-# gem 'wirble'# , '0.1.3'
-#
-# gem 'acts-as-taggable-on'# , '3.5.0'
-# gem 'autoprefixer-rails'# , '5.1.7.1'
-# gem 'bootstrap3-datetimepicker-rails'# , '3.0.0'
-# gem 'figaro'# , '0.7.0'
-# gem 'font-awesome-rails'# , '4.3.0.0'
-# gem 'momentjs-rails'# , '2.5.1'
-# gem 'kramdown'# , '1.3.3'
-#
-# gem 'bootstrap-sass'# , '3.3.4.1'
-# gem 'coffee-rails'# , '4.0.1'
-# gem 'less-rails'# , '2.6.0'
-# gem 'sass-rails'# , '4.0.4'
-# gem 'uglifier'# , '2.5.3'
-#
-# gem 'quiet_assets'# , '1.0.3'
-# gem 'therubyracer'# , '0.12.1'
-#
-# group :development do
-#   gem 'capistrano3-puma'# , '0.8.5'
-#   gem 'capistrano-rails'# , '1.1.2'
-#   gem 'capistrano-rvm'# , '0.1.2'
-#   gem 'spring'# , '1.1.3'
-#   gem 'webrick'# , '1.3.1'
-# end
-#
-# group :development, :test do
-#   gem 'rspec-rails'# , '3.1.0'
-#   gem 'rspec-activemodel-mocks'# , '1.0.1'
-# end
-#
-# group :production do
-#   gem 'puma'# , '2.11.0'
-# end
-#
-# group :test do
-#   gem 'machinist'# , '2.0'
-#   gem 'timecop'# , '0.7.1'
-# end
+gem 'sqlite3', '1.3.13'
+
+gem 'haml-rails', '1.0.0'
+gem 'jquery-rails', '4.3.3'
+
+gem 'hirb', '0.7.3'
+gem 'wirble', '0.1.3'
+
+gem 'acts-as-taggable-on', '6.0.0'
+gem 'autoprefixer-rails', '9.3.1'
+gem 'bootstrap3-datetimepicker-rails', '4.17.47'
+gem 'figaro', '1.1.1'
+gem 'font-awesome-rails', '4.7.0.4'
+gem 'momentjs-rails'#, '2.20.1'
+gem 'kramdown', '1.17.0'
+
+gem 'bootstrap-sass', '3.3.7'
+gem 'coffee-rails', '4.2.2'
+gem 'less-rails', '4.0.0'
+gem 'sass-rails'#, '5.0.7'
+gem 'uglifier', '4.1.19'
+
+gem 'therubyracer', '0.12.3'
+
+group :development do
+  gem 'capistrano3-puma', '3.1.1'
+  gem 'capistrano-rails', '1.4.0'
+  gem 'capistrano-rvm', '0.1.2'
+  gem 'spring', '2.0.2'
+  gem 'webrick', '1.4.2'
+end
+
+group :development, :test do
+  gem 'rspec-rails'#, '3.8.1'
+  gem 'rspec-activemodel-mocks', '1.1.0'
+end
+
+group :production do
+  gem 'puma', '3.12.0'
+end
+
+group :test do
+  gem 'machinist', '2.0'
+  gem 'timecop', '0.9.1'
+end
