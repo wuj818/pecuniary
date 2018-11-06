@@ -1,7 +1,7 @@
 class MilestonesController < ApplicationController
-  before_filter :authorize, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authorize, only: [:new, :create, :edit, :update, :destroy]
 
-  before_filter :get_milestone, only: [:show, :edit, :update, :destroy]
+  before_action :get_milestone, only: [:show, :edit, :update, :destroy]
 
   def index
     @milestones = Milestone.order('date DESC')

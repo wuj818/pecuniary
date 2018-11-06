@@ -12,9 +12,20 @@ $ ->
 
   $('.date-picker').datetimepicker
     format: 'YYYY-MM-DD'
-    pickTime: false
     icons:
       time: 'fa fa-clock-o'
       date: 'fa fa-calendar'
       up: 'fa fa-arrow-up'
       down: 'fa fa-arrow-down'
+      next: 'fa fa-chevron-right'
+      previous: 'fa fa-chevron-left'
+
+      clear: 'fa fa-trash'
+      close: 'fa fa-times'
+      date: 'fa fa-calendar'
+      down: 'fa fa-arrow-down'
+      next: 'fa fa-chevron-right'
+      previous: 'fa fa-chevron-left'
+      time: 'fa fa-clock-o'
+      today: 'fa fa-crosshairs'
+      up: 'fa fa-arrow-up'
