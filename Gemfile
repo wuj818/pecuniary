@@ -19,13 +19,12 @@ gem 'kramdown', '1.17.0'
 
 gem 'bootstrap-sass', '3.3.7'
 gem 'coffee-rails', '4.2.2'
-gem 'less-rails', '4.0.0'
 gem 'sass-rails', '5.0.7'
 gem 'uglifier', '4.1.19'
 
 gem 'bootsnap', '1.3.2'
 
-gem 'therubyracer', '0.12.3'
+gem 'mini_racer', '0.2.4', platforms: :ruby
 
 group :development do
   gem 'capistrano3-puma', '3.1.1'
