@@ -33,6 +33,7 @@ group :development do
   gem 'capistrano-rvm', '0.1.2'
   gem 'listen', '3.1.5'
   gem 'spring', '2.0.2'
+  gem 'spring-commands-rspec', '1.0.4'
   gem 'spring-watcher-listen', '2.0.1'
   gem 'web-console', '3.7.0'
 end
