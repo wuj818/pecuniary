@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'rails', '5.2.1'
 gem 'sqlite3', '1.3.13'
 
+gem 'puma', '3.12.0'
+
 gem 'haml-rails', '1.0.0'
 gem 'jquery-rails', '4.3.3'
 
@@ -21,7 +23,7 @@ gem 'coffee-rails', '4.2.2'
 gem 'sass-rails', '5.0.7'
 gem 'uglifier', '4.1.19'
 
-gem 'bootsnap', '1.3.2'
+gem 'bootsnap', '1.3.2', require: false
 
 gem 'mini_racer', '0.2.4', platforms: :ruby
 
@@ -33,17 +35,12 @@ group :development do
   gem 'spring', '2.0.2'
   gem 'spring-watcher-listen', '2.0.1'
   gem 'web-console', '3.7.0'
-  gem 'webrick', '1.4.2'
 end
 
 group :development, :test do
   gem 'rspec-rails', '3.8.1'
   gem 'rspec-activemodel-mocks', '1.1.0'
   gem 'rails-controller-testing', '1.0.2'
-end
-
-group :production do
-  gem 'puma', '3.12.0'
 end
 
 group :test do
