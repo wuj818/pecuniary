@@ -39,12 +39,12 @@ group :development do
 end
 
 group :development, :test do
+  gem 'rails-controller-testing', '1.0.2'
   gem 'rspec-rails', '3.8.1'
   gem 'rspec-activemodel-mocks', '1.1.0'
-  gem 'rails-controller-testing', '1.0.2'
 end
 
 group :test do
-  gem 'machinist', '2.0'
+  gem 'factory_bot_rails', '4.11.1'
   gem 'timecop', '0.9.1'
 end

@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe AssetSnapshot do
   describe 'associations' do
     it 'belongs to asset' do
-      snapshot = AssetSnapshot.make!
+      snapshot = create :asset_snapshot
       expect(snapshot.asset).to be_a FinancialAsset
     end
   end
 
   describe 'callbacks' do
     let(:date) { Date.new 2010, 7, 28 }
-    let(:snapshot) { AssetSnapshot.make! date: date, asset: FinancialAsset.make!(name: 'Bank') }
+    let(:snapshot) { create :asset_snapshot, date: date, asset: create(:financial_asset, name: 'Bank') }
 
     it 'sets the date to the end of the current month by default' do
       Timecop.freeze
@@ -36,7 +36,7 @@ RSpec.describe AssetSnapshot do
       end.to change(asset, :current_value).from(asset.current_value).to(asset.current_value + 1)
 
       expect do
-        AssetSnapshot.make! date: Date.new(2011, 3, 28), value: 9000, asset: snapshot.asset
+        create :asset_snapshot, date: Date.new(2011, 3, 28), value: 9000, asset: snapshot.asset
       end.to change(asset, :current_value).from(asset.current_value).to(9000)
 
       expect do
@@ -49,7 +49,7 @@ RSpec.describe AssetSnapshot do
   describe 'instance methods' do
     describe 'to_param' do
       it "doesn't change until after the record is saved" do
-        snapshot = AssetSnapshot.make! date: Date.new(2010, 7, 28), asset: FinancialAsset.make!(name: 'Bank')
+        snapshot = create :asset_snapshot, date: Date.new(2010, 7, 28), asset: create(:financial_asset, name: 'Bank')
         old_to_param = snapshot.to_param
 
         snapshot.permalink = 'test'
@@ -72,15 +72,15 @@ RSpec.describe AssetSnapshot do
     end
 
     it 'requires a unique date/asset pair' do
-      snapshot1 = AssetSnapshot.make!
-      snapshot2 = AssetSnapshot.make asset: snapshot1.asset, date: snapshot1.date
+      snapshot1 = create :asset_snapshot
+      snapshot2 = build :asset_snapshot, asset: snapshot1.asset, date: snapshot1.date
       snapshot2.save
 
       expect(snapshot2.errors[:date]).to include 'has already been taken for this asset'
     end
 
     it 'is destroyed when the asset is destroyed' do
-      snapshot = AssetSnapshot.make!
+      snapshot = create :asset_snapshot
       snapshot.asset.destroy
 
       expect { snapshot.reload }.to raise_error ActiveRecord::RecordNotFound

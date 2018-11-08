@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe FinancialAsset do
   describe 'associations' do
     it 'has many snapshots' do
-      asset = FinancialAsset.make!
-      snapshot = AssetSnapshot.make! asset: asset
+      asset = create :financial_asset
+      snapshot = create :asset_snapshot, asset: asset
 
       expect(asset.snapshots.count).to eq(1)
       expect(asset.snapshots.first).to be_an AssetSnapshot
@@ -13,14 +13,14 @@ RSpec.describe FinancialAsset do
 
   describe 'callbacks' do
     it 'creates a parameterized permalink' do
-      asset = FinancialAsset.make! name: 'Roth IRA'
+      asset = create :financial_asset, name: 'Roth IRA'
       expect(asset.permalink).to eq('roth-ira')
     end
 
     it "updates all of its association's permalinks when its name changes" do
-      asset = FinancialAsset.make! name: 'Bank'
-      snapshot = AssetSnapshot.make! asset: asset
-      contribution = Contribution.make! asset: asset
+      asset = create :financial_asset, name: 'Bank'
+      snapshot = create :asset_snapshot, asset: asset
+      contribution = create :contribution, asset: asset
 
       expect(snapshot.permalink).to match /bank/
       expect(contribution.permalink).to match /bank/
@@ -40,7 +40,7 @@ RSpec.describe FinancialAsset do
   describe 'instance methods' do
     describe 'to_param' do
       it "doesn't change until after the record is saved" do
-        asset = FinancialAsset.make! name: 'Bank'
+        asset = create :financial_asset, name: 'Bank'
         old_to_param = asset.to_param
 
         asset.permalink = 'test'
@@ -63,8 +63,8 @@ RSpec.describe FinancialAsset do
     end
 
     it 'requires a unique name' do
-      asset1 = FinancialAsset.make!
-      asset2 = FinancialAsset.make name: asset1.name
+      asset1 = create :financial_asset
+      asset2 = build :financial_asset, name: asset1.name
       asset2.save
 
       expect(asset2.errors[:name]).to include 'has already been taken'

@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe Contribution do
   describe 'associations' do
     it 'belongs to asset' do
-      contribution = Contribution.make!
+      contribution = create :contribution
       expect(contribution.asset).to be_a FinancialAsset
     end
   end
 
   describe 'callbacks' do
     let(:date) { Date.new 2010, 7, 28 }
-    let(:contribution) { Contribution.make! date: date, asset: FinancialAsset.make!(name: 'Bank') }
+    let(:contribution) { create :contribution, date: date, asset: create(:financial_asset, name: 'Bank') }
 
     it 'sets the date to the current date by default' do
       Timecop.freeze
@@ -31,7 +31,7 @@ RSpec.describe Contribution do
       end.to change(asset, :total_contributions).from(asset.total_contributions).to(asset.total_contributions + 1)
 
       expect do
-        Contribution.make! date: Date.new(2011, 3, 28), amount: 9000, asset: contribution.asset
+        create :contribution, date: Date.new(2011, 3, 28), amount: 9000, asset: contribution.asset
       end.to change(asset, :total_contributions).from(asset.total_contributions).to(asset.total_contributions + 9000)
 
       expect do
@@ -44,7 +44,7 @@ RSpec.describe Contribution do
   describe 'instance methods' do
     describe 'to_param' do
       it "doesn't change until after the record is saved" do
-        contribution = Contribution.make! date: Date.new(2010, 7, 28), asset: FinancialAsset.make!(name: 'Bank')
+        contribution = create :contribution, date: Date.new(2010, 7, 28), asset: create(:financial_asset, name: 'Bank')
         old_to_param = contribution.to_param
 
         contribution.permalink = 'test'
@@ -67,8 +67,8 @@ RSpec.describe Contribution do
     end
 
     it 'requires a unique date/asset pair' do
-      contribution1 = Contribution.make!
-      contribution2 = Contribution.make asset: contribution1.asset, date: contribution1.date
+      contribution1 = create :contribution
+      contribution2 = build :contribution, asset: contribution1.asset, date: contribution1.date
       contribution2.save
 
       expect(contribution2.errors[:date]).to include 'has already been taken for this asset'
@@ -76,13 +76,13 @@ RSpec.describe Contribution do
 
     it 'requires an investment asset' do
       contribution = Contribution.new
-      contribution.asset = FinancialAsset.make! name: 'Bank', investment: false
+      contribution.asset = create :financial_asset, name: 'Bank', investment: false
       contribution.save
       expect(contribution.errors[:base]).to include 'Bank is not a contributable investment'
     end
 
     it 'is destroyed when the asset is destroyed' do
-      contribution = Contribution.make!
+      contribution = create :contribution
       contribution.asset.destroy
 
       expect { contribution.reload }.to raise_error ActiveRecord::RecordNotFound

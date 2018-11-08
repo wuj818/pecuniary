@@ -61,6 +61,7 @@ RSpec.configure do |config|
 
   config.include Mocks
   config.include Stubs
+  config.include FactoryBot::Syntax::Methods
 
   config.after :each do
     Timecop.return
