@@ -28,11 +28,11 @@ RSpec.describe FinancialAsset do
       asset.update_attributes name: 'Roth IRA'
 
       snapshot.reload
-      expect(snapshot.permalink).to_not match /bank/
+      expect(snapshot.permalink).not_to match /bank/
       expect(snapshot.permalink).to match /roth-ira/
 
       contribution.reload
-      expect(contribution.permalink).to_not match /bank/
+      expect(contribution.permalink).not_to match /bank/
       expect(contribution.permalink).to match /roth-ira/
     end
   end
@@ -48,7 +48,7 @@ RSpec.describe FinancialAsset do
 
         asset.name = 'Roth IRA'
         asset.save
-        expect(asset.to_param).to_not eq(old_to_param)
+        expect(asset.to_param).not_to eq(old_to_param)
       end
     end
   end

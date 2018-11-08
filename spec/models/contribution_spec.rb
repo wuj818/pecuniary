@@ -52,7 +52,7 @@ RSpec.describe Contribution do
 
         contribution.date = Date.new(2011, 3, 28)
         contribution.save
-        expect(contribution.to_param).to_not eq(old_to_param)
+        expect(contribution.to_param).not_to eq(old_to_param)
       end
     end
   end

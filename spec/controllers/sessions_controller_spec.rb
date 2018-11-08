@@ -37,7 +37,7 @@ RSpec.describe SessionsController do
     context 'when logged out' do
       context 'with a valid password' do
         it 'logs in the admin and redirects to the home page' do
-          post :create, session: { password: Rails.application.credentials.password[Rails.env.to_sym] }
+          post :create, params: { session: { password: Rails.application.credentials.password[Rails.env.to_sym] } }
 
           expect(response).to redirect_to root_path
           expect(flash[:success]).to match /successfully/i
@@ -47,11 +47,11 @@ RSpec.describe SessionsController do
 
       context 'with an invalid password' do
         it "renders the 'new' template" do
-          post :create, session: { password: 'test' }
+          post :create, params: { session: { password: 'no' } }
 
           expect(response).to render_template :new
           expect(flash.now[:danger]).to match /incorrect/i
-          expect(controller).to_not be_admin
+          expect(controller).not_to be_admin
         end
       end
     end
@@ -66,7 +66,7 @@ RSpec.describe SessionsController do
 
         expect(response).to redirect_to root_path
         expect(flash[:success]).to match /successfully/i
-        expect(controller).to_not be_admin
+        expect(controller).not_to be_admin
       end
     end
 
@@ -76,7 +76,7 @@ RSpec.describe SessionsController do
 
         expect(response).to redirect_to root_path
         expect(flash[:info]).to match /not logged in/i
-        expect(controller).to_not be_admin
+        expect(controller).not_to be_admin
       end
     end
   end

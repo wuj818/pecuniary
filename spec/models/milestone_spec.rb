@@ -27,7 +27,7 @@ RSpec.describe Milestone do
 
         milestone.date = Date.new(2011, 3, 28)
         milestone.save
-        expect(milestone.to_param).to_not eq(old_to_param)
+        expect(milestone.to_param).not_to eq(old_to_param)
       end
     end
   end

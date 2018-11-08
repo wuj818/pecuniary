@@ -39,6 +39,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '3.8.1'
   gem 'rspec-activemodel-mocks', '1.1.0'
+  gem 'rails-controller-testing', '1.0.2'
 end
 
 group :production do

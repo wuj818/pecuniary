@@ -21,7 +21,7 @@ RSpec.describe FinancialAssetsController do
       expect(asset).to receive(:contributions).and_return(mock_relation)
       expect(mock_relation).to receive(:order).with('date DESC').and_return(mock_relation)
 
-      get :show, id: asset.to_param
+      get :show, params: { id: asset.to_param }
 
       expect(response).to render_template :show
       expect(assigns(:asset)).to eq(asset)
@@ -64,7 +64,7 @@ RSpec.describe FinancialAssetsController do
         it 'creates a new asset and redirects to the assets list' do
           expect(@asset).to receive(:save).and_return(true)
 
-          post :create, financial_asset: {}
+          post :create, params: { financial_asset: { test: 1 } }
 
           expect(response).to redirect_to financial_assets_path
           expect(flash[:success]).to match /created/i
@@ -75,7 +75,7 @@ RSpec.describe FinancialAssetsController do
         it "renders the 'new' template" do
           expect(@asset).to receive(:save).and_return(false)
 
-          post :create, financial_asset: {}
+          post :create, params: { financial_asset: { test: 1 } }
 
           expect(response).to render_template :new
         end
@@ -84,7 +84,7 @@ RSpec.describe FinancialAssetsController do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        post :create, financial_asset: {}
+        post :create, params: { financial_asset: { test: 1 } }
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match /must be logged in/i
@@ -102,7 +102,7 @@ RSpec.describe FinancialAssetsController do
         controller.login
         expect(FinancialAsset).to receive(:find_by_permalink).and_return(@asset)
 
-        get :edit, id: @asset.to_param
+        get :edit, params: { id: @asset.to_param }
 
         expect(response).to render_template :edit
         expect(assigns(:asset)).to eq(@asset)
@@ -111,7 +111,7 @@ RSpec.describe FinancialAssetsController do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        get :edit, id: @asset.to_param
+        get :edit, params: { id: @asset.to_param }
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match /must be logged in/i
@@ -134,7 +134,7 @@ RSpec.describe FinancialAssetsController do
         it 'redirects to the asset' do
           expect(@asset).to receive(:update_attributes).and_return(true)
 
-          put :update, id: @asset.to_param, financial_asset: {}
+          put :update, params: { id: @asset.to_param, financial_asset: { test: 1 } }
 
           expect(response).to redirect_to @asset
           expect(flash[:success]).to match /updated/i
@@ -145,7 +145,7 @@ RSpec.describe FinancialAssetsController do
         it "renders the 'edit' template" do
           expect(@asset).to receive(:update_attributes).and_return(false)
 
-          put :update, id: @asset.to_param, financial_asset: {}
+          put :update, params: { id: @asset.to_param, financial_asset: { test: 1 } }
 
           expect(response).to render_template :edit
         end
@@ -154,7 +154,7 @@ RSpec.describe FinancialAssetsController do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        put :update, id: @asset.to_param, financial_asset: {}
+        put :update, params: { id: @asset.to_param, financial_asset: { test: 1 } }
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match /must be logged in/i
@@ -173,7 +173,7 @@ RSpec.describe FinancialAssetsController do
         expect(FinancialAsset).to receive(:find_by_permalink).and_return(@asset)
         expect(@asset).to receive(:destroy).and_return(true)
 
-        delete :destroy, id: @asset.to_param
+        delete :destroy, params: { id: @asset.to_param }
 
         expect(response).to redirect_to financial_assets_path
         expect(flash[:success]).to match /deleted/i
@@ -182,7 +182,7 @@ RSpec.describe FinancialAssetsController do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        delete :destroy, id: @asset.to_param
+        delete :destroy, params: { id: @asset.to_param }
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match /must be logged in/i

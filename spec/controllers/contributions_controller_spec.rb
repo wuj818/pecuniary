@@ -18,7 +18,7 @@ RSpec.describe ContributionsController do
       contribution = stub_contribution(permalink: 'bank-july-28-2010')
       expect(Contribution).to receive(:find_by_permalink).and_return(contribution)
 
-      get :show, id: contribution.to_param
+      get :show, params: { id: contribution.to_param }
 
       expect(response).to render_template :show
       expect(assigns(:contribution)).to eq(contribution)
@@ -37,7 +37,7 @@ RSpec.describe ContributionsController do
         expect(FinancialAsset).to receive(:find_by_permalink).and_return(@asset)
         expect(@asset.contributions).to receive(:build).and_return(stub_contribution(new_record?: true, asset: @asset))
 
-        get :new, financial_asset_id: @asset.to_param
+        get :new, params: {  financial_asset_id: @asset.to_param }
 
         expect(response).to render_template :new
         expect(assigns(:contribution)).to be_a_new Contribution
@@ -47,7 +47,7 @@ RSpec.describe ContributionsController do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        get :new, financial_asset_id: @asset.to_param
+        get :new, params: { financial_asset_id: @asset.to_param }
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match /must be logged in/i
@@ -72,7 +72,7 @@ RSpec.describe ContributionsController do
         it 'creates a new contribution and redirects to its asset' do
           expect(@contribution).to receive(:save).and_return(true)
 
-          post :create, financial_asset_id: @asset.to_param, contribution: {}
+          post :create, params: { financial_asset_id: @asset.to_param, contribution: { test: 1 } }
 
           expect(response).to redirect_to @asset
           expect(flash[:success]).to match /created/i
@@ -83,7 +83,7 @@ RSpec.describe ContributionsController do
         it "renders the 'new' template" do
           expect(@contribution).to receive(:save).and_return(false)
 
-          post :create, financial_asset_id: @asset.to_param, contribution: {}
+          post :create, params: { financial_asset_id: @asset.to_param, contribution: { test: 1 } }
 
           expect(response).to render_template :new
         end
@@ -92,7 +92,7 @@ RSpec.describe ContributionsController do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        post :create, financial_asset_id: @asset.to_param, contribution: {}
+        post :create, params: { financial_asset_id: @asset.to_param, contribution: { test: 1 } }
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match /must be logged in/i
@@ -111,7 +111,7 @@ RSpec.describe ContributionsController do
         controller.login
         expect(Contribution).to receive(:find_by_permalink).and_return(@contribution)
 
-        get :edit, id: @contribution.to_param
+        get :edit, params: { id: @contribution.to_param }
 
         expect(response).to render_template :edit
         expect(assigns(:contribution)).to eq(@contribution)
@@ -120,7 +120,7 @@ RSpec.describe ContributionsController do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        get :edit, id: @contribution.to_param
+        get :edit, params: { id: @contribution.to_param }
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match /must be logged in/i
@@ -144,7 +144,7 @@ RSpec.describe ContributionsController do
         it 'redirects to the contribution' do
           expect(@contribution).to receive(:update_attributes).and_return(true)
 
-          put :update, id: @contribution.to_param, contribution: {}
+          put :update, params: { id: @contribution.to_param, contribution: { test: 1 } }
 
           expect(response).to redirect_to @contribution
           expect(flash[:success]).to match /updated/i
@@ -155,7 +155,7 @@ RSpec.describe ContributionsController do
         it "renders the 'edit' template" do
           expect(@contribution).to receive(:update_attributes).and_return(false)
 
-          put :update, id: @contribution.to_param, contribution: {}
+          put :update, params: { id: @contribution.to_param, contribution: { test: 1 } }
 
           expect(response).to render_template :edit
         end
@@ -164,7 +164,7 @@ RSpec.describe ContributionsController do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        put :update, id: @contribution.to_param, contribution: {}
+        put :update, params: { id: @contribution.to_param, contribution: { test: 1 } }
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match /must be logged in/i
@@ -184,7 +184,7 @@ RSpec.describe ContributionsController do
         expect(Contribution).to receive(:find_by_permalink).and_return(@contribution)
         expect(@contribution).to receive(:destroy).and_return(true)
 
-        delete :destroy, id: @contribution.to_param
+        delete :destroy, params: { id: @contribution.to_param }
 
         expect(response).to redirect_to @asset
         expect(flash[:success]).to match /deleted/i
@@ -193,7 +193,7 @@ RSpec.describe ContributionsController do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        delete :destroy, id: @contribution.to_param
+        delete :destroy, params: { id: @contribution.to_param }
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match /must be logged in/i

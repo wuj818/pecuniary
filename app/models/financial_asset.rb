@@ -11,7 +11,7 @@ class FinancialAsset < ActiveRecord::Base
 
   before_validation :create_permalink
 
-  after_update :update_association_permalinks
+  after_update :update_association_permalinks, if: :saved_change_to_name?
 
   scope :investments, -> { where(investment: true) }
   scope :non_investments, -> { where(investment: false) }
@@ -41,9 +41,7 @@ class FinancialAsset < ActiveRecord::Base
   end
 
   def update_association_permalinks
-    if name_changed?
-      contributions.each &:save
-      snapshots.each &:save
-    end
+    contributions.each &:save
+    snapshots.each &:save
   end
 end

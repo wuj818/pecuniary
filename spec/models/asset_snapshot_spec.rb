@@ -19,7 +19,7 @@ RSpec.describe AssetSnapshot do
     end
 
     it 'sets the date to the end of the month' do
-      expect(snapshot.date).to_not eq(date)
+      expect(snapshot.date).not_to eq(date)
       expect(snapshot.date).to eq(date.end_of_month)
     end
 
@@ -57,7 +57,7 @@ RSpec.describe AssetSnapshot do
 
         snapshot.date = Date.new(2011, 3, 28)
         snapshot.save
-        expect(snapshot.to_param).to_not eq(old_to_param)
+        expect(snapshot.to_param).not_to eq(old_to_param)
       end
     end
   end
