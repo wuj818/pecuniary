@@ -5,7 +5,7 @@ module ApplicationHelper
 
   def financial_independence_progress
     net_worth = FinancialAsset.net_worth
-    goal = Figaro.env.fi_goal || 1_000_000
+    goal = 1_000_000
 
     progress = (net_worth / goal.to_f * 100).round 2
     progress = 100 if progress > 100

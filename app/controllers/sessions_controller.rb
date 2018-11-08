@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       redirect_to root_path and return
     end
 
-    if params[:session][:password] == Figaro.env.pecuniary_password
+    if params[:session][:password] == Rails.application.credentials.password[Rails.env.to_sym]
       login
       flash[:success] = 'Logged in successfully.'
       redirect_to root_path

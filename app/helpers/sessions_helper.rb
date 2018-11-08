@@ -1,6 +1,6 @@
 module SessionsHelper
   def admin?
-    cookies.signed[:admin] == Figaro.env.pecuniary_password
+    cookies.signed[:admin] == Rails.application.credentials.password[Rails.env.to_sym]
   end
 
   def authorize
@@ -13,7 +13,7 @@ module SessionsHelper
   end
 
   def login
-    cookies.permanent.signed[:admin] = Figaro.env.pecuniary_password
+    cookies.permanent.signed[:admin] = Rails.application.credentials.password[Rails.env.to_sym]
   end
 
   def logout

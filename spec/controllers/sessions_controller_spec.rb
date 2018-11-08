@@ -37,7 +37,7 @@ RSpec.describe SessionsController do
     context 'when logged out' do
       context 'with a valid password' do
         it 'logs in the admin and redirects to the home page' do
-          post :create, session: { password: Figaro.env.pecuniary_password }
+          post :create, session: { password: Rails.application.credentials.password[Rails.env.to_sym] }
 
           expect(response).to redirect_to root_path
           expect(flash[:success]).to match /successfully/i
