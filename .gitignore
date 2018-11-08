@@ -23,3 +23,6 @@
 /config/deploy/production.rb
 
 /puma.rb
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
