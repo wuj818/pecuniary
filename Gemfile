@@ -28,9 +28,11 @@ gem 'bootsnap', '1.3.2', require: false
 gem 'mini_racer', '0.2.4', platforms: :ruby
 
 group :development do
-  gem 'capistrano3-puma', '3.1.1'
+  gem 'capistrano', '3.11.0'
   gem 'capistrano-rails', '1.4.0'
   gem 'capistrano-rvm', '0.1.2'
+  gem 'capistrano3-puma', '3.1.1'
+
   gem 'listen', '3.1.5'
   gem 'spring', '2.0.2'
   gem 'spring-commands-rspec', '1.0.4'
