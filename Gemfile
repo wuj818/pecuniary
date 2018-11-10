@@ -8,11 +8,7 @@ gem 'puma', '3.12.0'
 gem 'haml-rails', '1.0.0'
 gem 'jquery-rails', '4.3.3'
 
-gem 'hirb', '0.7.3'
-gem 'wirble', '0.1.3'
-
 gem 'acts-as-taggable-on', '6.0.0'
-gem 'autoprefixer-rails', '9.3.1'
 gem 'bootstrap3-datetimepicker-rails', '4.17.47'
 gem 'font-awesome-rails', '4.7.0.4'
 gem 'momentjs-rails', '2.20.1'
@@ -50,3 +46,6 @@ group :test do
   gem 'factory_bot_rails', '4.11.1'
   gem 'timecop', '0.9.1'
 end
+
+gem 'hirb', '0.7.3'
+gem 'wirble', '0.1.3'

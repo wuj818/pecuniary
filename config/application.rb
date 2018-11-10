@@ -18,6 +18,6 @@ module Pecuniary
 
     config.time_zone = 'Eastern Time (US & Canada)'
 
-    Rails.application.config.active_record.sqlite3.represent_boolean_as_integer = true
+    config.active_record.sqlite3.represent_boolean_as_integer = true
   end
 end
