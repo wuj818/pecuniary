@@ -9,17 +9,8 @@ module ApplicationHelper
 
     progress = (net_worth / goal.to_f * 100).round 2
     progress = 100 if progress > 100
-    color = financial_independence_progress_color progress
     percentage = "#{progress}%"
 
-    content_tag :div, class: 'progress progress-striped active' do
-      content_tag :div, class: "progress-bar #{color}", style: "width: #{percentage}" do
-        content_tag :strong, percentage, style: 'color: black;'
-      end
-    end
-  end
-
-  def financial_independence_progress_color(progress)
     color = if progress == 100
       :success
     elsif progress >= 100 / 3.0 * 2
@@ -30,7 +21,11 @@ module ApplicationHelper
       :danger
     end
 
-    "progress-bar-#{color}"
+    content_tag :div, class: 'progress', style: 'height: 35px;' do
+      content_tag :div, class: "progress-bar progress-bar-striped progress-bar-animated bg-#{color}", style: "width: #{percentage}" do
+        content_tag :strong, percentage
+      end
+    end
   end
 
   def icon(names = 'flag', options = {})
