@@ -1,7 +1,0 @@
-PECUNIARY_PASSWORD: dev
-GA_DOMAIN: example.com.com
-GA_PROPERTY_ID: UA-xxxxxxxx-x
-FI_GOAL: 1_000_000
-
-production:
-  PECUNIARY_PASSWORD: prod
