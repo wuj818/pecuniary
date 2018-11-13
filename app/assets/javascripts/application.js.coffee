@@ -1,6 +1,7 @@
 #= require rails-ujs
 #= require jquery3
-#= require bootstrap-sprockets
+#= require popper
+#= require bootstrap
 #= require d3.v3
 #= require nv.d3
 #= require moment

@@ -1,11 +1,10 @@
 //= require_self
 //= require nv.d3
-//= require bootstrap-overrides
 //= require_tree .
 
-@import 'bootstrap-sprockets';
-@import 'bootstrap-custom';
+@import 'bootstrap';
 @import 'bootstrap-datetimepicker';
+@import 'font-awesome';
 
 body {
   padding: 50px 0 20px 0;
