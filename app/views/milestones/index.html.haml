@@ -1,8 +1,8 @@
 - @title = 'Milestones'
 
-.page-header
+= page_header do
   - if admin?
-    .pull-right
+    .float-right
       = link_to new_milestone_path, class: 'btn btn-lg btn-success' do
         = icon 'plus-circle'
         Milestone
@@ -17,7 +17,7 @@
         .timeline-panel
           .timeline-heading
             - if admin?
-              .pull-right
+              .float-right
                 = link_to [:edit, milestone], class: 'btn btn-info btn-xs' do
                   = icon :edit
 

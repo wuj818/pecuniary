@@ -1,7 +1,7 @@
 - @title = @asset.name
 
-.page-header
-  .pull-right
+= page_header do
+  .float-right
     = link_to :financial_assets, class: 'btn btn-lg btn-default' do
       = icon 'arrow-left'
 
@@ -39,7 +39,7 @@
             %li.list-group-item
               = link_to snapshot.formatted_date, snapshot
 
-              .pull-right
+              .float-right
                 = currency snapshot.value
         - else
           %li.list-group-item
@@ -57,7 +57,7 @@
               %li.list-group-item{class: ('list-group-item-info' if contribution.employer?)}
                 = link_to contribution.formatted_date, contribution
 
-                .pull-right
+                .float-right
                   = currency contribution.amount
           - else
             %li.list-group-item

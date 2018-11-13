@@ -48,4 +48,10 @@ module ApplicationHelper
   def nav_class(controller)
     controller.to_s == controller_name ? :active : nil
   end
+
+  def page_header
+    content_tag :div, class: 'pb-2 mb-4 border-bottom' do
+      yield
+    end
+  end
 end
