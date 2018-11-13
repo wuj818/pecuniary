@@ -1,5 +1,5 @@
-#= require jquery
-#= require jquery_ujs
+#= require rails-ujs
+#= require jquery3
 #= require bootstrap-sprockets
 #= require d3.v3
 #= require nv.d3
