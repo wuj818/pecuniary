@@ -17,7 +17,7 @@ gem 'sass-rails', '5.0.7'
 gem 'uglifier', '4.1.19'
 
 gem 'acts-as-taggable-on', '6.0.0'
-gem 'bootstrap3-datetimepicker-rails', '4.17.47'
+gem 'bootstrap4-datetime-picker-rails', '0.2.0'
 gem 'font-awesome-rails', '4.7.0.4'
 gem 'momentjs-rails', '2.20.1'
 gem 'kramdown', '1.17.0'
