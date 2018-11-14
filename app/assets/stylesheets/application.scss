@@ -10,15 +10,9 @@ body {
   padding-top: 5rem;
 }
 
-.table-actions {
-  width: 101px;
-
-  a {
-    margin-right: 4px;
-
-    &:last-child {
-      margin-right: 0;
-    }
+table {
+  td {
+    vertical-align: middle !important;
   }
 }
 

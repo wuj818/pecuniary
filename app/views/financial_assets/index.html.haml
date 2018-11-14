@@ -14,7 +14,7 @@
 
 - unless @assets.length.zero?
   %table.table.table-striped.table-bordered.table-hover.table-stacked#assets-table
-    %thead
+    %thead.thead-dark
       %tr
         %th Name
         %th Current Value
@@ -48,11 +48,11 @@
             = link_to asset.permalink, asset
 
           - if admin?
-            %td.table-actions
-              = link_to [:edit, asset], class: 'btn btn-info' do
+            %td
+              = link_to [:edit, asset], class: 'btn btn-sm btn-info mr-1' do
                 = icon :edit
 
-              = link_to asset, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
+              = link_to asset, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
                 = icon 'trash-o'
 - else
   %p There are no assets.

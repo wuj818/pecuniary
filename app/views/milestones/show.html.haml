@@ -13,7 +13,7 @@
     = "Milestone - #{@milestone}"
 
 %table.table.table-striped.table-bordered.table-hover.table-stacked#milestones-table
-  %thead
+  %thead.thead-dark
     %tr
       %th Date
       %th Notes
@@ -34,9 +34,9 @@
         = link_to @milestone.permalink, @milestone
 
       - if admin?
-        %td.table-actions
-          = link_to [:edit, @milestone], class: 'btn btn-info' do
+        %td
+          = link_to [:edit, @milestone], class: 'btn btn-sm btn-info mr-1' do
             = icon :edit
 
-          = link_to @milestone, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
+          = link_to @milestone, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
             = icon 'trash-o'

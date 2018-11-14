@@ -15,7 +15,7 @@
     = @snapshot.formatted_date
 
 %table.table.table-striped.table-bordered.table-hover.table-stacked#asset-snapshots-table
-  %thead
+  %thead.thead-dark
     %tr
       %th Date
       %th Value
@@ -36,9 +36,9 @@
         = link_to @snapshot.permalink, @snapshot
 
       - if admin?
-        %td.table-actions
-          = link_to [:edit, @snapshot], class: 'btn btn-info' do
+        %td
+          = link_to [:edit, @snapshot], class: 'btn btn-sm btn-info mr-1' do
             = icon :edit
 
-          = link_to @snapshot, method: 'delete', class: 'btn btn-danger', data: { confirm: t(:confirm) } do
+          = link_to @snapshot, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
             = icon 'trash-o'
