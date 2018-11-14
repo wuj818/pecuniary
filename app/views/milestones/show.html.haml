@@ -34,9 +34,10 @@
         = link_to @milestone.permalink, @milestone
 
       - if admin?
-        %td
-          = link_to [:edit, @milestone], class: 'btn btn-sm btn-info mr-1' do
-            = icon :edit
+        %td.fit
+          .btn-group
+            = link_to [:edit, @milestone], class: 'btn btn-sm btn-info' do
+              = icon :edit
 
-          = link_to @milestone, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
-            = icon 'trash-o'
+            = link_to @milestone, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
+              = icon 'trash-o'
