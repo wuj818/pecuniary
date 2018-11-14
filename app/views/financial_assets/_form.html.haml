@@ -1,21 +1,21 @@
 = render 'shared/error_messages', obj: @asset
 
-= form_for @asset, html: { class: 'form-horizontal' } do |f|
-  .form-group
-    = f.label :name, class: 'control-label col-sm-2'
+= form_with model: @asset do |f|
+  .form-group.row
+    = f.label :name, class: 'col-sm-2 col-form-label font-weight-bold text-right'
 
     .col-sm-4
       = f.text_field :name, autofocus: true, class: 'form-control'
 
-  .form-group
-    .col-sm-offset-2.col-sm-10
-      .checkbox
-        %label
-          = f.check_box :investment
-          Investment?
+  .form-group.row
+    .col-sm.offset-sm-2.col-sm-10
+      .form-check
+        = f.check_box :investment, class: 'form-check-input'
+
+        = f.label :investment, 'Investment?', class: 'form-check-label'
 
   %hr
 
-  .form-group
-    .col-sm-offset-2.col-sm-10
+  .form-group.row
+    .col-sm.offset-sm-2.col-sm-10
       = f.submit 'Save', class: 'btn btn-lg btn-primary'

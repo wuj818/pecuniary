@@ -1,30 +1,31 @@
 = render 'shared/error_messages', obj: @milestone
 
-= form_for @milestone, html: { class: 'form-horizontal' } do |f|
-  .form-group
-    = f.label :date, class: 'control-label col-sm-2'
+= form_with model: @milestone do |f|
+  .form-group.row
+    = f.label :date, class: 'col-sm-2 col-form-label font-weight-bold text-right'
 
     .col-sm-3
       .input-group.date-picker
         = f.text_field :date, required: true, class: 'form-control'
 
-        %span.input-group-addon
-          = icon :calendar
+        .input-group-append
+          %span.input-group-text
+            = icon :calendar
 
-  .form-group
-    = f.label :notes, class: 'control-label col-sm-2'
+  .form-group.row
+    = f.label :notes, class: 'col-sm-2 col-form-label font-weight-bold text-right'
 
     .col-sm-6
       = f.text_area :notes, autofocus: true, required: true, rows: 5, class: 'form-control'
 
-  .form-group
-    = f.label :tag_list, 'Tags', class: 'control-label col-sm-2'
+  .form-group.row
+    = f.label :tag_list, 'Tags', class: 'col-sm-2 col-form-label font-weight-bold text-right'
 
     .col-sm-6
       = f.text_field :tag_list, value: @milestone.tag_list.to_s, class: 'form-control'
 
   %hr
 
-  .form-group
-    .col-sm-offset-2.col-sm-10
+  .form-group.row
+    .col-sm.offset-sm-2.col-sm-10
       = f.submit 'Save', class: 'btn btn-lg btn-primary'

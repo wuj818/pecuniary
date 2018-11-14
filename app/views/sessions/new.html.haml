@@ -3,8 +3,8 @@
 = page_header do
   %h1 Login
 
-= form_for :session, url: sessions_path, html: { class: 'form-inline' } do |f|
+= form_with url: sessions_path, class: 'form-inline' do |f|
   .form-group
-    = f.password_field :password, autofocus: true, required: true, class: 'form-control', id: 'login-field'
+    = password_field_tag :password, nil, autofocus: true, required: true, class: 'form-control mr-1'
 
-  = f.submit 'Login', class: 'btn btn-primary'
+  = submit_tag 'Login', class: 'btn btn-primary'
