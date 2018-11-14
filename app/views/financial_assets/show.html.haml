@@ -28,37 +28,49 @@
   = non_investment_asset_line_graph @asset
 
 .row
-  .col-sm-6{class: @asset.investment? ? nil : 'col-sm.offset-sm-2-3'}
-    .panel.panel-default
-      .panel-heading
-        %strong Snapshots
+  .col-sm-6
+    %table.table.table-striped.table-bordered.table-hover
+      %thead.thead-dark
+        %tr
+          %th{colspan: 2}
+            Snapshots
 
-      %ul.list-group
-        - unless @snapshots.length.zero?
-          - @snapshots.each do |snapshot|
-            %li.list-group-item
-              = link_to snapshot.formatted_date, snapshot
-
-              .float-right
-                = currency snapshot.value
+      %tbody
+        - if @snapshots.length.zero?
+          %tr
+            %td
+              There are no snapshots for this asset.
         - else
-          %li.list-group-item
-            There are no snapshots for this asset.
+          - @snapshots.each do |snapshot|
+            %tr
+              %td
+                = link_to snapshot.formatted_date, snapshot
+
+              %td.fit
+                = currency snapshot.value
 
   - if @asset.investment?
     .col-sm-6
-      .panel.panel-default
-        .panel-heading
-          %strong Contributions
+      %table.table.table-striped.table-bordered.table-hover
+        %thead.thead-dark
+          %tr
+            %th{colspan: 2}
+              Contributions
 
-        %ul.list-group
-          - unless @contributions.length.zero?
-            - @contributions.each do |contribution|
-              %li.list-group-item{class: ('list-group-item-info' if contribution.employer?)}
-                = link_to contribution.formatted_date, contribution
-
-                .float-right
-                  = currency contribution.amount
+        %tbody
+          - if @contributions.length.zero?
+            %tr
+              %td
+                There are no contributions for this asset.
           - else
-            %li.list-group-item
-              There are no contributions for this asset.
+            - @contributions.each do |contribution|
+              %tr
+                %td
+                  = link_to contribution.formatted_date, contribution
+
+                  - if contribution.employer?
+                    %span.badge.badge-info.float-right
+                      Employer
+
+                %td.fit{class: contribution.amount.negative? ? 'text-danger' : 'text-success'}
+                  = currency contribution.amount

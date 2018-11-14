@@ -27,7 +27,7 @@
           %td
             = contribution.formatted_date
 
-          %td
+          %td{class: contribution.amount.negative? ? 'text-danger' : 'text-success'}
             = currency contribution.amount
 
           %td
