@@ -162,12 +162,6 @@ Style/PercentLiteralDelimiters:
   Exclude:
     - 'config/deploy/production.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Exclude:
-    - 'config/initializers/date.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 Style/RescueModifier:
