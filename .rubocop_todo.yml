@@ -156,15 +156,6 @@ Rails/ActiveRecordAliases:
     - 'app/controllers/milestones_controller.rb'
     - 'spec/models/financial_asset_spec.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-Rails/ApplicationRecord:
-  Exclude:
-    - 'app/models/asset_snapshot.rb'
-    - 'app/models/contribution.rb'
-    - 'app/models/financial_asset.rb'
-    - 'app/models/milestone.rb'
-
 # Offense count: 3
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: strict, flexible

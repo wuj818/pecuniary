@@ -1,4 +1,4 @@
-class Milestone < ActiveRecord::Base
+class Milestone < ApplicationRecord
   acts_as_taggable
 
   validates :date,

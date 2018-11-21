@@ -1,4 +1,4 @@
-class Contribution < ActiveRecord::Base
+class Contribution < ApplicationRecord
   belongs_to :asset, class_name: 'FinancialAsset', foreign_key: 'financial_asset_id'
 
   validates_presence_of :asset

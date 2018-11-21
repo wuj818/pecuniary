@@ -1,4 +1,4 @@
-class FinancialAsset < ActiveRecord::Base
+class FinancialAsset < ApplicationRecord
   has_many :snapshots, class_name: 'AssetSnapshot', dependent: :destroy
 
   has_many :contributions, dependent: :destroy
