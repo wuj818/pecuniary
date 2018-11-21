@@ -147,14 +147,6 @@ Rails/DynamicFindBy:
     - 'app/controllers/financial_assets_controller.rb'
     - 'app/controllers/milestones_controller.rb'
 
-# Offense count: 2
-# Configuration parameters: Include.
-# Include: app/models/**/*.rb
-Rails/InverseOf:
-  Exclude:
-    - 'app/models/asset_snapshot.rb'
-    - 'app/models/contribution.rb'
-
 # Offense count: 1
 Rails/OutputSafety:
   Exclude:
