@@ -12,7 +12,7 @@ class AssetSnapshot < ApplicationRecord
 
   validates :permalink, uniqueness: true
 
-  after_initialize lambda { self.date ||= Time.zone.now.to_date.end_of_month }
+  after_initialize -> { self.date ||= Time.zone.now.to_date.end_of_month }
 
   before_validation :create_permalink
 

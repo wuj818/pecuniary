@@ -7,7 +7,7 @@ class Milestone < ApplicationRecord
 
   validates :notes, presence: true
 
-  after_initialize lambda { self.date ||= Time.zone.now.to_date }
+  after_initialize -> { self.date ||= Time.zone.now.to_date }
 
   before_validation :create_permalink
 

@@ -197,16 +197,6 @@ Style/IfUnlessModifier:
     - 'app/models/contribution.rb'
     - 'app/models/milestone.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: line_count_dependent, lambda, literal
-Style/Lambda:
-  Exclude:
-    - 'app/models/asset_snapshot.rb'
-    - 'app/models/contribution.rb'
-    - 'app/models/milestone.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/ParallelAssignment:
