@@ -1,7 +1,7 @@
 class FinancialAssetsController < ApplicationController
-  before_action :authorize, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authorize, only: %i[new create edit update destroy]
 
-  before_action :get_asset, only: [:show, :edit, :update, :destroy]
+  before_action :get_asset, only: %i[show edit update destroy]
 
   def index
     @assets = FinancialAsset.includes(:snapshots).order(:name)

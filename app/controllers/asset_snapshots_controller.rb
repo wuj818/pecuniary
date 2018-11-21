@@ -1,8 +1,8 @@
 class AssetSnapshotsController < ApplicationController
-  before_action :authorize, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authorize, only: %i[new create edit update destroy]
 
-  before_action :get_asset, only: [:new, :create]
-  before_action :get_snapshot, only: [:show, :edit, :update, :destroy]
+  before_action :get_asset, only: %i[new create]
+  before_action :get_snapshot, only: %i[show edit update destroy]
 
   def show
   end
