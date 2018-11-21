@@ -7,3 +7,6 @@ AllCops:
   Exclude:
     - 'bin/**/*'
     - 'db/**/*'
+
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation

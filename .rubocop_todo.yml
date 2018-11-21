@@ -6,17 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: with_first_parameter, with_fixed_indentation
-Layout/AlignParameters:
-  Exclude:
-    - 'app/models/asset_snapshot.rb'
-    - 'app/models/contribution.rb'
-    - 'app/models/financial_asset.rb'
-    - 'app/models/milestone.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 Layout/ElseAlignment:
