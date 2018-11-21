@@ -16,7 +16,7 @@ class Milestone < ApplicationRecord
   end
 
   def to_param
-    permalink_was.present? ? permalink_was : permalink
+    permalink_was.presence || permalink
   end
 
   def to_s
