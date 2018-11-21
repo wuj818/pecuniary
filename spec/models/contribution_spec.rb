@@ -27,7 +27,7 @@ RSpec.describe Contribution do
       expect(contribution.amount).to eq(asset.total_contributions)
 
       expect do
-        contribution.update_attribute :amount, contribution.amount + 1
+        contribution.update amount: contribution.amount + 1
       end.to change(asset, :total_contributions).from(asset.total_contributions).to(asset.total_contributions + 1)
 
       expect do

@@ -50,6 +50,6 @@ class Contribution < ApplicationRecord
 
   def update_asset_total_contributions
     total_contributions = asset.contributions.sum(:amount)
-    asset.update_attribute :total_contributions, total_contributions
+    asset.update total_contributions: total_contributions
   end
 end

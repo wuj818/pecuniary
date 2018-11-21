@@ -48,6 +48,6 @@ class AssetSnapshot < ApplicationRecord
 
   def update_asset_current_value
     current_value = asset.snapshots.order('date DESC').first.value rescue 0
-    asset.update_attribute :current_value, current_value
+    asset.update current_value: current_value
   end
 end

@@ -32,7 +32,7 @@ RSpec.describe AssetSnapshot do
       expect(snapshot.value).to eq(asset.current_value)
 
       expect do
-        snapshot.update_attribute :value, snapshot.value + 1
+        snapshot.update value: snapshot.value + 1
       end.to change(asset, :current_value).from(asset.current_value).to(asset.current_value + 1)
 
       expect do
