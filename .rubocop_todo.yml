@@ -47,13 +47,6 @@ Lint/AmbiguousRegexpLiteral:
     - 'spec/controllers/sessions_controller_spec.rb'
     - 'spec/models/financial_asset_spec.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Lint/ScriptPermission:
-  Exclude:
-    - 'Rakefile'
-    - 'puma.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: IgnoreEmptyBlocks, AllowUnusedKeywordArguments.
