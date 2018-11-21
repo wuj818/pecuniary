@@ -53,13 +53,6 @@ Layout/TrailingBlankLines:
   Exclude:
     - 'spec/controllers/milestones_controller_spec.rb'
 
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: AllowInHeredoc.
-Layout/TrailingWhitespace:
-  Exclude:
-    - 'config/routes.rb'
-
 # Offense count: 1
 Lint/AmbiguousBlockAssociation:
   Exclude:
