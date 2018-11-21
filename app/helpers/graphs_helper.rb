@@ -345,7 +345,8 @@ module GraphsHelper
   # helpers
 
   def end_of_months_since(start)
-    current, stop = start.end_of_month, Time.zone.now.to_date.end_of_month
+    current = start.end_of_month
+    stop = Time.zone.now.to_date.end_of_month
     months = []
 
     until current > stop

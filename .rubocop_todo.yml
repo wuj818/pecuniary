@@ -155,13 +155,6 @@ Style/IfUnlessModifier:
     - 'app/models/contribution.rb'
     - 'app/models/milestone.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/ParallelAssignment:
-  Exclude:
-    - 'app/controllers/investments_controller.rb'
-    - 'app/helpers/graphs_helper.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: PreferredDelimiters.

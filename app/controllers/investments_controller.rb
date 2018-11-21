@@ -6,7 +6,8 @@ class InvestmentsController < ApplicationController
       hash[snapshot.date] = snapshot.total
     end
 
-    current, stop = start.end_of_month, Time.zone.now.to_date.end_of_month
+    current = start.end_of_month
+    stop = Time.zone.now.to_date.end_of_month
     months = []
 
     until current > stop
