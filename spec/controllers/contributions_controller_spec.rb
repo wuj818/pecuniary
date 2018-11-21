@@ -37,7 +37,7 @@ RSpec.describe ContributionsController do
         expect(FinancialAsset).to receive(:find_by_permalink).and_return(@asset)
         expect(@asset.contributions).to receive(:build).and_return(stub_contribution(new_record?: true, asset: @asset))
 
-        get :new, params: {  financial_asset_id: @asset.to_param }
+        get :new, params: { financial_asset_id: @asset.to_param }
 
         expect(response).to render_template :new
         expect(assigns(:contribution)).to be_a_new Contribution
