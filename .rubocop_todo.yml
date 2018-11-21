@@ -124,13 +124,6 @@ Style/EmptyMethod:
     - 'app/controllers/milestones_controller.rb'
     - 'app/controllers/pages_controller.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/ExpandPathArguments:
-  Exclude:
-    - 'Rakefile'
-    - 'spec/rails_helper.rb'
-
 # Offense count: 63
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
