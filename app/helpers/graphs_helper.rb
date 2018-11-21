@@ -154,7 +154,7 @@ module GraphsHelper
       array << { x: month, y: total }
     end
 
-    graph_data = [ { key: 'Cumulative Contributions', values: values } ]
+    graph_data = [{ key: 'Cumulative Contributions', values: values }]
 
     data = {
       'graph-data' => graph_data.to_json,
@@ -225,7 +225,7 @@ module GraphsHelper
 
     values = all_months.sort_by { |month, value| month }
 
-    graph_data = [ { key: 'Asset Value', values: values } ]
+    graph_data = [{ key: 'Asset Value', values: values }]
 
     # contributions
 
@@ -323,7 +323,7 @@ module GraphsHelper
       array << { x: snapshot.date.to_js_time, y: snapshot.value }
     end
 
-    graph_data = [ { key: 'Net Worth', values: values } ].to_json
+    graph_data = [{ key: 'Net Worth', values: values }].to_json
 
     data = {
       'graph-data' => graph_data,
@@ -340,7 +340,7 @@ module GraphsHelper
       array << { x: snapshot.date.to_js_time, y: snapshot.value }
     end
 
-    graph_data = [ { key: 'Asset Value', values: values } ]
+    graph_data = [{ key: 'Asset Value', values: values }]
 
     data = {
       'graph-data' => graph_data.to_json,
