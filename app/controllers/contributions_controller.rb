@@ -30,7 +30,7 @@ class ContributionsController < ApplicationController
   end
 
   def update
-    if @contribution.update_attributes contribution_params
+    if @contribution.update contribution_params
       flash[:success] = 'Contribution was successfully updated.'
       redirect_to @contribution
     else

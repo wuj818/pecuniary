@@ -29,7 +29,7 @@ class MilestonesController < ApplicationController
   end
 
   def update
-    if @milestone.update_attributes milestone_params
+    if @milestone.update milestone_params
       flash[:success] = 'Milestone was successfully updated.'
       redirect_to @milestone
     else

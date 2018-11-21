@@ -26,7 +26,7 @@ class AssetSnapshotsController < ApplicationController
   end
 
   def update
-    if @snapshot.update_attributes asset_snapshot_params
+    if @snapshot.update asset_snapshot_params
       flash[:success] = 'Snapshot was successfully updated.'
       redirect_to @snapshot
     else

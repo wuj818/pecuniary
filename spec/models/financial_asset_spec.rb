@@ -25,7 +25,7 @@ RSpec.describe FinancialAsset do
       expect(snapshot.permalink).to match /bank/
       expect(contribution.permalink).to match /bank/
 
-      asset.update_attributes name: 'Roth IRA'
+      asset.update name: 'Roth IRA'
 
       snapshot.reload
       expect(snapshot.permalink).not_to match /bank/

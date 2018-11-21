@@ -31,7 +31,7 @@ class FinancialAssetsController < ApplicationController
   end
 
   def update
-    if @asset.update_attributes asset_params
+    if @asset.update asset_params
       flash[:success] = 'Asset was successfully updated.'
       redirect_to @asset
     else

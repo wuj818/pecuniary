@@ -127,16 +127,6 @@ Naming/AccessorMethodName:
     - 'app/controllers/financial_assets_controller.rb'
     - 'app/controllers/milestones_controller.rb'
 
-# Offense count: 5
-# Cop supports --auto-correct.
-Rails/ActiveRecordAliases:
-  Exclude:
-    - 'app/controllers/asset_snapshots_controller.rb'
-    - 'app/controllers/contributions_controller.rb'
-    - 'app/controllers/financial_assets_controller.rb'
-    - 'app/controllers/milestones_controller.rb'
-    - 'spec/models/financial_asset_spec.rb'
-
 # Offense count: 3
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: strict, flexible

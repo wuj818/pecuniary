@@ -132,7 +132,7 @@ RSpec.describe FinancialAssetsController do
 
       describe 'with valid params' do
         it 'redirects to the asset' do
-          expect(@asset).to receive(:update_attributes).and_return(true)
+          expect(@asset).to receive(:update).and_return(true)
 
           put :update, params: { id: @asset.to_param, financial_asset: { test: 1 } }
 
@@ -143,7 +143,7 @@ RSpec.describe FinancialAssetsController do
 
       describe 'with invalid params' do
         it "renders the 'edit' template" do
-          expect(@asset).to receive(:update_attributes).and_return(false)
+          expect(@asset).to receive(:update).and_return(false)
 
           put :update, params: { id: @asset.to_param, financial_asset: { test: 1 } }
 

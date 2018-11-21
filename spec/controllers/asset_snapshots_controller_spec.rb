@@ -130,7 +130,7 @@ RSpec.describe AssetSnapshotsController do
 
       describe 'with valid params' do
         it 'redirects to the snapshot' do
-          expect(@snapshot).to receive(:update_attributes).and_return(true)
+          expect(@snapshot).to receive(:update).and_return(true)
 
           put :update, params: { id: @snapshot.to_param, asset_snapshot: { test: 1 } }
 
@@ -141,7 +141,7 @@ RSpec.describe AssetSnapshotsController do
 
       describe 'with invalid params' do
         it "renders the 'edit' template" do
-          expect(@snapshot).to receive(:update_attributes).and_return(false)
+          expect(@snapshot).to receive(:update).and_return(false)
 
           put :update, params: { id: @snapshot.to_param, asset_snapshot: { test: 1 } }
 

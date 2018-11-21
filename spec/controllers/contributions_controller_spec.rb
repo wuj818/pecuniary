@@ -142,7 +142,7 @@ RSpec.describe ContributionsController do
 
       describe 'with valid params' do
         it 'redirects to the contribution' do
-          expect(@contribution).to receive(:update_attributes).and_return(true)
+          expect(@contribution).to receive(:update).and_return(true)
 
           put :update, params: { id: @contribution.to_param, contribution: { test: 1 } }
 
@@ -153,7 +153,7 @@ RSpec.describe ContributionsController do
 
       describe 'with invalid params' do
         it "renders the 'edit' template" do
-          expect(@contribution).to receive(:update_attributes).and_return(false)
+          expect(@contribution).to receive(:update).and_return(false)
 
           put :update, params: { id: @contribution.to_param, contribution: { test: 1 } }
 
