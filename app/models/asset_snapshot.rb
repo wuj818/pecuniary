@@ -1,7 +1,7 @@
 class AssetSnapshot < ApplicationRecord
   belongs_to :asset, class_name: 'FinancialAsset', foreign_key: 'financial_asset_id', inverse_of: 'snapshots'
 
-  validates_presence_of :asset
+  validates :asset, presence: true
 
   validates :date,
     presence: true,
@@ -10,7 +10,7 @@ class AssetSnapshot < ApplicationRecord
       message: 'has already been taken for this asset'
     }
 
-  validates_uniqueness_of :permalink
+  validates :permalink, uniqueness: true
 
   after_initialize lambda { self.date ||= Time.zone.now.to_date.end_of_month }
 

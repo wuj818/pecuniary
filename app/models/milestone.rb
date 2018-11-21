@@ -5,7 +5,7 @@ class Milestone < ApplicationRecord
     presence: true,
     uniqueness: true
 
-  validates_presence_of :notes
+  validates :notes, presence: true
 
   after_initialize lambda { self.date ||= Time.zone.now.to_date }
 

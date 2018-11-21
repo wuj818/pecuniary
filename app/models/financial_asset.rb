@@ -7,7 +7,7 @@ class FinancialAsset < ApplicationRecord
     presence: true,
     uniqueness: true
 
-  validates_uniqueness_of :permalink
+  validates :permalink, uniqueness: true
 
   before_validation :create_permalink
 

@@ -152,17 +152,6 @@ Rails/OutputSafety:
   Exclude:
     - 'app/helpers/application_helper.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: Include.
-# Include: app/models/**/*.rb
-Rails/Validation:
-  Exclude:
-    - 'app/models/asset_snapshot.rb'
-    - 'app/models/contribution.rb'
-    - 'app/models/financial_asset.rb'
-    - 'app/models/milestone.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
