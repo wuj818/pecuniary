@@ -8,6 +8,10 @@ AllCops:
     - 'bin/**/*'
     - 'db/**/*'
 
+Naming/AccessorMethodName:
+  Exclude:
+    - 'app/controllers/**/*'
+
 Layout/AlignParameters:
   EnforcedStyle: 'with_fixed_indentation'
 

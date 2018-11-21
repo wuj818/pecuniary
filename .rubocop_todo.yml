@@ -69,14 +69,6 @@ Metrics/MethodLength:
 Metrics/ModuleLength:
   Max: 235
 
-# Offense count: 6
-Naming/AccessorMethodName:
-  Exclude:
-    - 'app/controllers/asset_snapshots_controller.rb'
-    - 'app/controllers/contributions_controller.rb'
-    - 'app/controllers/financial_assets_controller.rb'
-    - 'app/controllers/milestones_controller.rb'
-
 # Offense count: 3
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: strict, flexible
