@@ -41,7 +41,7 @@ class FinancialAsset < ApplicationRecord
   end
 
   def update_association_permalinks
-    contributions.each &:save
-    snapshots.each &:save
+    contributions.each(&:save)
+    snapshots.each(&:save)
   end
 end

@@ -32,11 +32,6 @@ Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'app/helpers/application_helper.rb'
 
-# Offense count: 2
-Lint/AmbiguousOperator:
-  Exclude:
-    - 'app/models/financial_asset.rb'
-
 # Offense count: 44
 Lint/AmbiguousRegexpLiteral:
   Exclude:
