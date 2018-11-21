@@ -9,4 +9,7 @@ AllCops:
     - 'db/**/*'
 
 Layout/AlignParameters:
-  EnforcedStyle: with_fixed_indentation
+  EnforcedStyle: 'with_fixed_indentation'
+
+Style/EmptyMethod:
+  EnforcedStyle: 'expanded'

@@ -112,18 +112,6 @@ Style/BlockComments:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: compact, expanded
-Style/EmptyMethod:
-  Exclude:
-    - 'app/controllers/asset_snapshots_controller.rb'
-    - 'app/controllers/contributions_controller.rb'
-    - 'app/controllers/financial_assets_controller.rb'
-    - 'app/controllers/milestones_controller.rb'
-    - 'app/controllers/pages_controller.rb'
-
 # Offense count: 63
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
