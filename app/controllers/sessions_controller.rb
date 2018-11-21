@@ -9,7 +9,8 @@ class SessionsController < ApplicationController
   def create
     if admin?
       flash[:info] = 'You are already logged in.'
-      redirect_to root_path and return
+      redirect_to root_path
+      return
     end
 
     if params[:password] == Rails.application.credentials.password[Rails.env.to_sym]
