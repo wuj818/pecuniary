@@ -184,4 +184,3 @@ RSpec.describe MilestonesController do
     end
   end
 end
-
