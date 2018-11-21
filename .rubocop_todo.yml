@@ -156,16 +156,6 @@ Style/RescueModifier:
     - 'app/models/contribution.rb'
     - 'app/models/milestone.rb'
 
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Exclude:
-    - 'config/environments/production.rb'
-    - 'puma.rb'
-    - 'spec/rails_helper.rb'
-
 # Offense count: 112
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
