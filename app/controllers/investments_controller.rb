@@ -2,9 +2,8 @@ class InvestmentsController < ApplicationController
   def history
     start = Contribution.minimum :date
     @snapshots = AssetSnapshot.select('date, SUM(value) AS total').where('investment = ?', true).joins(:asset).group(:date).having('date >= ?', start).order(:date)
-    @snapshots = @snapshots.inject({}) do |hash, snapshot|
+    @snapshots = @snapshots.each_with_object({}) do |snapshot, hash|
       hash[snapshot.date] = snapshot.total
-      hash
     end
 
     current, stop = start.end_of_month, Time.zone.now.to_date.end_of_month
@@ -15,16 +14,14 @@ class InvestmentsController < ApplicationController
       current = current.next_month.end_of_month
     end
 
-    empty_months = months.inject({}) do |hash, month|
+    empty_months = months.each_with_object({}) do |month, hash|
       hash[month] = 0
-      hash
     end
 
     query = Contribution.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)').order(:date)
 
-    contributions = query.inject({}) do |hash, contribution|
+    contributions = query.each_with_object({}) do |contribution, hash|
       hash[contribution.date.end_of_month] = contribution.total
-      hash
     end
 
     contributions = empty_months.merge contributions

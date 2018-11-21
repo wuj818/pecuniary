@@ -112,13 +112,6 @@ Style/BlockComments:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 12
-# Cop supports --auto-correct.
-Style/EachWithObject:
-  Exclude:
-    - 'app/controllers/investments_controller.rb'
-    - 'app/helpers/graphs_helper.rb'
-
 # Offense count: 8
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

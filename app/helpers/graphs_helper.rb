@@ -85,9 +85,8 @@ module GraphsHelper
     query = FinancialAsset.includes(:snapshots).order(:name)
 
     graph_data = query.inject([]) do |array, asset|
-      values = asset.snapshots.inject({}) do |hash, snapshot|
+      values = asset.snapshots.each_with_object({}) do |snapshot, hash|
         hash[snapshot.date.to_js_time] = snapshot.value
-        hash
       end
 
       values = empty_months.merge(values).sort_by { |month, value| month }
@@ -110,9 +109,8 @@ module GraphsHelper
     graph_data = query.inject([]) do |array, asset|
       query = asset.contributions.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)')
 
-      contributions = query.inject({}) do |hash, contribution|
+      contributions = query.each_with_object({}) do |contribution, hash|
         hash[contribution.date.end_of_month.to_js_time] = contribution.total
-        hash
       end
 
       contributions = empty_months.merge contributions
@@ -136,9 +134,8 @@ module GraphsHelper
 
     query = Contribution.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)')
 
-    contributions = query.inject({}) do |hash, contribution|
+    contributions = query.each_with_object({}) do |contribution, hash|
       hash[contribution.date.end_of_month.to_js_time] = contribution.total
-      hash
     end
 
     contributions = empty_months.merge contributions
@@ -167,21 +164,18 @@ module GraphsHelper
   def investment_asset_cumulative_line_graph(asset)
     return if asset.snapshots.count.zero?
 
-    snapshots = asset.snapshots.inject({}) do |hash, snapshot|
+    snapshots = asset.snapshots.each_with_object({}) do |snapshot, hash|
       hash[snapshot.date] = snapshot.value
-      hash
     end
 
-    empty_months = snapshots.keys.inject({}) do |hash, month|
+    empty_months = snapshots.keys.each_with_object({}) do |month, hash|
       hash[month] = 0
-      hash
     end
 
     query = asset.contributions.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)').order(:date)
 
-    contributions = query.inject({}) do |hash, contribution|
+    contributions = query.each_with_object({}) do |contribution, hash|
       hash[contribution.date.end_of_month] = contribution.total
-      hash
     end
 
     contributions = empty_months.merge contributions
@@ -218,9 +212,8 @@ module GraphsHelper
 
     # snapshots
 
-    all_months = asset.snapshots.order(:date).inject({}) do |hash, snapshot|
+    all_months = asset.snapshots.order(:date).each_with_object({}) do |snapshot, hash|
       hash[snapshot.date.to_js_time] = snapshot.value
-      hash
     end
 
     values = all_months.sort_by { |month, value| month }
@@ -233,9 +226,8 @@ module GraphsHelper
 
     query = asset.contributions.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)')
 
-    grouped_contributions = query.inject({}) do |hash, contribution|
+    grouped_contributions = query.each_with_object({}) do |contribution, hash|
       hash[contribution.date.end_of_month.to_js_time] = contribution.total
-      hash
     end
 
     values = all_months.merge(grouped_contributions).sort_by { |month, total| month }
@@ -361,9 +353,8 @@ module GraphsHelper
       current = current.next_month.end_of_month
     end
 
-    months.inject({}) do |hash, month|
+    months.each_with_object({}) do |month, hash|
       hash[month.to_js_time] = 0
-      hash
     end
   end
 end
