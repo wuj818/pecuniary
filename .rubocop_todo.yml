@@ -49,11 +49,6 @@ Lint/UnusedBlockArgument:
   Exclude:
     - 'app/helpers/graphs_helper.rb'
 
-# Offense count: 1
-Lint/UselessAssignment:
-  Exclude:
-    - 'spec/models/financial_asset_spec.rb'
-
 # Offense count: 12
 Metrics/AbcSize:
   Max: 39

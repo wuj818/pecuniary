@@ -4,7 +4,7 @@ RSpec.describe FinancialAsset do
   describe 'associations' do
     it 'has many snapshots' do
       asset = create :financial_asset
-      snapshot = create :asset_snapshot, asset: asset
+      create :asset_snapshot, asset: asset
 
       expect(asset.snapshots.count).to eq(1)
       expect(asset.snapshots.first).to be_an AssetSnapshot
