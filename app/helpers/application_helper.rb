@@ -21,9 +21,9 @@ module ApplicationHelper
       :danger
     end
 
-    content_tag :div, class: 'progress', style: 'height: 35px;' do
-      content_tag :div, class: "progress-bar progress-bar-striped progress-bar-animated bg-#{color}", style: "width: #{percentage}" do
-        content_tag :strong, percentage
+    tag.div class: 'progress', style: 'height: 35px;' do
+      tag.div class: "progress-bar progress-bar-striped progress-bar-animated bg-#{color}", style: "width: #{percentage}" do
+        tag.strong percentage
       end
     end
   end
@@ -33,7 +33,7 @@ module ApplicationHelper
 
     classes << options.delete(:class)
     text = options.delete :text
-    icon = content_tag :i, nil, options.merge(class: classes.compact)
+    icon = tag.i nil, options.merge(class: classes.compact)
 
     return icon if text.blank?
 
@@ -50,7 +50,7 @@ module ApplicationHelper
   end
 
   def page_header
-    content_tag :div, class: 'pb-2 mb-4 border-bottom' do
+    tag.div class: 'pb-2 mb-4 border-bottom' do
       yield
     end
   end

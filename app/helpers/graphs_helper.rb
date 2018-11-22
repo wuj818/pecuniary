@@ -5,8 +5,8 @@ module GraphsHelper
     css_class = "#{options[:type]}-graph"
     id = [options[:id_prefix], css_class].join '-'
 
-    content_tag :div, id: id, class: css_class, data: options[:data] do
-      content_tag :svg
+    tag.div id: id, class: css_class, data: options[:data] do
+      tag.svg
     end
   end
 
