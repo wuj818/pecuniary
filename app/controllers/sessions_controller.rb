@@ -1,18 +1,10 @@
 class SessionsController < ApplicationController
+  before_action :block_admin, only: %i[new create]
+
   def new
-    if admin?
-      flash[:info] = 'You are already logged in.'
-      redirect_to root_path
-    end
   end
 
   def create
-    if admin?
-      flash[:info] = 'You are already logged in.'
-      redirect_to root_path
-      return
-    end
-
     if params[:password] == Rails.application.credentials.password[Rails.env.to_sym]
       login
       flash[:success] = 'Logged in successfully.'
@@ -31,6 +23,15 @@ class SessionsController < ApplicationController
       flash[:info] = 'You are not logged in.'
     end
 
+    redirect_to root_path
+  end
+
+  private
+
+  def block_admin
+    return unless admin?
+
+    flash[:info] = 'You are already logged in.'
     redirect_to root_path
   end
 end
