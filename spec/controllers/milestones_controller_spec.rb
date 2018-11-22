@@ -15,7 +15,7 @@ RSpec.describe MilestonesController do
   describe 'GET show' do
     it 'assigns the requested milestone as @milestone' do
       milestone = stub_milestone permalink: 'july-28-2010'
-      expect(Milestone).to receive(:find_by_permalink).and_return milestone
+      expect(Milestone).to receive(:find_by).with(permalink: milestone.to_param).and_return milestone
 
       get :show, params: { id: milestone.to_param }
 
@@ -93,7 +93,7 @@ RSpec.describe MilestonesController do
     context 'when logged in' do
       it 'assigns the requested milestone as @milestone' do
         controller.login
-        expect(Milestone).to receive(:find_by_permalink).and_return milestone
+        expect(Milestone).to receive(:find_by).with(permalink: milestone.to_param).and_return milestone
 
         get :edit, params: { id: milestone.to_param }
 
@@ -118,7 +118,7 @@ RSpec.describe MilestonesController do
     context 'when logged in' do
       before do
         controller.login
-        expect(Milestone).to receive(:find_by_permalink).and_return milestone
+        expect(Milestone).to receive(:find_by).with(permalink: milestone.to_param).and_return milestone
       end
 
       describe 'with valid params' do
@@ -159,7 +159,7 @@ RSpec.describe MilestonesController do
     context 'when logged in' do
       it 'destroys the requested milestone and redirects to the milestones list' do
         controller.login
-        expect(Milestone).to receive(:find_by_permalink).and_return milestone
+        expect(Milestone).to receive(:find_by).with(permalink: milestone.to_param).and_return milestone
         expect(milestone).to receive(:destroy).and_return true
 
         delete :destroy, params: { id: milestone.to_param }

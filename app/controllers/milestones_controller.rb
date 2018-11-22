@@ -51,6 +51,6 @@ class MilestonesController < ApplicationController
   end
 
   def get_milestone
-    @milestone = Milestone.find_by_permalink params[:id]
+    @milestone = Milestone.find_by permalink: params[:id]
   end
 end

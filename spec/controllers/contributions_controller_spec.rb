@@ -16,7 +16,7 @@ RSpec.describe ContributionsController do
   describe 'GET show' do
     it 'assigns the requested contribution as @contribution and its asset as @asset' do
       contribution = stub_contribution permalink: 'bank-july-28-2010'
-      expect(Contribution).to receive(:find_by_permalink).and_return contribution
+      expect(Contribution).to receive(:find_by).with(permalink: contribution.to_param).and_return contribution
 
       get :show, params: { id: contribution.to_param }
 
@@ -32,7 +32,7 @@ RSpec.describe ContributionsController do
     context 'when logged in' do
       it 'assigns a new contribution as @contribution' do
         controller.login
-        expect(FinancialAsset).to receive(:find_by_permalink).and_return asset
+        expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return asset
         expect(asset.contributions).to receive(:build).and_return stub_contribution(new_record?: true, asset: asset)
 
         get :new, params: { financial_asset_id: asset.to_param }
@@ -60,7 +60,7 @@ RSpec.describe ContributionsController do
     context 'when logged in' do
       before do
         controller.login
-        expect(FinancialAsset).to receive(:find_by_permalink).and_return asset
+        expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return asset
         expect(asset.contributions).to receive(:build).and_return contribution
       end
 
@@ -103,7 +103,7 @@ RSpec.describe ContributionsController do
     context 'when logged in' do
       it 'assigns the requested contribution as @contribution' do
         controller.login
-        expect(Contribution).to receive(:find_by_permalink).and_return contribution
+        expect(Contribution).to receive(:find_by).with(permalink: contribution.to_param).and_return contribution
 
         get :edit, params: { id: contribution.to_param }
 
@@ -129,7 +129,7 @@ RSpec.describe ContributionsController do
     context 'when logged in' do
       before do
         controller.login
-        expect(Contribution).to receive(:find_by_permalink).and_return contribution
+        expect(Contribution).to receive(:find_by).with(permalink: contribution.to_param).and_return contribution
       end
 
       describe 'with valid params' do
@@ -171,7 +171,7 @@ RSpec.describe ContributionsController do
     context 'when logged in' do
       it 'destroys the requested contribution and redirects to its asset' do
         controller.login
-        expect(Contribution).to receive(:find_by_permalink).and_return contribution
+        expect(Contribution).to receive(:find_by).with(permalink: contribution.to_param).and_return contribution
         expect(contribution).to receive(:destroy).and_return true
 
         delete :destroy, params: { id: contribution.to_param }

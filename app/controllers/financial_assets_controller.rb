@@ -53,6 +53,6 @@ class FinancialAssetsController < ApplicationController
   end
 
   def get_asset
-    @asset = FinancialAsset.find_by_permalink params[:id]
+    @asset = FinancialAsset.find_by permalink: params[:id]
   end
 end

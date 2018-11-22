@@ -16,7 +16,7 @@ RSpec.describe FinancialAssetsController do
   describe 'GET show' do
     it 'assigns the requested asset as @asset, its snapshots as @snapshots, and its contributions as @contributions' do
       asset = stub_asset permalink: 'bank'
-      expect(FinancialAsset).to receive(:find_by_permalink).and_return stub_asset
+      expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return stub_asset
       expect(asset).to receive(:snapshots).and_return mock_relation
       expect(asset).to receive(:contributions).and_return mock_relation
       expect(mock_relation).to receive(:order).with('date DESC').and_return mock_relation
@@ -99,7 +99,7 @@ RSpec.describe FinancialAssetsController do
     context 'when logged in' do
       it 'assigns the requested asset as @asset' do
         controller.login
-        expect(FinancialAsset).to receive(:find_by_permalink).and_return asset
+        expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return asset
 
         get :edit, params: { id: asset.to_param }
 
@@ -124,7 +124,7 @@ RSpec.describe FinancialAssetsController do
     context 'when logged in' do
       before do
         controller.login
-        expect(FinancialAsset).to receive(:find_by_permalink).and_return asset
+        expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return asset
       end
 
       describe 'with valid params' do
@@ -165,7 +165,7 @@ RSpec.describe FinancialAssetsController do
     context 'when logged in' do
       it 'destroys the requested asset and redirects to the assets list' do
         controller.login
-        expect(FinancialAsset).to receive(:find_by_permalink).and_return asset
+        expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return asset
         expect(asset).to receive(:destroy).and_return true
 
         delete :destroy, params: { id: asset.to_param }

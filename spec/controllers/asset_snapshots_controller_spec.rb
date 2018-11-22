@@ -4,7 +4,7 @@ RSpec.describe AssetSnapshotsController do
   describe 'GET show' do
     it 'assigns the requested snapshot as @snapshot and its asset as @asset' do
       snapshot = stub_asset_snapshot permalink: 'bank-july-2010'
-      expect(AssetSnapshot).to receive(:find_by_permalink).and_return snapshot
+      expect(AssetSnapshot).to receive(:find_by).with(permalink: snapshot.to_param).and_return snapshot
 
       get :show, params: { id: snapshot.to_param }
 
@@ -20,7 +20,7 @@ RSpec.describe AssetSnapshotsController do
     context 'when logged in' do
       it 'assigns a new snapshot as @snapshot' do
         controller.login
-        expect(FinancialAsset).to receive(:find_by_permalink).and_return asset
+        expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return asset
         expect(asset.snapshots).to receive(:build).and_return stub_asset_snapshot(new_record?: true, asset: asset)
 
         get :new, params: { financial_asset_id: asset.to_param }
@@ -47,7 +47,7 @@ RSpec.describe AssetSnapshotsController do
     context 'when logged in' do
       before do
         controller.login
-        expect(FinancialAsset).to receive(:find_by_permalink).and_return asset
+        expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return asset
         expect(asset.snapshots).to receive(:build).and_return snapshot
       end
 
@@ -90,7 +90,7 @@ RSpec.describe AssetSnapshotsController do
     context 'when logged in' do
       it 'assigns the requested snapshot as @snapshot' do
         controller.login
-        expect(AssetSnapshot).to receive(:find_by_permalink).and_return snapshot
+        expect(AssetSnapshot).to receive(:find_by).with(permalink: snapshot.to_param).and_return snapshot
 
         get :edit, params: { id: snapshot.to_param }
 
@@ -116,7 +116,7 @@ RSpec.describe AssetSnapshotsController do
     context 'when logged in' do
       before do
         controller.login
-        expect(AssetSnapshot).to receive(:find_by_permalink).and_return snapshot
+        expect(AssetSnapshot).to receive(:find_by).with(permalink: snapshot.to_param).and_return snapshot
       end
 
       describe 'with valid params' do
@@ -158,7 +158,7 @@ RSpec.describe AssetSnapshotsController do
     context 'when logged in' do
       it 'destroys the requested snapshot and redirects to its asset' do
         controller.login
-        expect(AssetSnapshot).to receive(:find_by_permalink).and_return snapshot
+        expect(AssetSnapshot).to receive(:find_by).with(permalink: snapshot.to_param).and_return snapshot
         expect(snapshot).to receive(:destroy).and_return true
 
         delete :destroy, params: { id: snapshot.to_param }

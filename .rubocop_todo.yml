@@ -42,17 +42,6 @@ Rails/Date:
     - 'app/models/contribution.rb'
     - 'app/models/milestone.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: Whitelist.
-# Whitelist: find_by_sql
-Rails/DynamicFindBy:
-  Exclude:
-    - 'app/controllers/asset_snapshots_controller.rb'
-    - 'app/controllers/contributions_controller.rb'
-    - 'app/controllers/financial_assets_controller.rb'
-    - 'app/controllers/milestones_controller.rb'
-
 # Offense count: 1
 Rails/OutputSafety:
   Exclude:
