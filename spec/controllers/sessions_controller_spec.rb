@@ -9,7 +9,7 @@ RSpec.describe SessionsController do
         get :new
 
         expect(response).to redirect_to root_path
-        expect(flash[:info]).to match /already logged in/i
+        expect(flash[:info]).to match(/already logged in/i)
       end
     end
 
@@ -30,7 +30,7 @@ RSpec.describe SessionsController do
         post :create
 
         expect(response).to redirect_to root_path
-        expect(flash[:info]).to match /already logged in/i
+        expect(flash[:info]).to match(/already logged in/i)
       end
     end
 
@@ -40,7 +40,7 @@ RSpec.describe SessionsController do
           post :create, params: { password: Rails.application.credentials.password[Rails.env.to_sym] }
 
           expect(response).to redirect_to root_path
-          expect(flash[:success]).to match /successfully/i
+          expect(flash[:success]).to match(/successfully/i)
           expect(controller).to be_admin
         end
       end
@@ -50,7 +50,7 @@ RSpec.describe SessionsController do
           post :create, params: { password: 'no' }
 
           expect(response).to render_template :new
-          expect(flash.now[:danger]).to match /incorrect/i
+          expect(flash.now[:danger]).to match(/incorrect/i)
           expect(controller).not_to be_admin
         end
       end
@@ -65,7 +65,7 @@ RSpec.describe SessionsController do
         delete :destroy
 
         expect(response).to redirect_to root_path
-        expect(flash[:success]).to match /successfully/i
+        expect(flash[:success]).to match(/successfully/i)
         expect(controller).not_to be_admin
       end
     end
@@ -75,7 +75,7 @@ RSpec.describe SessionsController do
         delete :destroy
 
         expect(response).to redirect_to root_path
-        expect(flash[:info]).to match /not logged in/i
+        expect(flash[:info]).to match(/not logged in/i)
         expect(controller).not_to be_admin
       end
     end

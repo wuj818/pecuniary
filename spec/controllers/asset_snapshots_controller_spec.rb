@@ -36,7 +36,7 @@ RSpec.describe AssetSnapshotsController do
         get :new, params: { financial_asset_id: asset.to_param }
 
         expect(response).to redirect_to login_path
-        expect(flash[:warning]).to match /must be logged in/i
+        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
@@ -58,7 +58,7 @@ RSpec.describe AssetSnapshotsController do
           post :create, params: { financial_asset_id: asset.to_param, asset_snapshot: { test: 1 } }
 
           expect(response).to redirect_to asset
-          expect(flash[:success]).to match /created/i
+          expect(flash[:success]).to match(/created/i)
         end
       end
 
@@ -78,7 +78,7 @@ RSpec.describe AssetSnapshotsController do
         post :create, params: { financial_asset_id: asset.to_param, asset_snapshot: { test: 1 } }
 
         expect(response).to redirect_to login_path
-        expect(flash[:warning]).to match /must be logged in/i
+        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
@@ -104,7 +104,7 @@ RSpec.describe AssetSnapshotsController do
         get :edit, params: { id: snapshot.to_param }
 
         expect(response).to redirect_to login_path
-        expect(flash[:warning]).to match /must be logged in/i
+        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
@@ -126,7 +126,7 @@ RSpec.describe AssetSnapshotsController do
           put :update, params: { id: snapshot.to_param, asset_snapshot: { test: 1 } }
 
           expect(response).to redirect_to snapshot
-          expect(flash[:success]).to match /updated/i
+          expect(flash[:success]).to match(/updated/i)
         end
       end
 
@@ -146,7 +146,7 @@ RSpec.describe AssetSnapshotsController do
         put :update, params: { id: snapshot.to_param, asset_snapshot: { test: 1 } }
 
         expect(response).to redirect_to login_path
-        expect(flash[:warning]).to match /must be logged in/i
+        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
@@ -164,7 +164,7 @@ RSpec.describe AssetSnapshotsController do
         delete :destroy, params: { id: snapshot.to_param }
 
         expect(response).to redirect_to asset
-        expect(flash[:success]).to match /deleted/i
+        expect(flash[:success]).to match(/deleted/i)
       end
     end
 
@@ -173,7 +173,7 @@ RSpec.describe AssetSnapshotsController do
         delete :destroy, params: { id: snapshot.to_param }
 
         expect(response).to redirect_to login_path
-        expect(flash[:warning]).to match /must be logged in/i
+        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end

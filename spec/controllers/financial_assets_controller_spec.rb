@@ -47,7 +47,7 @@ RSpec.describe FinancialAssetsController do
         get :new
 
         expect(response).to redirect_to login_path
-        expect(flash[:warning]).to match /must be logged in/i
+        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
@@ -68,7 +68,7 @@ RSpec.describe FinancialAssetsController do
           post :create, params: { financial_asset: { test: 1 } }
 
           expect(response).to redirect_to financial_assets_path
-          expect(flash[:success]).to match /created/i
+          expect(flash[:success]).to match(/created/i)
         end
       end
 
@@ -88,7 +88,7 @@ RSpec.describe FinancialAssetsController do
         post :create, params: { financial_asset: { test: 1 } }
 
         expect(response).to redirect_to login_path
-        expect(flash[:warning]).to match /must be logged in/i
+        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
@@ -113,7 +113,7 @@ RSpec.describe FinancialAssetsController do
         get :edit, params: { id: asset.to_param }
 
         expect(response).to redirect_to login_path
-        expect(flash[:warning]).to match /must be logged in/i
+        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
@@ -134,7 +134,7 @@ RSpec.describe FinancialAssetsController do
           put :update, params: { id: asset.to_param, financial_asset: { test: 1 } }
 
           expect(response).to redirect_to asset
-          expect(flash[:success]).to match /updated/i
+          expect(flash[:success]).to match(/updated/i)
         end
       end
 
@@ -154,7 +154,7 @@ RSpec.describe FinancialAssetsController do
         put :update, params: { id: asset.to_param, financial_asset: { test: 1 } }
 
         expect(response).to redirect_to login_path
-        expect(flash[:warning]).to match /must be logged in/i
+        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
@@ -171,7 +171,7 @@ RSpec.describe FinancialAssetsController do
         delete :destroy, params: { id: asset.to_param }
 
         expect(response).to redirect_to financial_assets_path
-        expect(flash[:success]).to match /deleted/i
+        expect(flash[:success]).to match(/deleted/i)
       end
     end
 
@@ -180,7 +180,7 @@ RSpec.describe FinancialAssetsController do
         delete :destroy, params: { id: asset.to_param }
 
         expect(response).to redirect_to login_path
-        expect(flash[:warning]).to match /must be logged in/i
+        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end

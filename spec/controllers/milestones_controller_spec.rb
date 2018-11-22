@@ -41,7 +41,7 @@ RSpec.describe MilestonesController do
         get :new
 
         expect(response).to redirect_to login_path
-        expect(flash[:warning]).to match /must be logged in/i
+        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
@@ -62,7 +62,7 @@ RSpec.describe MilestonesController do
           post :create, params: { milestone: { test: 1 } }
 
           expect(response).to redirect_to milestones_path
-          expect(flash[:success]).to match /created/i
+          expect(flash[:success]).to match(/created/i)
         end
       end
 
@@ -82,7 +82,7 @@ RSpec.describe MilestonesController do
         post :create, params: { milestone: { test: 1 } }
 
         expect(response).to redirect_to login_path
-        expect(flash[:warning]).to match /must be logged in/i
+        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
@@ -107,7 +107,7 @@ RSpec.describe MilestonesController do
         get :edit, params: { id: milestone.to_param }
 
         expect(response).to redirect_to login_path
-        expect(flash[:warning]).to match /must be logged in/i
+        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
@@ -128,7 +128,7 @@ RSpec.describe MilestonesController do
           put :update, params: { id: milestone.to_param, milestone: { test: 1 } }
 
           expect(response).to redirect_to milestone
-          expect(flash[:success]).to match /updated/i
+          expect(flash[:success]).to match(/updated/i)
         end
       end
 
@@ -148,7 +148,7 @@ RSpec.describe MilestonesController do
         put :update, params: { id: milestone.to_param, milestone: { test: 1 } }
 
         expect(response).to redirect_to login_path
-        expect(flash[:warning]).to match /must be logged in/i
+        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
@@ -165,7 +165,7 @@ RSpec.describe MilestonesController do
         delete :destroy, params: { id: milestone.to_param }
 
         expect(response).to redirect_to milestones_path
-        expect(flash[:success]).to match /deleted/i
+        expect(flash[:success]).to match(/deleted/i)
       end
     end
 
@@ -174,7 +174,7 @@ RSpec.describe MilestonesController do
         delete :destroy, params: { id: milestone.to_param }
 
         expect(response).to redirect_to login_path
-        expect(flash[:warning]).to match /must be logged in/i
+        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end

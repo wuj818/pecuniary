@@ -22,18 +22,18 @@ RSpec.describe FinancialAsset do
       snapshot = create :asset_snapshot, asset: asset
       contribution = create :contribution, asset: asset
 
-      expect(snapshot.permalink).to match /bank/
-      expect(contribution.permalink).to match /bank/
+      expect(snapshot.permalink).to match 'bank'
+      expect(contribution.permalink).to match 'bank'
 
       asset.update name: 'Roth IRA'
 
       snapshot.reload
-      expect(snapshot.permalink).not_to match /bank/
-      expect(snapshot.permalink).to match /roth-ira/
+      expect(snapshot.permalink).not_to match 'bank'
+      expect(snapshot.permalink).to match 'roth-ira'
 
       contribution.reload
-      expect(contribution.permalink).not_to match /bank/
-      expect(contribution.permalink).to match /roth-ira/
+      expect(contribution.permalink).not_to match 'bank'
+      expect(contribution.permalink).to match 'roth-ira'
     end
   end
 
