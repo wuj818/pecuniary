@@ -12,14 +12,14 @@ module ApplicationHelper
     percentage = "#{progress}%"
 
     color = if progress == 100
-      :success
-    elsif progress >= 100 / 3.0 * 2
-      :info
-    elsif progress >= 100 / 3.0
-      :warning
-    else
-      :danger
-    end
+              :success
+            elsif progress >= 100 / 3.0 * 2
+              :info
+            elsif progress >= 100 / 3.0
+              :warning
+            else
+              :danger
+            end
 
     tag.div class: 'progress', style: 'height: 35px;' do
       tag.div class: "progress-bar progress-bar-striped progress-bar-animated bg-#{color}", style: "width: #{percentage}" do
@@ -29,7 +29,7 @@ module ApplicationHelper
   end
 
   def icon(names = 'flag', options = {})
-    classes = [:fa].concat names.to_s.split.map { |name| "fa-#{name}" }
+    classes = [:fa].concat(names.to_s.split.map { |name| "fa-#{name}" })
 
     classes << options.delete(:class)
     text = options.delete :text
