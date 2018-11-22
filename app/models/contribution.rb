@@ -23,7 +23,7 @@ class Contribution < ApplicationRecord
   after_destroy :update_asset_total_contributions
 
   def formatted_date
-    date.to_time.strftime '%B %-d, %Y' rescue nil
+    date&.to_time&.strftime '%B %-d, %Y'
   end
 
   def to_param
@@ -31,25 +31,23 @@ class Contribution < ApplicationRecord
   end
 
   def to_s
-    ["#{asset} Contribution", formatted_date].compact.join ' - '
+    ["#{asset} Contribution", formatted_date].join ' - '
   end
 
   private
 
   def create_permalink
-    if date.present? && asset.present?
-      self.permalink = [asset.permalink, formatted_date.parameterize].join '-'
-    end
+    self.permalink = [asset&.permalink, formatted_date&.parameterize].join '-'
   end
 
   def investment_asset
-    if asset.present? && !asset.investment?
-      errors.add :base, "#{asset} is not a contributable investment"
-    end
+    return if asset&.investment?
+
+    errors.add :base, "#{asset} is not a contributable investment"
   end
 
   def update_asset_total_contributions
-    total_contributions = asset.contributions.sum(:amount)
+    total_contributions = asset.contributions.sum :amount
     asset.update total_contributions: total_contributions
   end
 end

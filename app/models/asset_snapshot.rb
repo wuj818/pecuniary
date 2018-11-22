@@ -23,7 +23,7 @@ class AssetSnapshot < ApplicationRecord
   after_destroy :update_asset_current_value
 
   def formatted_date
-    date.to_time.strftime '%B %Y' rescue nil
+    date&.to_time&.strftime '%B %Y'
   end
 
   def to_param
@@ -31,23 +31,21 @@ class AssetSnapshot < ApplicationRecord
   end
 
   def to_s
-    ["#{asset} Snapshot", formatted_date].compact.join ' - '
+    ["#{asset} Snapshot", formatted_date].join ' - '
   end
 
   private
 
   def create_permalink
-    if date.present? && asset.present?
-      self.permalink = [asset.permalink, formatted_date.parameterize].join '-'
-    end
+    self.permalink = [asset&.permalink, formatted_date&.parameterize].join '-'
   end
 
   def format_date
-    self.date = date.end_of_month if date.present?
+    self.date = date&.end_of_month
   end
 
   def update_asset_current_value
-    current_value = asset.snapshots.order('date DESC').first.value rescue 0
+    current_value = asset.snapshots.order('date DESC').first&.value || 0
     asset.update current_value: current_value
   end
 end

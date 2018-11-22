@@ -33,15 +33,6 @@ Metrics/MethodLength:
 Metrics/ModuleLength:
   Max: 235
 
-# Offense count: 3
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: strict, flexible
-Rails/Date:
-  Exclude:
-    - 'app/models/asset_snapshot.rb'
-    - 'app/models/contribution.rb'
-    - 'app/models/milestone.rb'
-
 # Offense count: 1
 Rails/OutputSafety:
   Exclude:
@@ -57,30 +48,6 @@ Style/Documentation:
 # SupportedStyles: when_needed, always, never
 Style/FrozenStringLiteralComment:
   Enabled: false
-
-# Offense count: 5
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Exclude:
-    - 'app/models/asset_snapshot.rb'
-    - 'app/models/contribution.rb'
-    - 'app/models/milestone.rb'
-
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/IfUnlessModifier:
-  Exclude:
-    - 'app/models/asset_snapshot.rb'
-    - 'app/models/contribution.rb'
-    - 'app/models/milestone.rb'
-
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/RescueModifier:
-  Exclude:
-    - 'app/models/asset_snapshot.rb'
-    - 'app/models/contribution.rb'
-    - 'app/models/milestone.rb'
 
 # Offense count: 112
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.

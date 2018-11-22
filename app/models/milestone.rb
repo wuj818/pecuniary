@@ -12,7 +12,7 @@ class Milestone < ApplicationRecord
   before_validation :create_permalink
 
   def formatted_date
-    date.to_time.strftime '%B %-d, %Y' rescue nil
+    date&.to_time&.strftime '%B %-d, %Y'
   end
 
   def to_param
@@ -26,8 +26,6 @@ class Milestone < ApplicationRecord
   private
 
   def create_permalink
-    if date.present?
-      self.permalink = formatted_date.parameterize
-    end
+    self.permalink = formatted_date&.parameterize
   end
 end
