@@ -15,29 +15,29 @@ RSpec.describe Contribution do
     it 'sets the date to the current date by default' do
       Timecop.freeze
       contribution = Contribution.new
-      expect(contribution.date).to eq(Time.zone.now.to_date)
+      expect(contribution.date).to eq Time.zone.now.to_date
     end
 
     it 'creates a permalink from the asset, month, day, and year' do
-      expect(contribution.permalink).to eq('bank-july-28-2010')
+      expect(contribution.permalink).to eq 'bank-july-28-2010'
     end
 
     it "updates its asset's total contributions with the sum of all contributions" do
       asset = contribution.asset
-      expect(contribution.amount).to eq(asset.total_contributions)
+      expect(contribution.amount).to eq asset.total_contributions
 
       expect do
         contribution.update amount: contribution.amount + 1
-      end.to change(asset, :total_contributions).from(asset.total_contributions).to(asset.total_contributions + 1)
+      end.to change(asset, :total_contributions).from(asset.total_contributions).to asset.total_contributions + 1
 
       expect do
         create :contribution, date: Date.new(2011, 3, 28), amount: 9000, asset: contribution.asset
-      end.to change(asset, :total_contributions).from(asset.total_contributions).to(asset.total_contributions + 9000)
+      end.to change(asset, :total_contributions).from(asset.total_contributions).to asset.total_contributions + 9000
 
       expect do
         asset.contributions.order('date DESC').first.destroy
         asset.reload
-      end.to change(asset, :total_contributions).from(asset.total_contributions).to(asset.total_contributions - 9000)
+      end.to change(asset, :total_contributions).from(asset.total_contributions).to asset.total_contributions - 9000
     end
   end
 
@@ -48,11 +48,11 @@ RSpec.describe Contribution do
         old_to_param = contribution.to_param
 
         contribution.permalink = 'test'
-        expect(contribution.to_param).to eq(old_to_param)
+        expect(contribution.to_param).to eq old_to_param
 
-        contribution.date = Date.new(2011, 3, 28)
+        contribution.date = Date.new 2011, 3, 28
         contribution.save
-        expect(contribution.to_param).not_to eq(old_to_param)
+        expect(contribution.to_param).not_to eq old_to_param
       end
     end
   end

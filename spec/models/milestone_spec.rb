@@ -8,11 +8,11 @@ RSpec.describe Milestone do
     it 'sets the date to the current day by default' do
       Timecop.freeze
       milestone = Milestone.new
-      expect(milestone.date).to eq(Time.zone.now.to_date)
+      expect(milestone.date).to eq Time.zone.now.to_date
     end
 
     it 'creates a permalink from the date' do
-      expect(milestone.permalink).to eq('july-28-2010')
+      expect(milestone.permalink).to eq 'july-28-2010'
     end
   end
 
@@ -23,11 +23,11 @@ RSpec.describe Milestone do
         old_to_param = milestone.to_param
 
         milestone.permalink = 'test'
-        expect(milestone.to_param).to eq(old_to_param)
+        expect(milestone.to_param).to eq old_to_param
 
-        milestone.date = Date.new(2011, 3, 28)
+        milestone.date = Date.new 2011, 3, 28
         milestone.save
-        expect(milestone.to_param).not_to eq(old_to_param)
+        expect(milestone.to_param).not_to eq old_to_param
       end
     end
   end

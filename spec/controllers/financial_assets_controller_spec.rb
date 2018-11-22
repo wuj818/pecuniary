@@ -3,30 +3,30 @@ require 'rails_helper'
 RSpec.describe FinancialAssetsController do
   describe 'GET index' do
     it 'assigns all assets as @assets' do
-      expect(FinancialAsset).to receive(:includes).with(:snapshots).and_return(mock_relation)
-      expect(mock_relation).to receive(:order).with(:name).and_return(mock_relation)
+      expect(FinancialAsset).to receive(:includes).with(:snapshots).and_return mock_relation
+      expect(mock_relation).to receive(:order).with(:name).and_return mock_relation
 
       get :index
 
       expect(response).to render_template :index
-      expect(assigns(:assets)).to eq(mock_relation)
+      expect(assigns(:assets)).to eq mock_relation
     end
   end
 
   describe 'GET show' do
     it 'assigns the requested asset as @asset, its snapshots as @snapshots, and its contributions as @contributions' do
-      asset = stub_asset(permalink: 'bank')
-      expect(FinancialAsset).to receive(:find_by_permalink).and_return(stub_asset)
-      expect(asset).to receive(:snapshots).and_return(mock_relation)
-      expect(asset).to receive(:contributions).and_return(mock_relation)
-      expect(mock_relation).to receive(:order).with('date DESC').and_return(mock_relation)
+      asset = stub_asset permalink: 'bank'
+      expect(FinancialAsset).to receive(:find_by_permalink).and_return stub_asset
+      expect(asset).to receive(:snapshots).and_return mock_relation
+      expect(asset).to receive(:contributions).and_return mock_relation
+      expect(mock_relation).to receive(:order).with('date DESC').and_return mock_relation
 
       get :show, params: { id: asset.to_param }
 
       expect(response).to render_template :show
-      expect(assigns(:asset)).to eq(asset)
-      expect(assigns(:snapshots)).to eq(mock_relation)
-      expect(assigns(:contributions)).to eq(mock_relation)
+      expect(assigns(:asset)).to eq asset
+      expect(assigns(:snapshots)).to eq mock_relation
+      expect(assigns(:contributions)).to eq mock_relation
     end
   end
 
@@ -54,15 +54,16 @@ RSpec.describe FinancialAssetsController do
 
   describe 'POST create' do
     context 'when logged in' do
+      let(:asset) { stub_asset }
+
       before do
         controller.login
-        @asset = stub_asset
-        expect(FinancialAsset).to receive(:new).and_return(@asset)
+        expect(FinancialAsset).to receive(:new).and_return asset
       end
 
       describe 'with valid params' do
         it 'creates a new asset and redirects to the assets list' do
-          expect(@asset).to receive(:save).and_return(true)
+          expect(asset).to receive(:save).and_return true
 
           post :create, params: { financial_asset: { test: 1 } }
 
@@ -73,7 +74,7 @@ RSpec.describe FinancialAssetsController do
 
       describe 'with invalid params' do
         it "renders the 'new' template" do
-          expect(@asset).to receive(:save).and_return(false)
+          expect(asset).to receive(:save).and_return false
 
           post :create, params: { financial_asset: { test: 1 } }
 
@@ -93,25 +94,23 @@ RSpec.describe FinancialAssetsController do
   end
 
   describe 'GET edit' do
-    before do
-      @asset = stub_asset(permalink: 'bank')
-    end
+    let(:asset) { stub_asset permalink: 'bank' }
 
     context 'when logged in' do
       it 'assigns the requested asset as @asset' do
         controller.login
-        expect(FinancialAsset).to receive(:find_by_permalink).and_return(@asset)
+        expect(FinancialAsset).to receive(:find_by_permalink).and_return asset
 
-        get :edit, params: { id: @asset.to_param }
+        get :edit, params: { id: asset.to_param }
 
         expect(response).to render_template :edit
-        expect(assigns(:asset)).to eq(@asset)
+        expect(assigns(:asset)).to eq asset
       end
     end
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        get :edit, params: { id: @asset.to_param }
+        get :edit, params: { id: asset.to_param }
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match /must be logged in/i
@@ -120,32 +119,30 @@ RSpec.describe FinancialAssetsController do
   end
 
   describe 'PUT update' do
-    before do
-      @asset = stub_asset(permalink: 'bank')
-    end
+    let(:asset) { stub_asset permalink: 'bank' }
 
     context 'when logged in' do
       before do
         controller.login
-        expect(FinancialAsset).to receive(:find_by_permalink).and_return(@asset)
+        expect(FinancialAsset).to receive(:find_by_permalink).and_return asset
       end
 
       describe 'with valid params' do
         it 'redirects to the asset' do
-          expect(@asset).to receive(:update).and_return(true)
+          expect(asset).to receive(:update).and_return true
 
-          put :update, params: { id: @asset.to_param, financial_asset: { test: 1 } }
+          put :update, params: { id: asset.to_param, financial_asset: { test: 1 } }
 
-          expect(response).to redirect_to @asset
+          expect(response).to redirect_to asset
           expect(flash[:success]).to match /updated/i
         end
       end
 
       describe 'with invalid params' do
         it "renders the 'edit' template" do
-          expect(@asset).to receive(:update).and_return(false)
+          expect(asset).to receive(:update).and_return false
 
-          put :update, params: { id: @asset.to_param, financial_asset: { test: 1 } }
+          put :update, params: { id: asset.to_param, financial_asset: { test: 1 } }
 
           expect(response).to render_template :edit
         end
@@ -154,7 +151,7 @@ RSpec.describe FinancialAssetsController do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        put :update, params: { id: @asset.to_param, financial_asset: { test: 1 } }
+        put :update, params: { id: asset.to_param, financial_asset: { test: 1 } }
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match /must be logged in/i
@@ -163,17 +160,15 @@ RSpec.describe FinancialAssetsController do
   end
 
   describe 'DELETE destroy' do
-    before do
-      @asset = stub_asset(permalink: 'bank')
-    end
+    let(:asset) { stub_asset permalink: 'bank' }
 
     context 'when logged in' do
       it 'destroys the requested asset and redirects to the assets list' do
         controller.login
-        expect(FinancialAsset).to receive(:find_by_permalink).and_return(@asset)
-        expect(@asset).to receive(:destroy).and_return(true)
+        expect(FinancialAsset).to receive(:find_by_permalink).and_return asset
+        expect(asset).to receive(:destroy).and_return true
 
-        delete :destroy, params: { id: @asset.to_param }
+        delete :destroy, params: { id: asset.to_param }
 
         expect(response).to redirect_to financial_assets_path
         expect(flash[:success]).to match /deleted/i
@@ -182,7 +177,7 @@ RSpec.describe FinancialAssetsController do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        delete :destroy, params: { id: @asset.to_param }
+        delete :destroy, params: { id: asset.to_param }
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match /must be logged in/i

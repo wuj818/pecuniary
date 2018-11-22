@@ -6,7 +6,7 @@ RSpec.describe FinancialAsset do
       asset = create :financial_asset
       create :asset_snapshot, asset: asset
 
-      expect(asset.snapshots.count).to eq(1)
+      expect(asset.snapshots.count).to eq 1
       expect(asset.snapshots.first).to be_an AssetSnapshot
     end
   end
@@ -14,7 +14,7 @@ RSpec.describe FinancialAsset do
   describe 'callbacks' do
     it 'creates a parameterized permalink' do
       asset = create :financial_asset, name: 'Roth IRA'
-      expect(asset.permalink).to eq('roth-ira')
+      expect(asset.permalink).to eq 'roth-ira'
     end
 
     it "updates all of its association's permalinks when its name changes" do
@@ -44,11 +44,11 @@ RSpec.describe FinancialAsset do
         old_to_param = asset.to_param
 
         asset.permalink = 'test'
-        expect(asset.to_param).to eq(old_to_param)
+        expect(asset.to_param).to eq old_to_param
 
         asset.name = 'Roth IRA'
         asset.save
-        expect(asset.to_param).not_to eq(old_to_param)
+        expect(asset.to_param).not_to eq old_to_param
       end
     end
   end

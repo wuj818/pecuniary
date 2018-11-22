@@ -15,34 +15,34 @@ RSpec.describe AssetSnapshot do
     it 'sets the date to the end of the current month by default' do
       Timecop.freeze
       snapshot = AssetSnapshot.new
-      expect(snapshot.date).to eq(Time.zone.now.to_date.end_of_month)
+      expect(snapshot.date).to eq Time.zone.now.to_date.end_of_month
     end
 
     it 'sets the date to the end of the month' do
-      expect(snapshot.date).not_to eq(date)
-      expect(snapshot.date).to eq(date.end_of_month)
+      expect(snapshot.date).not_to eq date
+      expect(snapshot.date).to eq date.end_of_month
     end
 
     it 'creates a permalink from the asset, month, and year' do
-      expect(snapshot.permalink).to eq('bank-july-2010')
+      expect(snapshot.permalink).to eq 'bank-july-2010'
     end
 
     it "updates its asset's current value with the most recent value" do
       asset = snapshot.asset
-      expect(snapshot.value).to eq(asset.current_value)
+      expect(snapshot.value).to eq asset.current_value
 
       expect do
         snapshot.update value: snapshot.value + 1
-      end.to change(asset, :current_value).from(asset.current_value).to(asset.current_value + 1)
+      end.to change(asset, :current_value).from(asset.current_value).to asset.current_value + 1
 
       expect do
         create :asset_snapshot, date: Date.new(2011, 3, 28), value: 9000, asset: snapshot.asset
-      end.to change(asset, :current_value).from(asset.current_value).to(9000)
+      end.to change(asset, :current_value).from(asset.current_value).to 9000
 
       expect do
         asset.snapshots.order('date DESC').first.destroy
         asset.reload
-      end.to change(asset, :current_value).from(9000).to(snapshot.value)
+      end.to change(asset, :current_value).from(9000).to snapshot.value
     end
   end
 
@@ -53,11 +53,11 @@ RSpec.describe AssetSnapshot do
         old_to_param = snapshot.to_param
 
         snapshot.permalink = 'test'
-        expect(snapshot.to_param).to eq(old_to_param)
+        expect(snapshot.to_param).to eq old_to_param
 
-        snapshot.date = Date.new(2011, 3, 28)
+        snapshot.date = Date.new 2011, 3, 28
         snapshot.save
-        expect(snapshot.to_param).not_to eq(old_to_param)
+        expect(snapshot.to_param).not_to eq old_to_param
       end
     end
   end
