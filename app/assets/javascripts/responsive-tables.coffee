@@ -1,4 +1,4 @@
-$ ->
+$(document).on 'turbolinks:load', ->
   headers = $('.table-stacked th').map ->
     $(@).text()
 

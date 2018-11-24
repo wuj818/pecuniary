@@ -1,4 +1,4 @@
-$ ->
+$(document).on 'turbolinks:load', ->
   $('.line-with-focus-graph').each ->
     $graph = $(@)
 

@@ -1,5 +1,6 @@
 #= require rails-ujs
 #= require jquery3
+#= require turbolinks
 #= require popper
 #= require bootstrap
 #= require d3.v3
@@ -8,7 +9,7 @@
 #= require tempusdominus-bootstrap-4
 #= require_tree .
 
-$ ->
+$(document).on 'turbolinks:load', ->
   $('.alert').alert()
 
   $('.date-picker').datetimepicker

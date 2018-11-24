@@ -1,4 +1,4 @@
-$ ->
+$(document).on 'turbolinks:load', ->
   $('.stacked-area-graph').each ->
     $graph = $(@)
 

@@ -1,4 +1,4 @@
-$ ->
+$(document).on 'turbolinks:load', ->
   $('.line-graph').each ->
     $graph = $(@)
 
