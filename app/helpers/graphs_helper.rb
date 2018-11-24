@@ -306,25 +306,6 @@ module GraphsHelper
     cumulative_line_graph id_prefix: 'investment-history', data: data
   end
 
-  def net_worth_line_with_focus_graph
-    return if AssetSnapshot.count.zero?
-
-    query = AssetSnapshot.select([:date, 'SUM(value) AS value']).group(:date).order(:date)
-
-    values = query.inject([]) do |array, snapshot|
-      array << { x: snapshot.date.to_js_time, y: snapshot.value }
-    end
-
-    graph_data = [{ key: 'Net Worth', values: values }].to_json
-
-    data = {
-      'graph-data' => graph_data,
-      'y-max' => values.map { |v| v[:y] }.max
-    }
-
-    line_with_focus_graph id_prefix: 'net-worth', data: data
-  end
-
   def non_investment_asset_line_graph(asset)
     return if asset.snapshots.count.zero?
 
