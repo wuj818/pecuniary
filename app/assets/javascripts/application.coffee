@@ -5,6 +5,8 @@
 #= require bootstrap
 #= require d3.v3
 #= require nv.d3
+#= require highcharts
+#= require highcharts/highcharts-more
 #= require moment
 #= require tempusdominus-bootstrap-4
 #= require_tree .
