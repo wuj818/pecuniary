@@ -29,48 +29,50 @@
 
 .row
   .col-sm-6
-    %table.table.table-striped.table-bordered.table-hover
-      %thead.thead-dark
-        %tr
-          %th{colspan: 2}
-            Snapshots
-
-      %tbody
-        - if @snapshots.length.zero?
-          %tr
-            %td
-              There are no snapshots for this asset.
-        - else
-          - @snapshots.each do |snapshot|
-            %tr
-              %td
-                = link_to snapshot.formatted_date, snapshot
-
-              %td.fit
-                = currency snapshot.value
-
-  - if @asset.investment?
-    .col-sm-6
+    .table-responsive
       %table.table.table-striped.table-bordered.table-hover
         %thead.thead-dark
           %tr
             %th{colspan: 2}
-              Contributions
+              Snapshots
 
         %tbody
-          - if @contributions.length.zero?
+          - if @snapshots.length.zero?
             %tr
               %td
-                There are no contributions for this asset.
+                There are no snapshots for this asset.
           - else
-            - @contributions.each do |contribution|
+            - @snapshots.each do |snapshot|
               %tr
                 %td
-                  = link_to contribution.formatted_date, contribution
+                  = link_to snapshot.formatted_date, snapshot
 
-                  - if contribution.employer?
-                    %span.badge.badge-info.float-right
-                      Employer
+                %td.fit
+                  = currency snapshot.value
 
-                %td.fit{class: contribution.amount.negative? ? 'text-danger' : 'text-success'}
-                  = currency contribution.amount
+  - if @asset.investment?
+    .col-sm-6
+      .table-responsive
+        %table.table.table-striped.table-bordered.table-hover
+          %thead.thead-dark
+            %tr
+              %th{colspan: 2}
+                Contributions
+
+          %tbody
+            - if @contributions.length.zero?
+              %tr
+                %td
+                  There are no contributions for this asset.
+            - else
+              - @contributions.each do |contribution|
+                %tr
+                  %td
+                    = link_to contribution.formatted_date, contribution
+
+                    - if contribution.employer?
+                      %span.badge.badge-info.float-right
+                        Employer
+
+                  %td.fit{class: contribution.amount.negative? ? 'text-danger' : 'text-success'}
+                    = currency contribution.amount

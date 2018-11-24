@@ -7,35 +7,36 @@
 = investment_history_line_graph @snapshots, @cumulative_contributions
 = investment_history_cumulative_line_graph @snapshots, @cumulative_contributions
 
-%table.table.table-striped.table-bordered.table-hover.table-stacked#investments-table
-  %thead.thead-dark
-    %tr
-      %th Date
-      %th Cumulative Contributions
-      %th Investment Value
-      %th Total Gain/Loss
-      %th Total Return
-
-  %tbody
-    - @snapshots.each do |date, cumulative_value|
-      - cumulative_contributions = @cumulative_contributions[date]
-      - next if cumulative_contributions.blank?
-
-      - total_gain = cumulative_value - cumulative_contributions
-      - total_return = total_gain / cumulative_contributions.to_f * 100
-
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover#investments-table
+    %thead.thead-dark
       %tr
-        %td
-          = date.to_time.strftime '%B %Y'
+        %th Date
+        %th Cumulative Contributions
+        %th Investment Value
+        %th Total Gain/Loss
+        %th Total Return
 
-        %td
-          = currency cumulative_contributions
+    %tbody
+      - @snapshots.each do |date, cumulative_value|
+        - cumulative_contributions = @cumulative_contributions[date]
+        - next if cumulative_contributions.blank?
 
-        %td
-          = currency cumulative_value
+        - total_gain = cumulative_value - cumulative_contributions
+        - total_return = total_gain / cumulative_contributions.to_f * 100
 
-        %td{class: total_gain >= 0 ? 'text-success' : 'text-danger'}
-          = currency total_gain
+        %tr
+          %td
+            = date.to_time.strftime '%B %Y'
 
-        %td{class: total_return >= 0 ? 'text-success' : 'text-danger'}
-          = sprintf '%.2f%%', total_return
+          %td
+            = currency cumulative_contributions
+
+          %td
+            = currency cumulative_value
+
+          %td{class: total_gain >= 0 ? 'text-success' : 'text-danger'}
+            = currency total_gain
+
+          %td{class: total_return >= 0 ? 'text-success' : 'text-danger'}
+            = sprintf '%.2f%%', total_return

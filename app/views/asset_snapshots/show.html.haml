@@ -14,32 +14,33 @@
     Snapshot -
     = @snapshot.formatted_date
 
-%table.table.table-striped.table-bordered.table-hover.table-stacked#asset-snapshots-table
-  %thead.thead-dark
-    %tr
-      %th Date
-      %th Value
-      %th Permalink
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover#asset-snapshots-table
+    %thead.thead-dark
+      %tr
+        %th Date
+        %th Value
+        %th Permalink
 
-      - if admin?
-        %th
+        - if admin?
+          %th
 
-  %tbody
-    %tr
-      %td
-        = @snapshot.formatted_date
+    %tbody
+      %tr
+        %td
+          = @snapshot.formatted_date
 
-      %td
-        = currency @snapshot.value
+        %td
+          = currency @snapshot.value
 
-      %td
-        = link_to @snapshot.permalink, @snapshot
+        %td
+          = link_to @snapshot.permalink, @snapshot
 
-      - if admin?
-        %td.fit
-          .btn-group
-            = link_to [:edit, @snapshot], class: 'btn btn-sm btn-info' do
-              = icon :edit
+        - if admin?
+          %td.fit
+            .btn-group
+              = link_to [:edit, @snapshot], class: 'btn btn-sm btn-info' do
+                = icon :edit
 
-            = link_to @snapshot, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
-              = icon 'trash-o'
+              = link_to @snapshot, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
+                = icon 'trash-o'

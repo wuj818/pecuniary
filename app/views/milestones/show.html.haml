@@ -12,32 +12,33 @@
   %h1
     = "Milestone - #{@milestone}"
 
-%table.table.table-striped.table-bordered.table-hover.table-stacked#milestones-table
-  %thead.thead-dark
-    %tr
-      %th Date
-      %th Notes
-      %th Permalink
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover#milestones-table
+    %thead.thead-dark
+      %tr
+        %th Date
+        %th Notes
+        %th Permalink
 
-      - if admin?
-        %th
+        - if admin?
+          %th
 
-  %tbody
-    %tr
-      %td
-        = @milestone.formatted_date
+    %tbody
+      %tr
+        %td
+          = @milestone.formatted_date
 
-      %td
-        = kramdown @milestone.notes
+        %td
+          = kramdown @milestone.notes
 
-      %td
-        = link_to @milestone.permalink, @milestone
+        %td
+          = link_to @milestone.permalink, @milestone
 
-      - if admin?
-        %td.fit
-          .btn-group
-            = link_to [:edit, @milestone], class: 'btn btn-sm btn-info' do
-              = icon :edit
+        - if admin?
+          %td.fit
+            .btn-group
+              = link_to [:edit, @milestone], class: 'btn btn-sm btn-info' do
+                = icon :edit
 
-            = link_to @milestone, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
-              = icon 'trash-o'
+              = link_to @milestone, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
+                = icon 'trash-o'

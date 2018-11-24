@@ -13,47 +13,48 @@
 = assets_stacked_area_graph
 
 - unless @assets.length.zero?
-  %table.table.table-striped.table-bordered.table-hover.table-stacked#assets-table
-    %thead.thead-dark
-      %tr
-        %th Name
-        %th Current Value
-        %th Total Contributions
-        %th Total Return
-        %th Investment?
-        %th Permalink
-
-        - if admin?
-          %th
-
-    %tbody
-      - @assets.each do |asset|
+  .table-responsive
+    %table.table.table-striped.table-bordered.table-hover#assets-table
+      %thead.thead-dark
         %tr
-          %td
-            = link_to asset.name, asset
-
-          %td
-            = currency asset.current_value
-
-          %td
-            = asset.investment? ? currency(asset.total_contributions) : 'N/A'
-
-          %td
-            = asset.investment? ? number_to_percentage(asset.total_return, precision: 2) : 'N/A'
-
-          %td
-            = asset.investment? ? 'yes' : 'no'
-
-          %td
-            = link_to asset.permalink, asset
+          %th Name
+          %th Current Value
+          %th Total Contributions
+          %th Total Return
+          %th Investment?
+          %th Permalink
 
           - if admin?
-            %td.fit
-              .btn-group
-                = link_to [:edit, asset], class: 'btn btn-sm btn-info' do
-                  = icon :edit
+            %th
 
-                = link_to asset, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
-                  = icon 'trash-o'
+      %tbody
+        - @assets.each do |asset|
+          %tr
+            %td
+              = link_to asset.name, asset
+
+            %td
+              = currency asset.current_value
+
+            %td
+              = asset.investment? ? currency(asset.total_contributions) : 'N/A'
+
+            %td
+              = asset.investment? ? number_to_percentage(asset.total_return, precision: 2) : 'N/A'
+
+            %td
+              = asset.investment? ? 'yes' : 'no'
+
+            %td
+              = link_to asset.permalink, asset
+
+            - if admin?
+              %td.fit
+                .btn-group
+                  = link_to [:edit, asset], class: 'btn btn-sm btn-info' do
+                    = icon :edit
+
+                  = link_to asset, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
+                    = icon 'trash-o'
 - else
   %p There are no assets.
