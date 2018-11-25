@@ -3,7 +3,13 @@ module ChartsHelper
     tag.div id: id, class: 'chart', data: { options: options.to_json }
   end
 
+  def no_chart_data
+    tag.code 'no chart data...'
+  end
+
   def net_worth_line_chart
+    return no_chart_data if AssetSnapshot.count.zero?
+
     query = AssetSnapshot.select([:date, 'SUM(value) AS value']).group(:date).order(:date)
 
     data = query.each_with_object([]) do |row, array|
@@ -11,17 +17,11 @@ module ChartsHelper
     end
 
     options = {
-      title: { text: nil },
       legend: { enabled: false },
       chart: { zoomType: 'x' },
       xAxis: { type: 'datetime' },
-      yAxis: {
-        title: { text: nil },
-        labels: { format: '${value:,.0f}' }
-      },
+      yAxis: { labels: { format: '${value:,.0f}' } },
       tooltip: {
-        shared: true,
-        crosshairs: true,
         xDateFormat: '%B %e, %Y',
         valuePrefix: '$'
       },
@@ -29,11 +29,9 @@ module ChartsHelper
         {
           type: 'line',
           name: 'Net Worth',
-          marker: { enabled: false },
           data: data
         }
-      ],
-      credits: { enabled: false }
+      ]
     }
 
     chart 'net-worth-line-chart', options
