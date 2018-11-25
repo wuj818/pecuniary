@@ -68,36 +68,7 @@ module GraphsHelper
     graph options.merge(type: 'multi-bar')
   end
 
-  def stacked_area_graph(options)
-    # data format:
-    # same as line plus bar graph
-
-    graph options.merge(type: 'stacked-area')
-  end
-
   # specific graphs
-
-  def assets_stacked_area_graph
-    return if AssetSnapshot.count.zero?
-
-    empty_months = end_of_months_since AssetSnapshot.minimum(:date)
-
-    query = FinancialAsset.includes(:snapshots).order(:name)
-
-    graph_data = query.inject([]) do |array, asset|
-      values = asset.snapshots.each_with_object({}) do |snapshot, hash|
-        hash[snapshot.date.to_js_time] = snapshot.value
-      end
-
-      values = empty_months.merge(values).sort_by { |month, value| month }
-
-      array << { key: asset.name, values: values }
-    end.to_json
-
-    data = { 'graph-data' => graph_data }
-
-    stacked_area_graph id_prefix: 'assets', data: data
-  end
 
   def contributions_multi_bar_graph
     return if Contribution.count.zero?

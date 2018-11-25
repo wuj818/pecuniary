@@ -18,13 +18,6 @@ module ChartsHelper
 
     options = {
       legend: { enabled: false },
-      chart: { zoomType: 'x' },
-      xAxis: { type: 'datetime' },
-      yAxis: { labels: { format: '${value:,.0f}' } },
-      tooltip: {
-        xDateFormat: '%B %e, %Y',
-        valuePrefix: '$'
-      },
       series: [
         {
           type: 'line',
@@ -35,5 +28,35 @@ module ChartsHelper
     }
 
     chart 'net-worth-line-chart', options
+  end
+
+  def assets_stacked_area_chart
+    return no_chart_data if AssetSnapshot.count.zero?
+
+    empty_months = end_of_months_since AssetSnapshot.minimum(:date)
+
+    query = FinancialAsset.order(:name)
+
+    series = query.each_with_object([]) do |asset, array|
+      snapshots_query = asset.snapshots.select([:date, 'SUM(value) AS value']).group(:date).order(:date)
+
+      data = snapshots_query.each_with_object({}) do |row, points|
+        points[row.date.to_js_time] = row.value
+      end
+
+      data = empty_months.merge(data).to_a
+
+      array << {
+        name: asset.name,
+        data: data
+      }
+    end
+
+    options = {
+      chart: { type: 'area' },
+      series: series
+    }
+
+    chart 'assets-stacked-area-chart', options
   end
 end
