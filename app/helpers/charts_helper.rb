@@ -59,4 +59,27 @@ module ChartsHelper
 
     chart 'assets-stacked-area-chart', options
   end
+
+  def non_investment_asset_line_chart(asset)
+    return no_chart_data if asset.snapshots.count.zero?
+
+    query = asset.snapshots.order(:date)
+
+    data = query.each_with_object([]) do |snapshot, array|
+      array << [snapshot.date.to_js_time, snapshot.value]
+    end
+
+    options = {
+      legend: { enabled: false },
+      series: [
+        {
+          type: 'line',
+          name: 'Asset Value',
+          data: data
+        }
+      ]
+    }
+
+    chart 'non-investment-asset-line-chart', options
+  end
 end

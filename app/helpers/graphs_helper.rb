@@ -277,23 +277,6 @@ module GraphsHelper
     cumulative_line_graph id_prefix: 'investment-history', data: data
   end
 
-  def non_investment_asset_line_graph(asset)
-    return if asset.snapshots.count.zero?
-
-    values = asset.snapshots.order(:date).inject([]) do |array, snapshot|
-      array << { x: snapshot.date.to_js_time, y: snapshot.value }
-    end
-
-    graph_data = [{ key: 'Asset Value', values: values }]
-
-    data = {
-      'graph-data' => graph_data.to_json,
-      'y-max' => values.map { |v| v[:y] }.max
-    }
-
-    line_graph id_prefix: 'asset', data: data
-  end
-
   # helpers
 
   def end_of_months_since(start)
