@@ -143,6 +143,9 @@ module Charts::ChartsHelper
   end
 
   def investment_assets_area_chart(snapshots, cumulative_contributions)
+    snapshots = snapshots.transform_keys(&:to_js_time)
+    cumulative_contributions = cumulative_contributions.transform_keys(&:to_js_time)
+
     investment_area_chart 'investment-assets-area-chart', snapshots.to_a, cumulative_contributions.to_a
   end
 
@@ -200,6 +203,9 @@ module Charts::ChartsHelper
   end
 
   def investment_assets_performance_line_chart(snapshots, cumulative_contributions)
+    snapshots = snapshots.transform_keys(&:to_js_time)
+    cumulative_contributions = cumulative_contributions.transform_keys(&:to_js_time)
+
     investment_performance_line_chart 'investment-assets-performance', snapshots, cumulative_contributions
   end
 
