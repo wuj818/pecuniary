@@ -1,12 +1,4 @@
-module ChartsHelper
-  def chart(id, options)
-    tag.div id: id, class: 'chart', data: { options: options.to_json }
-  end
-
-  def no_chart_data
-    tag.code 'no chart data...'
-  end
-
+module Charts::ChartsHelper
   def net_worth_line_chart
     return no_chart_data if AssetSnapshot.count.zero?
 
