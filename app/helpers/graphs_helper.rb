@@ -98,40 +98,6 @@ module GraphsHelper
     multi_bar_graph id_prefix: 'contributions', data: data
   end
 
-  def contributions_line_graph
-    return if Contribution.count.zero?
-
-    empty_months = end_of_months_since Contribution.minimum(:date)
-
-    query = Contribution.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)')
-
-    contributions = query.each_with_object({}) do |contribution, hash|
-      hash[contribution.date.end_of_month.to_js_time] = contribution.total
-    end
-
-    contributions = empty_months.merge contributions
-    cumulative_contributions = {}
-
-    contributions.keys.sort.inject(0) do |sum, month|
-      sum += contributions[month]
-      cumulative_contributions[month] = sum
-    end
-
-    values = cumulative_contributions.inject([]) do |array, pair|
-      month, total = pair
-      array << { x: month, y: total }
-    end
-
-    graph_data = [{ key: 'Cumulative Contributions', values: values }]
-
-    data = {
-      'graph-data' => graph_data.to_json,
-      'y-max' => graph_data.first[:values].last[:y]
-    }
-
-    line_graph id_prefix: 'contributions', data: data
-  end
-
   def investment_asset_cumulative_line_graph(asset)
     return if asset.snapshots.count.zero?
 

@@ -82,4 +82,34 @@ module ChartsHelper
 
     chart 'non-investment-asset-line-chart', options
   end
+
+  def cumulative_contributions_line_chart
+    return no_chart_data if Contribution.count.zero?
+
+    empty_months = end_of_months_since Contribution.minimum(:date)
+
+    query = Contribution.select('date, SUM(amount) AS total').group('STRFTIME("%m-%Y", date)').order(:date)
+
+    contributions = query.each_with_object({}) do |row, hash|
+      hash[row.date.end_of_month.to_js_time] = row.total
+    end
+
+    sum = 0
+    data = empty_months.merge(contributions).map do |date, value|
+      [date, sum += value]
+    end
+
+    options = {
+      legend: { enabled: false },
+      series: [
+        {
+          type: 'line',
+          name: 'Cumulative Contributions',
+          data: data
+        }
+      ]
+    }
+
+    chart 'cumulative-contributions-line-chart', options
+  end
 end
