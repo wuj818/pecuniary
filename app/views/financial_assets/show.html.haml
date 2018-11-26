@@ -22,9 +22,14 @@
     = @title
 
 - if @asset.investment?
-  = investment_asset_line_plus_bar_graph @asset
+  = investment_asset_area_chart @asset
+
+  %hr
 
   = investment_asset_performance_line_chart @asset
+
+  %hr
+
   = investment_asset_contributions_column_chart @asset
 - else
   = non_investment_asset_line_chart @asset

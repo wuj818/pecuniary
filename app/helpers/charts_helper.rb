@@ -148,6 +148,55 @@ module ChartsHelper
     chart 'contributions-stacked-column-chart', options
   end
 
+  def investment_asset_area_chart(asset)
+    return no_chart_data if asset.snapshots.count.zero?
+
+    snapshots = asset.snapshots.order(:date).each_with_object({}) do |snapshot, hash|
+      hash[snapshot.date.to_js_time] = snapshot.value
+    end
+
+    empty_months = snapshots.keys.each_with_object({}) do |month, hash|
+      hash[month] = 0
+    end
+
+    query = asset.contributions.select('date, SUM(amount) AS total').group('STRFTIME("%m-%Y", date)').order(:date)
+
+    contributions = query.each_with_object({}) do |row, hash|
+      hash[row.date.end_of_month.to_js_time] = row.total
+    end
+
+    contributions = empty_months.merge contributions
+
+    cumulative_contributions = {}
+
+    contributions.keys.sort.inject(0) do |sum, month|
+      sum += contributions[month]
+      cumulative_contributions[month] = sum
+    end
+
+    options = {
+      chart: { type: 'area' },
+      plotOptions: {
+        area: {
+          stacking: nil
+        }
+      },
+      series: [
+        {
+          name: 'Value',
+          data: snapshots.to_a
+        },
+        {
+          name: 'Cumulative Contributions',
+          fillOpacity: 0.25,
+          data: cumulative_contributions.to_a
+        }
+      ]
+    }
+
+    chart 'investment-asset-area-chart', options
+  end
+
   def investment_asset_performance_line_chart(asset)
     return no_chart_data if asset.snapshots.count.zero?
 
