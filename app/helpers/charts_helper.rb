@@ -114,7 +114,7 @@ module ChartsHelper
   end
 
   def contributions_stacked_column_chart
-    return if Contribution.count.zero?
+    return no_chart_data if Contribution.count.zero?
 
     empty_months = end_of_months_since Contribution.minimum(:date)
 
@@ -148,8 +148,66 @@ module ChartsHelper
     chart 'contributions-stacked-column-chart', options
   end
 
+  def investment_asset_performance_line_chart(asset)
+    return no_chart_data if asset.snapshots.count.zero?
+
+    snapshots = asset.snapshots.order(:date).each_with_object({}) do |snapshot, hash|
+      hash[snapshot.date.to_js_time] = snapshot.value
+    end
+
+    empty_months = snapshots.keys.each_with_object({}) do |month, hash|
+      hash[month] = 0
+    end
+
+    query = asset.contributions.select('date, SUM(amount) AS total').group('STRFTIME("%m-%Y", date)').order(:date)
+
+    contributions = query.each_with_object({}) do |row, hash|
+      hash[row.date.end_of_month.to_js_time] = row.total
+    end
+
+    contributions = empty_months.merge contributions
+
+    cumulative_contributions = {}
+
+    contributions.keys.sort.inject(0) do |sum, month|
+      sum += contributions[month]
+      cumulative_contributions[month] = sum
+    end
+
+    data = snapshots.keys.each_with_object([]) do |month, array|
+      value = snapshots[month]
+      contributions = cumulative_contributions[month]
+      gain = (value - contributions) / contributions.to_f * 100
+
+      array << [month, gain]
+    end
+
+    options = {
+      title: { text: 'Performance' },
+      legend: { enabled: false },
+      yAxis: {
+        labels: {
+          format: '{value:,.2f}%'
+        }
+      },
+      tooltip: {
+        valueDecimals: 2,
+        valuePrefix: nil,
+        valueSuffix: '%'
+      },
+      series: [
+        {
+          name: 'Total Return',
+          data: data
+        }
+      ]
+    }
+
+    chart 'investment-asset-performance-line-chart', options
+  end
+
   def investment_asset_contributions_column_chart(asset)
-    return if asset.contributions.count.zero?
+    return no_chart_data if asset.contributions.count.zero?
 
     empty_months = end_of_months_since asset.contributions.minimum(:date)
 

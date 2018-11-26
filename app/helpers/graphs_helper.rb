@@ -70,52 +70,6 @@ module GraphsHelper
 
   # specific graphs
 
-  def investment_asset_cumulative_line_graph(asset)
-    return if asset.snapshots.count.zero?
-
-    snapshots = asset.snapshots.each_with_object({}) do |snapshot, hash|
-      hash[snapshot.date] = snapshot.value
-    end
-
-    empty_months = snapshots.keys.each_with_object({}) do |month, hash|
-      hash[month] = 0
-    end
-
-    query = asset.contributions.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)').order(:date)
-
-    contributions = query.each_with_object({}) do |contribution, hash|
-      hash[contribution.date.end_of_month] = contribution.total
-    end
-
-    contributions = empty_months.merge contributions
-
-    cumulative_contributions = {}
-
-    contributions.keys.sort.inject(0) do |sum, month|
-      sum += contributions[month]
-      cumulative_contributions[month] = sum
-    end
-
-    graph_data = [
-      {
-        key: 'Total Return',
-        values: snapshots.keys.sort.inject([]) do |array, date|
-          value = snapshots[date]
-          contributions = cumulative_contributions[date]
-          gain = (value - contributions) / contributions.to_f
-
-          array << [date.to_js_time, gain]
-        end
-      }
-    ]
-
-    data = {
-      'graph-data' => graph_data.to_json
-    }
-
-    cumulative_line_graph id_prefix: 'asset', data: data
-  end
-
   def investment_asset_line_plus_bar_graph(asset)
     return if asset.snapshots.count.zero?
 
