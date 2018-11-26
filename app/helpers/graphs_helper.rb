@@ -70,34 +70,6 @@ module GraphsHelper
 
   # specific graphs
 
-  def contributions_multi_bar_graph
-    return if Contribution.count.zero?
-
-    empty_months = end_of_months_since Contribution.minimum(:date)
-
-    query = FinancialAsset.investments.includes(:contributions).order(:name)
-
-    graph_data = query.inject([]) do |array, asset|
-      query = asset.contributions.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)')
-
-      contributions = query.each_with_object({}) do |contribution, hash|
-        hash[contribution.date.end_of_month.to_js_time] = contribution.total
-      end
-
-      contributions = empty_months.merge contributions
-
-      values = contributions.keys.sort.inject([]) do |hash, month|
-        hash << { x: month, y: contributions[month] }
-      end
-
-      array << { key: asset.name, values: values }
-    end.to_json
-
-    data = { 'graph-data' => graph_data }
-
-    multi_bar_graph id_prefix: 'contributions', data: data
-  end
-
   def investment_asset_cumulative_line_graph(asset)
     return if asset.snapshots.count.zero?
 

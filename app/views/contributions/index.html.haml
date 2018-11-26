@@ -4,9 +4,13 @@
   %h1
     = @title
 
-= contributions_multi_bar_graph
+= contributions_stacked_column_chart
+
+%hr
 
 = cumulative_contributions_line_chart
+
+%hr
 
 - unless @contributions.length.zero?
   .table-responsive

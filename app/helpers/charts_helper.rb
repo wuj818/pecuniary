@@ -112,4 +112,39 @@ module ChartsHelper
 
     chart 'cumulative-contributions-line-chart', options
   end
+
+  def contributions_stacked_column_chart
+    return if Contribution.count.zero?
+
+    empty_months = end_of_months_since Contribution.minimum(:date)
+
+    query = FinancialAsset.investments.includes(:contributions).order(:name)
+
+    series = query.each_with_object([]) do |asset, array|
+      contributions_query = asset.contributions.select('date, SUM(amount) AS total').group('STRFTIME("%m-%Y", date)').order(:date)
+
+      contributions = contributions_query.each_with_object({}) do |contribution, hash|
+        hash[contribution.date.end_of_month.to_js_time] = contribution.total
+      end
+
+      data = empty_months.merge(contributions).to_a
+
+      array << {
+        name: asset.name,
+        data: data
+      }
+    end
+
+    options = {
+      chart: { type: 'column' },
+      plotOptions: {
+        column: {
+          stacking: 'normal'
+        }
+      },
+      series: series
+    }
+
+    chart 'contributions-stacked-column-chart', options
+  end
 end
