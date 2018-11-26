@@ -70,38 +70,6 @@ module GraphsHelper
 
   # specific graphs
 
-  def investment_history_line_graph(snapshots, cumulative_contributions)
-    graph_data = [
-      {
-        key: 'Cumulative Contributions',
-        area: true,
-        values: cumulative_contributions.keys.inject([]) do |array, date|
-          array << {
-            x: date.to_js_time,
-            y: cumulative_contributions[date]
-          }
-        end
-      },
-      {
-        key: 'Investment Value',
-        values: snapshots.keys.inject([]) do |array, date|
-          array << {
-            x: date.to_js_time,
-            y: snapshots[date]
-          }
-        end
-      }
-    ]
-
-    data = {
-      'graph-data' => graph_data.to_json,
-      'y-max' => [snapshots.values.max, cumulative_contributions.values.max].max,
-      'show-legend' => true
-    }
-
-    line_graph id_prefix: 'investment-history', data: data
-  end
-
   def investment_history_cumulative_line_graph(snapshots, cumulative_contributions)
     graph_data = [
       {

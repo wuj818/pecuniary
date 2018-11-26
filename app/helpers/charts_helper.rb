@@ -174,6 +174,14 @@ module ChartsHelper
       cumulative_contributions[month] = sum
     end
 
+    investment_area_chart 'investment-asset-area-chart', snapshots.to_a, cumulative_contributions.to_a
+  end
+
+  def investment_assets_area_chart(snapshots, cumulative_contributions)
+    investment_area_chart 'investment-assets-area-chart', snapshots.to_a, cumulative_contributions.to_a
+  end
+
+  def investment_area_chart(id, snapshots, cumulative_contributions)
     options = {
       chart: { type: 'area' },
       plotOptions: {
@@ -183,18 +191,18 @@ module ChartsHelper
       },
       series: [
         {
-          name: 'Value',
-          data: snapshots.to_a
+          name: 'Total Value',
+          data: snapshots
         },
         {
           name: 'Cumulative Contributions',
           fillOpacity: 0.25,
-          data: cumulative_contributions.to_a
+          data: cumulative_contributions
         }
       ]
     }
 
-    chart 'investment-asset-area-chart', options
+    chart id, options
   end
 
   def investment_asset_performance_line_chart(asset)

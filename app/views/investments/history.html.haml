@@ -4,8 +4,13 @@
   %h1
     = @title
 
-= investment_history_line_graph @snapshots, @cumulative_contributions
+= investment_assets_area_chart @snapshots, @cumulative_contributions
+
+%hr
+
 = investment_history_cumulative_line_graph @snapshots, @cumulative_contributions
+
+%hr
 
 .table-responsive
   %table.table.table-striped.table-bordered.table-hover#investments-table
