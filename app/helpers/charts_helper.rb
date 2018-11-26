@@ -40,11 +40,11 @@ module ChartsHelper
     series = query.each_with_object([]) do |asset, array|
       snapshots_query = asset.snapshots.select([:date, 'SUM(value) AS value']).group(:date).order(:date)
 
-      data = snapshots_query.each_with_object({}) do |row, points|
+      snapshots = snapshots_query.each_with_object({}) do |row, points|
         points[row.date.to_js_time] = row.value
       end
 
-      data = empty_months.merge(data).to_a
+      data = empty_months.merge(snapshots).to_a
 
       array << {
         name: asset.name,
@@ -146,5 +146,33 @@ module ChartsHelper
     }
 
     chart 'contributions-stacked-column-chart', options
+  end
+
+  def investment_asset_contributions_column_chart(asset)
+    return if asset.contributions.count.zero?
+
+    empty_months = end_of_months_since asset.contributions.minimum(:date)
+
+    query = asset.contributions.select('date, SUM(amount) AS total').group('STRFTIME("%m-%Y", date)').order(:date)
+
+    contributions = query.each_with_object({}) do |row, hash|
+      hash[row.date.end_of_month.to_js_time] = row.total
+    end
+
+    data = empty_months.merge(contributions).to_a
+
+    options = {
+      title: { text: 'Contributions' },
+      legend: { enabled: false },
+      chart: { type: 'column' },
+      series: [
+        {
+          name: 'Contributions',
+          data: data
+        }
+      ]
+    }
+
+    chart 'investment-asset-contributions-column-chart', options
   end
 end
