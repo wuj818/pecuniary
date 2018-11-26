@@ -8,18 +8,9 @@ module Charts::ChartsHelper
       array << [row.date.to_js_time, row.value]
     end
 
-    options = {
-      legend: { enabled: false },
-      series: [
-        {
-          type: 'line',
-          name: 'Net Worth',
-          data: data
-        }
-      ]
-    }
+    series = { name: 'Net Worth', data: data }
 
-    chart 'net-worth-line-chart', options
+    line_chart 'net-worth', series
   end
 
   def assets_stacked_area_chart
@@ -61,18 +52,9 @@ module Charts::ChartsHelper
       array << [snapshot.date.to_js_time, snapshot.value]
     end
 
-    options = {
-      legend: { enabled: false },
-      series: [
-        {
-          type: 'line',
-          name: 'Asset Value',
-          data: data
-        }
-      ]
-    }
+    series = { name: 'Total Value', data: data }
 
-    chart 'non-investment-asset-line-chart', options
+    line_chart 'non-investment-asset', series
   end
 
   def cumulative_contributions_line_chart
@@ -91,18 +73,9 @@ module Charts::ChartsHelper
       [date, sum += value]
     end
 
-    options = {
-      legend: { enabled: false },
-      series: [
-        {
-          type: 'line',
-          name: 'Cumulative Contributions',
-          data: data
-        }
-      ]
-    }
+    series = { name: 'Cumulative Contributions', data: data }
 
-    chart 'cumulative-contributions-line-chart', options
+    line_chart 'cumulative-contributions', series
   end
 
   def contributions_stacked_column_chart
@@ -223,11 +196,11 @@ module Charts::ChartsHelper
       cumulative_contributions[month] = sum
     end
 
-    investment_performance_line_chart 'investment-asset-performance-line-chart', snapshots, cumulative_contributions
+    investment_performance_line_chart 'investment-asset-performance', snapshots, cumulative_contributions
   end
 
   def investment_assets_performance_line_chart(snapshots, cumulative_contributions)
-    investment_performance_line_chart 'investment-assets-performance-line-chart', snapshots, cumulative_contributions
+    investment_performance_line_chart 'investment-assets-performance', snapshots, cumulative_contributions
   end
 
   def investment_performance_line_chart(id, snapshots, cumulative_contributions)
@@ -239,24 +212,19 @@ module Charts::ChartsHelper
       array << [month, gain]
     end
 
-    options = {
+    series = { name: 'Total Return', data: data }
+
+    custom_options = {
       title: { text: 'Performance' },
-      legend: { enabled: false },
       yAxis: { labels: { format: '{value:,.2f}%' } },
       tooltip: {
         valueDecimals: 2,
         valuePrefix: nil,
         valueSuffix: '%'
-      },
-      series: [
-        {
-          name: 'Total Return',
-          data: data
-        }
-      ]
+      }
     }
 
-    chart id, options
+    line_chart id, series, custom_options
   end
 
   def investment_asset_contributions_column_chart(asset)
