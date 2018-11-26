@@ -231,6 +231,14 @@ module ChartsHelper
       cumulative_contributions[month] = sum
     end
 
+    investment_performance_line_chart 'investment-asset-performance-line-chart', snapshots, cumulative_contributions
+  end
+
+  def investment_assets_performance_line_chart(snapshots, cumulative_contributions)
+    investment_performance_line_chart 'investment-assets-performance-line-chart', snapshots, cumulative_contributions
+  end
+
+  def investment_performance_line_chart(id, snapshots, cumulative_contributions)
     data = snapshots.keys.each_with_object([]) do |month, array|
       value = snapshots[month]
       contributions = cumulative_contributions[month]
@@ -242,11 +250,7 @@ module ChartsHelper
     options = {
       title: { text: 'Performance' },
       legend: { enabled: false },
-      yAxis: {
-        labels: {
-          format: '{value:,.2f}%'
-        }
-      },
+      yAxis: { labels: { format: '{value:,.2f}%' } },
       tooltip: {
         valueDecimals: 2,
         valuePrefix: nil,
@@ -260,7 +264,7 @@ module ChartsHelper
       ]
     }
 
-    chart 'investment-asset-performance-line-chart', options
+    chart id, options
   end
 
   def investment_asset_contributions_column_chart(asset)

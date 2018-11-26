@@ -68,29 +68,6 @@ module GraphsHelper
     graph options.merge(type: 'multi-bar')
   end
 
-  # specific graphs
-
-  def investment_history_cumulative_line_graph(snapshots, cumulative_contributions)
-    graph_data = [
-      {
-        key: 'Total Return',
-        values: snapshots.keys.sort.inject([]) do |array, date|
-          value = snapshots[date]
-          contributions = cumulative_contributions[date]
-          gain = (value - contributions) / contributions.to_f
-
-          array << [date.to_js_time, gain]
-        end
-      }
-    ]
-
-    data = {
-      'graph-data' => graph_data.to_json
-    }
-
-    cumulative_line_graph id_prefix: 'investment-history', data: data
-  end
-
   # helpers
 
   def end_of_months_since(start)
