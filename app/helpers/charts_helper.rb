@@ -294,4 +294,19 @@ module ChartsHelper
 
     chart 'investment-asset-contributions-column-chart', options
   end
+
+  def end_of_months_since(start)
+    current = start.end_of_month
+    stop = Time.zone.now.to_date.end_of_month
+    months = []
+
+    until current > stop
+      months << current
+      current = current.next_month.end_of_month
+    end
+
+    months.each_with_object({}) do |month, hash|
+      hash[month.to_js_time] = 0
+    end
+  end
 end
