@@ -83,7 +83,7 @@ module Charts::ChartsHelper
 
     empty_months = end_of_months_since Contribution.minimum(:date)
 
-    query = FinancialAsset.investments.includes(:contributions).order(:name)
+    query = FinancialAsset.where(investment: true).includes(:contributions).order(:name)
 
     series = query.each_with_object([]) do |asset, array|
       contributions_query = asset.contributions.select('date, SUM(amount) AS total').group('STRFTIME("%m-%Y", date)').order(:date)

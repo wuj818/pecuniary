@@ -13,9 +13,6 @@ class FinancialAsset < ApplicationRecord
 
   after_update :update_association_permalinks, if: :saved_change_to_name?
 
-  scope :investments, -> { where(investment: true) }
-  scope :non_investments, -> { where(investment: false) }
-
   class << self
     def net_worth
       sum :current_value
