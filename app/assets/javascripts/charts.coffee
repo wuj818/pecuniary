@@ -20,7 +20,7 @@ $(document).on 'turbolinks:load', ->
     tooltip:
       shared: true
       crosshairs: true
-      xDateFormat: '%B %e, %Y'
+      xDateFormat: '%B %Y'
       valuePrefix: '$'
     plotOptions:
       line:
