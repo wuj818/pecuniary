@@ -32,11 +32,10 @@
           .timeline-body
             = kramdown milestone.notes
 
-            - if milestone.tags.present?
+            - if milestone.cached_tag_list.present?
               %hr
 
-              %small.tag-list
-                - milestone.tags.order(:name).each do |tag|
-                  = link_to "##{tag}", 'javascript:;'
+              - milestone.cached_tag_list.split(', ').sort.each do |tag|
+                = link_to tag, 'javascript:;', class: 'badge badge-info'
 - else
   %p There are no milestones.
