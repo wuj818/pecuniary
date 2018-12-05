@@ -1,21 +1,22 @@
 require 'rails_helper'
 
-RSpec.describe SessionsController do
+RSpec.describe 'Sessions' do
   describe 'GET new' do
     context 'when logged in' do
       it 'redirects to the home page' do
-        controller.login
+        request_spec_login
 
-        get :new
+        get login_path
 
         expect(response).to redirect_to root_path
-        expect(flash[:info]).to match(/already logged in/i)
       end
     end
 
     context 'when logged out' do
-      it "renders the 'new' template" do
-        get :new
+      it 'returns a successful response' do
+        get login_path
+
+        expect(response).to have_http_status :ok
       end
     end
   end
@@ -23,9 +24,9 @@ RSpec.describe SessionsController do
   describe 'POST create' do
     context 'when logged in' do
       it 'redirects to the home page' do
-        controller.login
+        request_spec_login
 
-        post :create
+        post sessions_path
 
         expect(response).to redirect_to root_path
         expect(flash[:info]).to match(/already logged in/i)
@@ -35,45 +36,47 @@ RSpec.describe SessionsController do
     context 'when logged out' do
       context 'with a valid password' do
         it 'logs in the admin and redirects to the home page' do
-          post :create, params: { password: Rails.application.credentials.password[Rails.env.to_sym] }
+          post sessions_path, params: { password: Rails.application.credentials.password[Rails.env.to_sym] }
 
           expect(response).to redirect_to root_path
           expect(flash[:success]).to match(/successfully/i)
-          expect(controller).to be_admin
+          expect(admin_cookie).to be_present
         end
       end
 
       context 'with an invalid password' do
-        it "renders the 'new' template" do
-          post :create, params: { password: 'no' }
+        it "doesn't login the admin" do
+          post sessions_path, params: { password: 'wrong' }
 
+          expect(response).to have_http_status :ok
           expect(flash.now[:danger]).to match(/incorrect/i)
-          expect(controller).not_to be_admin
+          expect(admin_cookie).to be_blank
         end
       end
     end
   end
 
   describe 'DELETE destroy' do
+    after do
+      expect(response).to redirect_to root_path
+      expect(admin_cookie).to be_blank
+    end
+
     context 'when logged in' do
       it 'logs out the admin and redirects to the home page' do
-        controller.login
+        request_spec_login
 
-        delete :destroy
+        delete logout_path
 
-        expect(response).to redirect_to root_path
         expect(flash[:success]).to match(/successfully/i)
-        expect(controller).not_to be_admin
       end
     end
 
     context 'when logged out' do
       it 'redirects to the home page' do
-        delete :destroy
+        delete logout_path
 
-        expect(response).to redirect_to root_path
         expect(flash[:info]).to match(/not logged in/i)
-        expect(controller).not_to be_admin
       end
     end
   end

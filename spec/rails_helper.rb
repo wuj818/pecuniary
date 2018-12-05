@@ -62,4 +62,6 @@ RSpec.configure do |config|
   config.include Mocks
   config.include Stubs
   config.include FactoryBot::Syntax::Methods
+
+  config.include RequestSpecHelper, type: 'request'
 end
