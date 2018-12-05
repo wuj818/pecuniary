@@ -7,9 +7,6 @@ RSpec.describe FinancialAssetsController do
       expect(mock_relation).to receive(:order).with(:name).and_return mock_relation
 
       get :index
-
-      expect(response).to render_template :index
-      expect(assigns(:assets)).to eq mock_relation
     end
   end
 
@@ -22,11 +19,6 @@ RSpec.describe FinancialAssetsController do
       expect(mock_relation).to receive(:order).with('date DESC').and_return mock_relation
 
       get :show, params: { id: asset.to_param }
-
-      expect(response).to render_template :show
-      expect(assigns(:asset)).to eq asset
-      expect(assigns(:snapshots)).to eq mock_relation
-      expect(assigns(:contributions)).to eq mock_relation
     end
   end
 
@@ -36,9 +28,6 @@ RSpec.describe FinancialAssetsController do
         controller.login
 
         get :new
-
-        expect(response).to render_template :new
-        expect(assigns(:asset)).to be_a_new FinancialAsset
       end
     end
 
@@ -77,8 +66,6 @@ RSpec.describe FinancialAssetsController do
           expect(asset).to receive(:save).and_return false
 
           post :create, params: { financial_asset: { test: 1 } }
-
-          expect(response).to render_template :new
         end
       end
     end
@@ -102,9 +89,6 @@ RSpec.describe FinancialAssetsController do
         expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return asset
 
         get :edit, params: { id: asset.to_param }
-
-        expect(response).to render_template :edit
-        expect(assigns(:asset)).to eq asset
       end
     end
 
@@ -143,8 +127,6 @@ RSpec.describe FinancialAssetsController do
           expect(asset).to receive(:update).and_return false
 
           put :update, params: { id: asset.to_param, financial_asset: { test: 1 } }
-
-          expect(response).to render_template :edit
         end
       end
     end

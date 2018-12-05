@@ -6,9 +6,6 @@ RSpec.describe MilestonesController do
       expect(Milestone).to receive(:order).with('date DESC').and_return mock_relation
 
       get :index
-
-      expect(response).to render_template :index
-      expect(assigns(:milestones)).to eq mock_relation
     end
   end
 
@@ -18,9 +15,6 @@ RSpec.describe MilestonesController do
       expect(Milestone).to receive(:find_by).with(permalink: milestone.to_param).and_return milestone
 
       get :show, params: { id: milestone.to_param }
-
-      expect(response).to render_template :show
-      expect(assigns(:milestone)).to eq milestone
     end
   end
 
@@ -30,9 +24,6 @@ RSpec.describe MilestonesController do
         controller.login
 
         get :new
-
-        expect(response).to render_template :new
-        expect(assigns(:milestone)).to be_a_new Milestone
       end
     end
 
@@ -71,8 +62,6 @@ RSpec.describe MilestonesController do
           expect(milestone).to receive(:save).and_return false
 
           post :create, params: { milestone: { test: 1 } }
-
-          expect(response).to render_template :new
         end
       end
     end
@@ -96,9 +85,6 @@ RSpec.describe MilestonesController do
         expect(Milestone).to receive(:find_by).with(permalink: milestone.to_param).and_return milestone
 
         get :edit, params: { id: milestone.to_param }
-
-        expect(response).to render_template :edit
-        expect(assigns(:milestone)).to eq milestone
       end
     end
 
@@ -137,8 +123,6 @@ RSpec.describe MilestonesController do
           expect(milestone).to receive(:update).and_return false
 
           put :update, params: { id: milestone.to_param, milestone: { test: 1 } }
-
-          expect(response).to render_template :edit
         end
       end
     end

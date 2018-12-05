@@ -7,10 +7,6 @@ RSpec.describe AssetSnapshotsController do
       expect(AssetSnapshot).to receive(:find_by).with(permalink: snapshot.to_param).and_return snapshot
 
       get :show, params: { id: snapshot.to_param }
-
-      expect(response).to render_template :show
-      expect(assigns(:snapshot)).to eq snapshot
-      expect(assigns(:asset)).to eq snapshot.asset
     end
   end
 
@@ -24,10 +20,6 @@ RSpec.describe AssetSnapshotsController do
         expect(asset.snapshots).to receive(:build).and_return stub_asset_snapshot(new_record?: true, asset: asset)
 
         get :new, params: { financial_asset_id: asset.to_param }
-
-        expect(response).to render_template :new
-        expect(assigns(:snapshot)).to be_a_new AssetSnapshot
-        expect(assigns(:snapshot).asset).to eq asset
       end
     end
 
@@ -67,8 +59,6 @@ RSpec.describe AssetSnapshotsController do
           expect(snapshot).to receive(:save).and_return false
 
           post :create, params: { financial_asset_id: asset.to_param, asset_snapshot: { test: 1 } }
-
-          expect(response).to render_template :new
         end
       end
     end
@@ -93,9 +83,6 @@ RSpec.describe AssetSnapshotsController do
         expect(AssetSnapshot).to receive(:find_by).with(permalink: snapshot.to_param).and_return snapshot
 
         get :edit, params: { id: snapshot.to_param }
-
-        expect(response).to render_template :edit
-        expect(assigns(:snapshot)).to eq snapshot
       end
     end
 
@@ -135,8 +122,6 @@ RSpec.describe AssetSnapshotsController do
           expect(snapshot).to receive(:update).and_return false
 
           put :update, params: { id: snapshot.to_param, asset_snapshot: { test: 1 } }
-
-          expect(response).to render_template :edit
         end
       end
     end

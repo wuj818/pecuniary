@@ -16,8 +16,6 @@ RSpec.describe SessionsController do
     context 'when logged out' do
       it "renders the 'new' template" do
         get :new
-
-        expect(response).to render_template :new
       end
     end
   end
@@ -49,7 +47,6 @@ RSpec.describe SessionsController do
         it "renders the 'new' template" do
           post :create, params: { password: 'no' }
 
-          expect(response).to render_template :new
           expect(flash.now[:danger]).to match(/incorrect/i)
           expect(controller).not_to be_admin
         end

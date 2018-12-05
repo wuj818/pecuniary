@@ -7,9 +7,6 @@ RSpec.describe ContributionsController do
       expect(mock_relation).to receive(:order).with('date DESC').and_return mock_relation
 
       get :index
-
-      expect(response).to render_template :index
-      expect(assigns(:contributions)).to eq mock_relation
     end
   end
 
@@ -19,10 +16,6 @@ RSpec.describe ContributionsController do
       expect(Contribution).to receive(:find_by).with(permalink: contribution.to_param).and_return contribution
 
       get :show, params: { id: contribution.to_param }
-
-      expect(response).to render_template :show
-      expect(assigns(:contribution)).to eq contribution
-      expect(assigns(:asset)).to eq contribution.asset
     end
   end
 
@@ -36,10 +29,6 @@ RSpec.describe ContributionsController do
         expect(asset.contributions).to receive(:build).and_return stub_contribution(new_record?: true, asset: asset)
 
         get :new, params: { financial_asset_id: asset.to_param }
-
-        expect(response).to render_template :new
-        expect(assigns(:contribution)).to be_a_new Contribution
-        expect(assigns(:contribution).asset).to eq asset
       end
     end
 
@@ -80,8 +69,6 @@ RSpec.describe ContributionsController do
           expect(contribution).to receive(:save).and_return false
 
           post :create, params: { financial_asset_id: asset.to_param, contribution: { test: 1 } }
-
-          expect(response).to render_template :new
         end
       end
     end
@@ -106,9 +93,6 @@ RSpec.describe ContributionsController do
         expect(Contribution).to receive(:find_by).with(permalink: contribution.to_param).and_return contribution
 
         get :edit, params: { id: contribution.to_param }
-
-        expect(response).to render_template :edit
-        expect(assigns(:contribution)).to eq contribution
       end
     end
 
@@ -148,8 +132,6 @@ RSpec.describe ContributionsController do
           expect(contribution).to receive(:update).and_return false
 
           put :update, params: { id: contribution.to_param, contribution: { test: 1 } }
-
-          expect(response).to render_template :edit
         end
       end
     end
