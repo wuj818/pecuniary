@@ -49,7 +49,6 @@ end
 
 group :test do
   gem 'factory_bot_rails', '4.11.1'
-  gem 'timecop', '0.9.1'
 end
 
 gem 'hirb', '0.7.3'

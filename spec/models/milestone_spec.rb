@@ -6,7 +6,6 @@ RSpec.describe Milestone do
     let(:milestone) { create :milestone, date: date }
 
     it 'sets the date to the current day by default' do
-      Timecop.freeze
       milestone = Milestone.new
       expect(milestone.date).to eq Time.zone.now.to_date
     end

@@ -13,7 +13,6 @@ RSpec.describe Contribution do
     let(:contribution) { create :contribution, date: date, asset: create(:financial_asset, name: 'Bank') }
 
     it 'sets the date to the current date by default' do
-      Timecop.freeze
       contribution = Contribution.new
       expect(contribution.date).to eq Time.zone.now.to_date
     end

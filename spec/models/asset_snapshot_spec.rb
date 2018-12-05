@@ -13,7 +13,6 @@ RSpec.describe AssetSnapshot do
     let(:snapshot) { create :asset_snapshot, date: date, asset: create(:financial_asset, name: 'Bank') }
 
     it 'sets the date to the end of the current month by default' do
-      Timecop.freeze
       snapshot = AssetSnapshot.new
       expect(snapshot.date).to eq Time.zone.now.to_date.end_of_month
     end
