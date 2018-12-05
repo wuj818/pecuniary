@@ -29,7 +29,7 @@
           = @milestone.formatted_date
 
         %td
-          = kramdown @milestone.notes
+          = kramdown @milestone.notes.to_s
 
         %td
           = link_to @milestone.permalink, @milestone
