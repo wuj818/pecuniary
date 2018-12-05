@@ -47,7 +47,7 @@ class MilestonesController < ApplicationController
   private
 
   def milestone_params
-    params.fetch(:milestone).permit(:date, :notes, :permalink, :tag_list)
+    params.require(:milestone).permit :date, :notes, :permalink, :tag_list
   end
 
   def get_milestone

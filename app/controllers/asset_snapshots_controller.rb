@@ -44,7 +44,7 @@ class AssetSnapshotsController < ApplicationController
   private
 
   def asset_snapshot_params
-    params.fetch(:asset_snapshot).permit(:date, :permalink, :value)
+    params.require(:asset_snapshot).permit :date, :permalink, :value
   end
 
   def get_asset

@@ -48,7 +48,7 @@ class ContributionsController < ApplicationController
   private
 
   def contribution_params
-    params.fetch(:contribution).permit(:amount, :employer, :date, :permalink)
+    params.require(:contribution).permit :amount, :employer, :date, :permalink
   end
 
   def get_asset

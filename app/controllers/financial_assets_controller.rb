@@ -49,7 +49,7 @@ class FinancialAssetsController < ApplicationController
   private
 
   def asset_params
-    params.fetch(:financial_asset).permit(:name, :investment)
+    params.require(:financial_asset).permit :name, :investment
   end
 
   def get_asset
