@@ -65,7 +65,7 @@ RSpec.describe 'Financial Assets' do
       end
 
       describe 'with invalid params' do
-        it "doesn't create a new milestone" do
+        it "doesn't create a new asset" do
           expect(asset.as_new_record).to receive(:save).and_return false
 
           post financial_assets_path, params: { financial_asset: { test: 1 } }
@@ -134,7 +134,7 @@ RSpec.describe 'Financial Assets' do
       end
 
       describe 'with invalid params' do
-        it "renders the 'edit' template" do
+        it "doesn't update the asset" do
           expect(asset).to receive(:update).and_return false
 
           patch financial_asset_path(asset, financial_asset: { test: 1 })
