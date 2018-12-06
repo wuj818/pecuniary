@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Milestone do
   describe 'callbacks' do
     let(:date) { Date.new 2010, 7, 28 }

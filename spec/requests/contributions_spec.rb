@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe 'Contributions' do
   describe 'GET index' do
     it 'returns a successful response' do

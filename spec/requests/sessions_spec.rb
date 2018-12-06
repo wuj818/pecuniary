@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe 'Sessions' do
   describe 'GET new' do
     context 'when logged in' do

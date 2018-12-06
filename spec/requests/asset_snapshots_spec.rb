@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe 'Asset Snapshots' do
   describe 'GET show' do
     it 'returns a successful response' do
