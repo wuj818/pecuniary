@@ -14,7 +14,7 @@ RSpec.describe 'Contributions' do
 
   describe 'GET show' do
     it 'returns a successful response' do
-      contribution = stub_contribution permalink: 'bank-july-28-2010'
+      contribution = stub_contribution
       expect(Contribution).to receive(:find_by).with(permalink: contribution.to_param).and_return contribution
 
       get contribution_path(contribution)
@@ -24,13 +24,13 @@ RSpec.describe 'Contributions' do
   end
 
   describe 'GET new' do
-    let(:asset) { stub_asset name: 'Bank', permalink: 'bank' }
+    let(:asset) { stub_asset }
 
     context 'when logged in' do
       it 'returns a successful response' do
         request_spec_login
         expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return asset
-        expect(asset.contributions).to receive(:build).and_return stub_contribution(new_record?: true, asset: asset)
+        expect(asset.contributions).to receive(:build).and_return stub_contribution.as_new_record
 
         get new_financial_asset_contribution_path(asset)
 
@@ -49,7 +49,7 @@ RSpec.describe 'Contributions' do
   end
 
   describe 'POST create' do
-    let(:asset) { stub_asset name: 'Bank', permalink: 'bank' }
+    let(:asset) { stub_asset }
     let(:contribution) { stub_contribution asset: asset }
 
     context 'when logged in' do
@@ -92,8 +92,7 @@ RSpec.describe 'Contributions' do
   end
 
   describe 'GET edit' do
-    let(:asset) { stub_asset name: 'Bank', permalink: 'bank' }
-    let(:contribution) { stub_contribution permalink: 'bank-july-28-2010', asset: asset }
+    let(:contribution) { stub_contribution }
 
     context 'when logged in' do
       it 'returns a successful response' do
@@ -117,8 +116,7 @@ RSpec.describe 'Contributions' do
   end
 
   describe 'PATCH update' do
-    let(:asset) { stub_asset name: 'Bank', permalink: 'bank' }
-    let(:contribution) { stub_contribution permalink: 'bank-july-28-2010', asset: asset }
+    let(:contribution) { stub_contribution }
 
     context 'when logged in' do
       before do
@@ -161,8 +159,7 @@ RSpec.describe 'Contributions' do
   end
 
   describe 'DELETE destroy' do
-    let(:asset) { stub_asset name: 'Bank', permalink: 'bank' }
-    let(:contribution) { stub_contribution permalink: 'bank-july-28-2010', asset: asset }
+    let(:contribution) { stub_contribution }
 
     context 'when logged in' do
       it 'destroys the requested contribution and redirects to its asset' do
@@ -172,7 +169,7 @@ RSpec.describe 'Contributions' do
 
         delete contribution_path(contribution)
 
-        expect(response).to redirect_to asset
+        expect(response).to redirect_to contribution.asset
         expect(flash[:success]).to match(/deleted/i)
       end
     end

@@ -13,7 +13,7 @@ RSpec.describe 'Milestones' do
 
   describe 'GET show' do
     it 'returns a successful response' do
-      milestone = stub_milestone permalink: 'july-28-2010'
+      milestone = stub_milestone
       expect(Milestone).to receive(:find_by).with(permalink: milestone.to_param).and_return milestone
 
       get milestone_path(milestone)
@@ -87,7 +87,7 @@ RSpec.describe 'Milestones' do
   end
 
   describe 'GET edit' do
-    let(:milestone) { stub_milestone permalink: 'july-28-2010' }
+    let(:milestone) { stub_milestone }
 
     context 'when logged in' do
       it 'returns a successful response' do
@@ -113,7 +113,7 @@ RSpec.describe 'Milestones' do
   end
 
   describe 'PATCH update' do
-    let(:milestone) { stub_milestone permalink: 'july-28-2010' }
+    let(:milestone) { stub_milestone }
 
     context 'when logged in' do
       before do
@@ -156,7 +156,7 @@ RSpec.describe 'Milestones' do
   end
 
   describe 'DELETE destroy' do
-    let(:milestone) { stub_milestone permalink: 'july-28-2010' }
+    let(:milestone) { stub_milestone }
 
     context 'when logged in' do
       it 'destroys the requested milestone and redirects to the milestones index' do

@@ -14,7 +14,7 @@ RSpec.describe 'Financial Assets' do
 
   describe 'GET show' do
     it 'returns a successful response' do
-      asset = stub_asset permalink: 'bank'
+      asset = stub_asset
       expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return stub_asset
 
       get financial_asset_path(asset)
@@ -88,7 +88,7 @@ RSpec.describe 'Financial Assets' do
   end
 
   describe 'GET edit' do
-    let(:asset) { stub_asset permalink: 'bank' }
+    let(:asset) { stub_asset }
 
     context 'when logged in' do
       it 'returns a successful response' do
@@ -114,7 +114,7 @@ RSpec.describe 'Financial Assets' do
   end
 
   describe 'PATCH update' do
-    let(:asset) { stub_asset permalink: 'bank' }
+    let(:asset) { stub_asset }
 
     context 'when logged in' do
       before do
@@ -157,7 +157,7 @@ RSpec.describe 'Financial Assets' do
   end
 
   describe 'DELETE destroy' do
-    let(:asset) { stub_asset permalink: 'bank' }
+    let(:asset) { stub_asset }
 
     context 'when logged in' do
       it 'destroys the requested asset and redirects to the assets index' do

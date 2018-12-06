@@ -59,9 +59,9 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  config.include Mocks
-  config.include Stubs
   config.include FactoryBot::Syntax::Methods
 
+  config.include Mocks, type: 'request'
+  config.include Stubs, type: 'request'
   config.include RequestSpecHelper, type: 'request'
 end

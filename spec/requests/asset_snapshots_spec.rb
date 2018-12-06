@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Asset Snapshots' do
   describe 'GET show' do
     it 'returns a successful response' do
-      snapshot = stub_asset_snapshot permalink: 'bank-july-2010'
+      snapshot = stub_asset_snapshot
       expect(AssetSnapshot).to receive(:find_by).with(permalink: snapshot.to_param).and_return snapshot
 
       get asset_snapshot_path(snapshot)
@@ -13,7 +13,7 @@ RSpec.describe 'Asset Snapshots' do
   end
 
   describe 'GET new' do
-    let(:asset) { stub_asset name: 'Bank', permalink: 'bank' }
+    let(:asset) { stub_asset }
 
     context 'when logged in' do
       it 'returns a successful response' do
@@ -38,7 +38,7 @@ RSpec.describe 'Asset Snapshots' do
   end
 
   describe 'POST create' do
-    let(:asset) { stub_asset name: 'Bank', permalink: 'bank' }
+    let(:asset) { stub_asset }
     let(:snapshot) { stub_asset_snapshot asset: asset }
 
     context 'when logged in' do
@@ -81,8 +81,7 @@ RSpec.describe 'Asset Snapshots' do
   end
 
   describe 'GET edit' do
-    let(:asset) { stub_asset name: 'Bank', permalink: 'bank' }
-    let(:snapshot) { stub_asset_snapshot permalink: 'bank-july-2010', asset: asset }
+    let(:snapshot) { stub_asset_snapshot }
 
     context 'when logged in' do
       it 'returns a successful response' do
@@ -106,8 +105,7 @@ RSpec.describe 'Asset Snapshots' do
   end
 
   describe 'PATCH update' do
-    let(:asset) { stub_asset name: 'Bank', permalink: 'bank' }
-    let(:snapshot) { stub_asset_snapshot permalink: 'bank-july-2010', asset: asset }
+    let(:snapshot) { stub_asset_snapshot }
 
     context 'when logged in' do
       before do
@@ -150,8 +148,7 @@ RSpec.describe 'Asset Snapshots' do
   end
 
   describe 'DELETE destroy' do
-    let(:asset) { stub_asset name: 'Bank', permalink: 'bank' }
-    let(:snapshot) { stub_asset_snapshot permalink: 'bank-july-2010', asset: asset }
+    let(:snapshot) { stub_asset_snapshot }
 
     context 'when logged in' do
       it 'destroys the requested snapshot and redirects to its asset' do
@@ -161,7 +158,7 @@ RSpec.describe 'Asset Snapshots' do
 
         delete asset_snapshot_path(snapshot)
 
-        expect(response).to redirect_to asset
+        expect(response).to redirect_to snapshot.asset
         expect(flash[:success]).to match(/deleted/i)
       end
     end
