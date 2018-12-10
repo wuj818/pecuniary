@@ -65,6 +65,8 @@ RSpec.configure do |config|
   config.include RequestSpecHelper::Mocks, type: 'request'
   config.include RequestSpecHelper::Stubs, type: 'request'
 
+  config.include SystemSpecHelper, type: 'system'
+
   config.before :each, type: 'system' do
     driven_by :rack_test
   end
