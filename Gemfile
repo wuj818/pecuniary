@@ -44,6 +44,10 @@ group :development, :test do
   gem 'rspec-activemodel-mocks', '1.1.0'
   gem 'rspec-rails', '3.8.1'
 
+  gem 'capybara', '3.10.1'
+  gem 'chromedriver-helper', '2.1.0'
+  gem 'selenium-webdriver', '3.141.0'
+
   gem 'fuubar', '2.3.2'
 end
 

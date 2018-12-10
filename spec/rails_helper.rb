@@ -64,4 +64,12 @@ RSpec.configure do |config|
   config.include RequestSpecHelper, type: 'request'
   config.include RequestSpecHelper::Mocks, type: 'request'
   config.include RequestSpecHelper::Stubs, type: 'request'
+
+  config.before :each, type: 'system' do
+    driven_by :rack_test
+  end
+
+  config.before :each, type: 'system', js: true do
+    driven_by :selenium_chrome_headless
+  end
 end
