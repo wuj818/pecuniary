@@ -6,7 +6,7 @@ RSpec.describe 'Asset Snapshots' do
 
       get asset_snapshot_path(snapshot)
 
-      expect(response).to have_http_status :ok
+      expect(response).to be_successful
     end
   end
 
@@ -21,7 +21,7 @@ RSpec.describe 'Asset Snapshots' do
 
         get new_financial_asset_snapshot_path(asset)
 
-        expect(response).to have_http_status :ok
+        expect(response).to be_successful
       end
     end
 
@@ -63,7 +63,7 @@ RSpec.describe 'Asset Snapshots' do
 
           post financial_asset_snapshots_path(asset, asset_snapshot: { test: 1 })
 
-          expect(response).to have_http_status :ok
+          expect(response).to be_successful
         end
       end
     end
@@ -88,7 +88,7 @@ RSpec.describe 'Asset Snapshots' do
 
         get edit_asset_snapshot_path(snapshot)
 
-        expect(response).to have_http_status :ok
+        expect(response).to be_successful
       end
     end
 
@@ -128,7 +128,7 @@ RSpec.describe 'Asset Snapshots' do
 
           patch asset_snapshot_path(snapshot, asset_snapshot: { test: 1 })
 
-          expect(response).to have_http_status :ok
+          expect(response).to be_successful
         end
       end
     end

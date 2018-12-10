@@ -5,7 +5,7 @@ RSpec.describe 'Milestones' do
 
       get milestones_path
 
-      expect(response).to have_http_status :ok
+      expect(response).to be_successful
     end
   end
 
@@ -16,7 +16,7 @@ RSpec.describe 'Milestones' do
 
       get milestone_path(milestone)
 
-      expect(response).to have_http_status :ok
+      expect(response).to be_successful
     end
   end
 
@@ -27,7 +27,7 @@ RSpec.describe 'Milestones' do
 
         get new_milestone_path
 
-        expect(response).to have_http_status :ok
+        expect(response).to be_successful
       end
     end
 
@@ -67,7 +67,7 @@ RSpec.describe 'Milestones' do
 
           post milestones_path, params: { milestone: { test: 1 } }
 
-          expect(response).to have_http_status :ok
+          expect(response).to be_successful
         end
       end
     end
@@ -94,7 +94,7 @@ RSpec.describe 'Milestones' do
 
         get edit_milestone_path(milestone)
 
-        expect(response).to have_http_status :ok
+        expect(response).to be_successful
       end
     end
 
@@ -136,7 +136,7 @@ RSpec.describe 'Milestones' do
 
           patch milestone_path(milestone, milestone: { test: 1 })
 
-          expect(response).to have_http_status :ok
+          expect(response).to be_successful
         end
       end
     end

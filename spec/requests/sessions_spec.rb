@@ -14,7 +14,7 @@ RSpec.describe 'Sessions' do
       it 'returns a successful response' do
         get login_path
 
-        expect(response).to have_http_status :ok
+        expect(response).to be_successful
       end
     end
   end
@@ -46,7 +46,7 @@ RSpec.describe 'Sessions' do
         it "doesn't login the admin" do
           post sessions_path, params: { password: 'wrong' }
 
-          expect(response).to have_http_status :ok
+          expect(response).to be_successful
           expect(flash.now[:danger]).to match(/incorrect/i)
           expect(admin_cookie).to be_blank
         end

@@ -6,7 +6,7 @@ RSpec.describe 'Contributions' do
 
       get contributions_path
 
-      expect(response).to have_http_status :ok
+      expect(response).to be_successful
     end
   end
 
@@ -17,7 +17,7 @@ RSpec.describe 'Contributions' do
 
       get contribution_path(contribution)
 
-      expect(response).to have_http_status :ok
+      expect(response).to be_successful
     end
   end
 
@@ -32,7 +32,7 @@ RSpec.describe 'Contributions' do
 
         get new_financial_asset_contribution_path(asset)
 
-        expect(response).to have_http_status :ok
+        expect(response).to be_successful
       end
     end
 
@@ -74,7 +74,7 @@ RSpec.describe 'Contributions' do
 
           post financial_asset_contributions_path(asset, contribution: { test: 1 })
 
-          expect(response).to have_http_status :ok
+          expect(response).to be_successful
         end
       end
     end
@@ -99,7 +99,7 @@ RSpec.describe 'Contributions' do
 
         get edit_contribution_path(contribution)
 
-        expect(response).to have_http_status :ok
+        expect(response).to be_successful
       end
     end
 
@@ -139,7 +139,7 @@ RSpec.describe 'Contributions' do
 
           patch contribution_path(contribution, contribution: { test: 1 })
 
-          expect(response).to have_http_status :ok
+          expect(response).to be_successful
         end
       end
     end

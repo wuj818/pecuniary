@@ -9,6 +9,7 @@ FactoryBot.define do
     asset
     date { Date.new 2010, 7, 28 }
     amount { 350 }
+    employer { false }
   end
 
   factory :financial_asset, aliases: [:asset] do

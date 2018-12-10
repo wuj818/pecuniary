@@ -6,7 +6,7 @@ RSpec.describe 'Financial Assets' do
 
       get financial_assets_path
 
-      expect(response).to have_http_status :ok
+      expect(response).to be_successful
     end
   end
 
@@ -17,7 +17,7 @@ RSpec.describe 'Financial Assets' do
 
       get financial_asset_path(asset)
 
-      expect(response).to have_http_status :ok
+      expect(response).to be_successful
     end
   end
 
@@ -28,7 +28,7 @@ RSpec.describe 'Financial Assets' do
 
         get new_financial_asset_path
 
-        expect(response).to have_http_status :ok
+        expect(response).to be_successful
       end
     end
 
@@ -68,7 +68,7 @@ RSpec.describe 'Financial Assets' do
 
           post financial_assets_path, params: { financial_asset: { test: 1 } }
 
-          expect(response).to have_http_status :ok
+          expect(response).to be_successful
         end
       end
     end
@@ -95,7 +95,7 @@ RSpec.describe 'Financial Assets' do
 
         get edit_financial_asset_path(asset)
 
-        expect(response).to have_http_status :ok
+        expect(response).to be_successful
       end
     end
 
@@ -137,7 +137,7 @@ RSpec.describe 'Financial Assets' do
 
           patch financial_asset_path(asset, financial_asset: { test: 1 })
 
-          expect(response).to have_http_status :ok
+          expect(response).to be_successful
         end
       end
     end
