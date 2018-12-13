@@ -1,13 +1,13 @@
 FactoryBot.define do
   factory :asset_snapshot do
     asset
-    date { Date.new 2010, 7, 28 }
+    date { generate :date }
     value { 350 }
   end
 
   factory :contribution do
     asset
-    date { Date.new 2010, 7, 28 }
+    date { generate :date }
     amount { 350 }
     employer { false }
   end
@@ -19,7 +19,14 @@ FactoryBot.define do
   end
 
   factory :milestone do
-    date { Date.new 2010, 7, 28 }
+    date { generate :date }
     notes { 'none' }
+  end
+
+  sequence :date do |n|
+    start = Date.new 2010, 7, 28
+    stop = Time.zone.today
+
+    (start..stop).to_a[n]
   end
 end

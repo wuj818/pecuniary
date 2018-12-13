@@ -66,6 +66,7 @@ RSpec.configure do |config|
   config.include RequestSpecHelper::Stubs, type: 'request'
 
   config.include SystemSpecHelper, type: 'system'
+  config.include ActionView::RecordIdentifier, type: 'system'
 
   config.before :each, type: 'system' do
     driven_by :rack_test
