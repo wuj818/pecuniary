@@ -48,6 +48,8 @@ group :development, :test do
   gem 'chromedriver-helper', '2.1.0'
   gem 'selenium-webdriver', '3.141.0'
 
+  gem 'byebug', '10.0.2'
+
   gem 'fuubar', '2.3.2'
 end
 
