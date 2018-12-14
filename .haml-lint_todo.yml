@@ -41,15 +41,6 @@ linters:
       - "app/views/sessions/new.html.haml"
       - "app/views/shared/_navigation.html.haml"
 
-  # Offense count: 5
-  ClassesBeforeIds:
-    exclude:
-      - "app/views/asset_snapshots/_form.html.haml"
-      - "app/views/contributions/_form.html.haml"
-      - "app/views/layouts/application.html.haml"
-      - "app/views/milestones/_form.html.haml"
-      - "app/views/shared/_navigation.html.haml"
-
   # Offense count: 7
   InstanceVariables:
     exclude:
