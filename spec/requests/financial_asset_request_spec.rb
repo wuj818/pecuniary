@@ -1,4 +1,4 @@
-RSpec.describe 'Financial Assets' do
+RSpec.describe 'Financial Asset Requests' do
   describe 'GET index' do
     it 'returns a successful response' do
       expect(FinancialAsset).to receive(:includes).with(:snapshots).and_return mock_relation

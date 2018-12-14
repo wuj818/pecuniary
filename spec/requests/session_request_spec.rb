@@ -1,4 +1,4 @@
-RSpec.describe 'Sessions' do
+RSpec.describe 'Session Requests' do
   describe 'GET new' do
     context 'when logged in' do
       it 'redirects to the home page' do

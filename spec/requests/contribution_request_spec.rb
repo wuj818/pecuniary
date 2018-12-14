@@ -1,4 +1,4 @@
-RSpec.describe 'Contributions' do
+RSpec.describe 'Contribution Requests' do
   describe 'GET index' do
     it 'returns a successful response' do
       expect(Contribution).to receive(:includes).with(:asset).and_return mock_relation

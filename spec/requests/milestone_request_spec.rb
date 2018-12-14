@@ -1,4 +1,4 @@
-RSpec.describe 'Milestones' do
+RSpec.describe 'Milestone Requests' do
   describe 'GET index' do
     it 'returns a successful response' do
       expect(Milestone).to receive(:order).with('date DESC').and_return mock_relation

@@ -1,4 +1,4 @@
-RSpec.describe 'Asset Snapshots' do
+RSpec.describe 'Asset Snapshot Requests' do
   describe 'GET show' do
     it 'returns a successful response' do
       snapshot = stub_asset_snapshot
