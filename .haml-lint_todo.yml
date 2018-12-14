@@ -48,8 +48,3 @@ linters:
   ConsecutiveSilentScripts:
     exclude:
       - "app/views/investments/history.html.haml"
-
-  # Offense count: 1
-  UnnecessaryStringOutput:
-    exclude:
-      - "app/views/milestones/show.html.haml"
