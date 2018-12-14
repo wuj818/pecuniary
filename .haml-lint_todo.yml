@@ -53,8 +53,3 @@ linters:
   UnnecessaryStringOutput:
     exclude:
       - "app/views/milestones/show.html.haml"
-
-  # Offense count: 1
-  IdNames:
-    exclude:
-      - "app/views/shared/_navigation.html.haml"
