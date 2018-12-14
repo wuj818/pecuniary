@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :asset_snapshot do
+  factory :snapshot do
     asset
     date { generate :date }
     value { 350 }

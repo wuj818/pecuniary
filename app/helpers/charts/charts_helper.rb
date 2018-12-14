@@ -1,9 +1,9 @@
 module Charts
   module ChartsHelper
     def net_worth_line_chart
-      return no_chart_data if AssetSnapshot.count.zero?
+      return no_chart_data if Snapshot.count.zero?
 
-      query = AssetSnapshot.select([:date, 'SUM(value) AS value']).group(:date).order(:date)
+      query = Snapshot.select([:date, 'SUM(value) AS value']).group(:date).order(:date)
 
       data = query.each_with_object([]) do |row, array|
         array << [row.date.to_js_time, row.value]
@@ -15,9 +15,9 @@ module Charts
     end
 
     def assets_stacked_area_chart
-      return no_chart_data if AssetSnapshot.count.zero?
+      return no_chart_data if Snapshot.count.zero?
 
-      empty_months = end_of_months_since AssetSnapshot.minimum(:date)
+      empty_months = end_of_months_since Snapshot.minimum(:date)
 
       query = FinancialAsset.order(:name)
 

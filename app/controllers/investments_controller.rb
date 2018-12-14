@@ -1,7 +1,7 @@
 class InvestmentsController < ApplicationController
   def history
     start = Contribution.minimum :date
-    @snapshots = AssetSnapshot.select('date, SUM(value) AS total').where('investment = ?', true).joins(:asset).group(:date).having('date >= ?', start).order(:date)
+    @snapshots = Snapshot.select('date, SUM(value) AS total').where('investment = ?', true).joins(:asset).group(:date).having('date >= ?', start).order(:date)
     @snapshots = @snapshots.each_with_object({}) do |snapshot, hash|
       hash[snapshot.date] = snapshot.total
     end

@@ -1,6 +1,6 @@
 = render 'shared/error_messages', obj: @snapshot
 
-- url = @snapshot.new_record? ? financial_asset_snapshots_path : asset_snapshot_path(@snapshot)
+- url = @snapshot.new_record? ? financial_asset_snapshots_path : snapshot_path(@snapshot)
 
 = form_with model: @snapshot, url: url do |f|
   .form-group.row

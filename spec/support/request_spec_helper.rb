@@ -19,9 +19,9 @@ module RequestSpecHelper
       @stub_asset ||= stub_model FinancialAsset, defaults.merge(stubs)
     end
 
-    def stub_asset_snapshot(stubs = {})
+    def stub_snapshot(stubs = {})
       defaults = { asset: stub_asset, value: 9000, date: '2010-07-28', permalink: 'july-28-2010' }
-      @stub_asset_snapshot ||= stub_model AssetSnapshot, defaults.merge(stubs)
+      @stub_snapshot ||= stub_model Snapshot, defaults.merge(stubs)
     end
 
     def stub_contribution(stubs = {})

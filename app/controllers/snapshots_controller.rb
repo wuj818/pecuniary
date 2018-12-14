@@ -1,4 +1,4 @@
-class AssetSnapshotsController < ApplicationController
+class SnapshotsController < ApplicationController
   before_action :authorize, only: %i[new create edit update destroy]
 
   before_action :get_asset, only: %i[new create]
@@ -12,7 +12,7 @@ class AssetSnapshotsController < ApplicationController
   end
 
   def create
-    @snapshot = @asset.snapshots.build asset_snapshot_params
+    @snapshot = @asset.snapshots.build snapshot_params
 
     if @snapshot.save
       flash[:success] = 'Snapshot was successfully created.'
@@ -26,7 +26,7 @@ class AssetSnapshotsController < ApplicationController
   end
 
   def update
-    if @snapshot.update asset_snapshot_params
+    if @snapshot.update snapshot_params
       flash[:success] = 'Snapshot was successfully updated.'
       redirect_to @snapshot
     else
@@ -43,8 +43,8 @@ class AssetSnapshotsController < ApplicationController
 
   private
 
-  def asset_snapshot_params
-    params.require(:asset_snapshot).permit :date, :permalink, :value
+  def snapshot_params
+    params.require(:snapshot).permit :date, :permalink, :value
   end
 
   def get_asset
@@ -52,7 +52,7 @@ class AssetSnapshotsController < ApplicationController
   end
 
   def get_snapshot
-    @snapshot = AssetSnapshot.find_by permalink: params[:id]
+    @snapshot = Snapshot.find_by permalink: params[:id]
     @asset = @snapshot.asset
   end
 end

@@ -11,8 +11,8 @@ linters:
   # Offense count: 40
   LineLength:
     exclude:
-      - "app/views/asset_snapshots/_form.html.haml"
-      - "app/views/asset_snapshots/show.html.haml"
+      - "app/views/snapshots/_form.html.haml"
+      - "app/views/snapshots/show.html.haml"
       - "app/views/contributions/_form.html.haml"
       - "app/views/contributions/index.html.haml"
       - "app/views/contributions/show.html.haml"
@@ -29,7 +29,7 @@ linters:
   # Offense count: 7
   InstanceVariables:
     exclude:
-      - "app/views/asset_snapshots/_form.html.haml"
+      - "app/views/snapshots/_form.html.haml"
       - "app/views/contributions/_form.html.haml"
       - "app/views/financial_assets/_form.html.haml"
       - "app/views/milestones/_form.html.haml"

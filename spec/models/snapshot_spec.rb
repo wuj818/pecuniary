@@ -1,17 +1,17 @@
-RSpec.describe AssetSnapshot do
+RSpec.describe Snapshot do
   describe 'associations' do
     it 'belongs to asset' do
-      snapshot = create :asset_snapshot
+      snapshot = create :snapshot
       expect(snapshot.asset).to be_a FinancialAsset
     end
   end
 
   describe 'callbacks' do
     let(:date) { Date.new 2010, 7, 28 }
-    let(:snapshot) { create :asset_snapshot, date: date, asset: create(:financial_asset, name: 'Bank') }
+    let(:snapshot) { create :snapshot, date: date, asset: create(:financial_asset, name: 'Bank') }
 
     it 'sets the date to the end of the current month by default' do
-      snapshot = AssetSnapshot.new
+      snapshot = Snapshot.new
       expect(snapshot.date).to eq Time.zone.now.to_date.end_of_month
     end
 
@@ -33,7 +33,7 @@ RSpec.describe AssetSnapshot do
       end.to change(asset, :current_value).from(asset.current_value).to asset.current_value + 1
 
       expect do
-        create :asset_snapshot, date: Date.new(2011, 3, 28), value: 9000, asset: snapshot.asset
+        create :snapshot, date: Date.new(2011, 3, 28), value: 9000, asset: snapshot.asset
       end.to change(asset, :current_value).from(asset.current_value).to 9000
 
       expect do
@@ -46,7 +46,7 @@ RSpec.describe AssetSnapshot do
   describe 'instance methods' do
     describe 'to_param' do
       it "doesn't change until after the record is saved" do
-        snapshot = create :asset_snapshot, date: Date.new(2010, 7, 28), asset: create(:financial_asset, name: 'Bank')
+        snapshot = create :snapshot, date: Date.new(2010, 7, 28), asset: create(:financial_asset, name: 'Bank')
         old_to_param = snapshot.to_param
 
         snapshot.permalink = 'test'
@@ -61,7 +61,7 @@ RSpec.describe AssetSnapshot do
 
   describe 'validations' do
     it 'has required attributes' do
-      snapshot = AssetSnapshot.create
+      snapshot = Snapshot.create
 
       [:asset].each do |attribute|
         expect(snapshot.errors[attribute]).to include "can't be blank"
@@ -69,15 +69,15 @@ RSpec.describe AssetSnapshot do
     end
 
     it 'requires a unique date/asset pair' do
-      snapshot1 = create :asset_snapshot
-      snapshot2 = build :asset_snapshot, asset: snapshot1.asset, date: snapshot1.date
+      snapshot1 = create :snapshot
+      snapshot2 = build :snapshot, asset: snapshot1.asset, date: snapshot1.date
       snapshot2.save
 
       expect(snapshot2.errors[:date]).to include 'has already been taken for this asset'
     end
 
     it 'is destroyed when the asset is destroyed' do
-      snapshot = create :asset_snapshot
+      snapshot = create :snapshot
       snapshot.asset.destroy
 
       expect { snapshot.reload }.to raise_error ActiveRecord::RecordNotFound

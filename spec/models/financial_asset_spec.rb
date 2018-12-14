@@ -2,10 +2,10 @@ RSpec.describe FinancialAsset do
   describe 'associations' do
     it 'has many snapshots' do
       asset = create :financial_asset
-      create :asset_snapshot, asset: asset
+      create :snapshot, asset: asset
 
       expect(asset.snapshots.count).to eq 1
-      expect(asset.snapshots.first).to be_an AssetSnapshot
+      expect(asset.snapshots.first).to be_an Snapshot
     end
   end
 
@@ -17,7 +17,7 @@ RSpec.describe FinancialAsset do
 
     it "updates all of its association's permalinks when its name changes" do
       asset = create :financial_asset, name: 'Bank'
-      snapshot = create :asset_snapshot, asset: asset
+      snapshot = create :snapshot, asset: asset
       contribution = create :contribution, asset: asset
 
       expect(snapshot.permalink).to match 'bank'
