@@ -42,7 +42,7 @@
       %table.table.table-striped.table-bordered.table-hover
         %thead.thead-dark
           %tr
-            %th{colspan: 2}
+            %th{ colspan: 2 }
               Snapshots
 
         %tbody
@@ -65,7 +65,7 @@
         %table.table.table-striped.table-bordered.table-hover
           %thead.thead-dark
             %tr
-              %th{colspan: 2}
+              %th{ colspan: 2 }
                 Contributions
 
           %tbody
@@ -83,5 +83,5 @@
                       %span.badge.badge-info.float-right
                         Employer
 
-                  %td.fit{class: contribution.amount.negative? ? 'text-danger' : 'text-success'}
+                  %td.fit{ class: contribution.amount.negative? ? 'text-danger' : 'text-success' }
                     = currency contribution.amount

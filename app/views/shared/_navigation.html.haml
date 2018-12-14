@@ -3,12 +3,12 @@
     .container
       = link_to 'Pecuniary', root_path, class: 'navbar-brand'
 
-      %button.navbar-toggler{type: 'button', data: { toggle: 'collapse', target: '#navbarSupportedContent' }}
+      %button.navbar-toggler{ type: 'button', data: { toggle: 'collapse', target: '#navbarSupportedContent' } }
         %span.navbar-toggler-icon
 
       .navbar-collapse.collapse#navbarSupportedContent
         %ul.navbar-nav.mr-auto
-          %li.nav-item.dropdown{class: nav_class(:financial_assets)}
+          %li.nav-item.dropdown{ class: nav_class(:financial_assets) }
             = link_to 'javascript:;', class: 'nav-link dropdown-toggle', data: { toggle: 'dropdown' } do
               Assets
 
@@ -30,13 +30,13 @@
                 - assets[true].each do |asset|
                   = link_to asset, asset, class: 'dropdown-item'
 
-          %li.nav-item{class: nav_class(:contributions)}
+          %li.nav-item{ class: nav_class(:contributions) }
             = link_to 'Contributions', contributions_path, class: 'nav-link'
 
-          %li.nav-item{class: nav_class(:milestones)}
+          %li.nav-item{ class: nav_class(:milestones) }
             = link_to 'Milestones', milestones_path, class: 'nav-link'
 
-          %li.nav-item{class: nav_class(:investments)}
+          %li.nav-item{ class: nav_class(:investments) }
             = link_to 'Investments', investments_path, class: 'nav-link'
 
         - if admin?

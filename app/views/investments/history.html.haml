@@ -40,8 +40,8 @@
           %td
             = currency cumulative_value
 
-          %td{class: total_gain >= 0 ? 'text-success' : 'text-danger'}
+          %td{ class: total_gain >= 0 ? 'text-success' : 'text-danger' }
             = currency total_gain
 
-          %td{class: total_return >= 0 ? 'text-success' : 'text-danger'}
+          %td{ class: total_return >= 0 ? 'text-success' : 'text-danger' }
             = sprintf '%.2f%%', total_return

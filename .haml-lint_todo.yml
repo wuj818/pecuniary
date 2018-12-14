@@ -8,21 +8,6 @@
 
 linters:
 
-  # Offense count: 56
-  SpaceInsideHashAttributes:
-    exclude:
-      - "app/views/asset_snapshots/_form.html.haml"
-      - "app/views/contributions/_form.html.haml"
-      - "app/views/contributions/index.html.haml"
-      - "app/views/contributions/show.html.haml"
-      - "app/views/financial_assets/show.html.haml"
-      - "app/views/investments/history.html.haml"
-      - "app/views/layouts/application.html.haml"
-      - "app/views/milestones/_form.html.haml"
-      - "app/views/milestones/index.html.haml"
-      - "app/views/shared/_flashes.html.haml"
-      - "app/views/shared/_navigation.html.haml"
-
   # Offense count: 40
   LineLength:
     exclude:

@@ -28,11 +28,11 @@
 
       %tbody
         - @contributions.each do |contribution|
-          %tr{class: (:info if contribution.employer?)}
+          %tr{ class: (:info if contribution.employer?) }
             %td
               = contribution.formatted_date
 
-            %td{class: contribution.amount.negative? ? 'text-danger' : 'text-success'}
+            %td{ class: contribution.amount.negative? ? 'text-danger' : 'text-success' }
               = currency contribution.amount
 
             %td

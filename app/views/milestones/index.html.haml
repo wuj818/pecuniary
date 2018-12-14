@@ -13,7 +13,7 @@
 - unless @milestones.length.zero?
   %ul.timeline
     - @milestones.each do |milestone|
-      %li{class: cycle('', 'timeline-inverted')}
+      %li{ class: cycle('', 'timeline-inverted') }
         .timeline-panel
           .timeline-heading
             - if admin?

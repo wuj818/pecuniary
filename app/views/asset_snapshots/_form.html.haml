@@ -7,10 +7,10 @@
     = f.label :date, class: 'col-sm-2 col-form-label font-weight-bold text-right'
 
     .col-sm-3
-      .input-group.date.date-picker#date-picker{data: { target_input: 'nearest' }}
+      .input-group.date.date-picker#date-picker{ data: { target_input: 'nearest' } }
         = f.text_field :date, required: true, class: 'form-control datetimepicker-input', data: { target: '#date-picker' }
 
-        .input-group-append{data: { target: '#date-picker', toggle: 'datetimepicker' }}
+        .input-group-append{ data: { target: '#date-picker', toggle: 'datetimepicker' } }
           .input-group-text
             = icon :calendar
 
