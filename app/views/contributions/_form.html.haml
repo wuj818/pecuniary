@@ -1,8 +1,6 @@
 = render 'shared/error_messages', obj: @contribution
 
-- url = @contribution.new_record? ? financial_asset_contributions_path : contribution_path(@contribution)
-
-= form_with model: @contribution, url: url do |f|
+= form_with model: [@asset, @contribution] do |f|
   .form-group.row
     = f.label :date, class: 'col-sm-2 col-form-label font-weight-bold text-right'
 

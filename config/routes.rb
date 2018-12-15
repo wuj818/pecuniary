@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  resources :snapshots, only: %i[show edit update destroy]
+  resources :snapshots, only: %i[show edit destroy]
 
-  resources :contributions, only: %i[index show edit update destroy]
+  resources :contributions, only: %i[index show edit destroy]
 
   resources :financial_assets, path: 'financial-assets' do
-    resources :snapshots, only: %i[new create]
+    resources :snapshots, only: %i[new create update]
 
-    resources :contributions, only: %i[new create]
+    resources :contributions, only: %i[new create update]
   end
 
   resources :milestones

@@ -126,7 +126,7 @@ RSpec.describe 'Contribution Requests' do
         it 'redirects to the contribution' do
           expect(contribution).to receive(:update).and_return true
 
-          patch contribution_path(contribution, contribution: { test: 1 })
+          patch financial_asset_contribution_path(contribution.asset, contribution, contribution: { test: 1 })
 
           expect(response).to redirect_to contribution
           expect(flash[:success]).to match(/updated/i)
@@ -137,7 +137,7 @@ RSpec.describe 'Contribution Requests' do
         it "doesn't update the contribution" do
           expect(contribution).to receive(:update).and_return false
 
-          patch contribution_path(contribution, contribution: { test: 1 })
+          patch financial_asset_contribution_path(contribution.asset, contribution, contribution: { test: 1 })
 
           expect(response).to be_successful
         end
@@ -148,7 +148,7 @@ RSpec.describe 'Contribution Requests' do
       it 'redirects to the login page' do
         expect(Contribution).not_to receive(:find_by)
 
-        patch contribution_path(contribution, contribution: { test: 1 })
+        patch financial_asset_contribution_path(contribution.asset, contribution, contribution: { test: 1 })
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match(/must be logged in/i)

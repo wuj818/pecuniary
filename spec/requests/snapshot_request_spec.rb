@@ -115,7 +115,7 @@ RSpec.describe 'Snapshot Requests' do
         it 'redirects to the snapshot' do
           expect(snapshot).to receive(:update).and_return true
 
-          patch snapshot_path(snapshot, snapshot: { test: 1 })
+          patch financial_asset_snapshot_path(snapshot.asset, snapshot, snapshot: { test: 1 })
 
           expect(response).to redirect_to snapshot
           expect(flash[:success]).to match(/updated/i)
@@ -126,7 +126,7 @@ RSpec.describe 'Snapshot Requests' do
         it "doesn't update the snapshot" do
           expect(snapshot).to receive(:update).and_return false
 
-          patch snapshot_path(snapshot, snapshot: { test: 1 })
+          patch financial_asset_snapshot_path(snapshot.asset, snapshot, snapshot: { test: 1 })
 
           expect(response).to be_successful
         end
@@ -137,7 +137,7 @@ RSpec.describe 'Snapshot Requests' do
       it 'redirects to the login page' do
         expect(Snapshot).not_to receive(:find_by)
 
-        patch snapshot_path(snapshot, snapshot: { test: 1 })
+        patch financial_asset_snapshot_path(snapshot.asset, snapshot, snapshot: { test: 1 })
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match(/must be logged in/i)
