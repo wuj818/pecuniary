@@ -1,9 +1,6 @@
 RSpec.describe 'Financial Asset Requests' do
   describe 'GET index' do
     it 'returns a successful response' do
-      expect(FinancialAsset).to receive(:includes).with(:snapshots).and_return mock_relation
-      expect(mock_relation).to receive(:order).with(:name).and_return mock_relation
-
       get financial_assets_path
 
       expect(response).to be_successful
@@ -11,8 +8,9 @@ RSpec.describe 'Financial Asset Requests' do
   end
 
   describe 'GET show' do
+    let(:asset) { stub_asset }
+
     it 'returns a successful response' do
-      asset = stub_asset
       expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return stub_asset
 
       get financial_asset_path(asset)
@@ -22,19 +20,21 @@ RSpec.describe 'Financial Asset Requests' do
   end
 
   describe 'GET new' do
-    context 'when logged in' do
+    let(:request!) { get new_financial_asset_path }
+
+    context 'logged in' do
       it 'returns a successful response' do
         request_spec_login
 
-        get new_financial_asset_path
+        request!
 
         expect(response).to be_successful
       end
     end
 
-    context 'when logged out' do
+    context 'logged out' do
       it 'redirects to the login page' do
-        get new_financial_asset_path
+        request!
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match(/must be logged in/i)
@@ -43,9 +43,11 @@ RSpec.describe 'Financial Asset Requests' do
   end
 
   describe 'POST create' do
-    context 'when logged in' do
-      let(:asset) { stub_asset }
+    let(:asset) { stub_asset }
 
+    let(:request!) { post financial_assets_path, params: { financial_asset: { test: 1 } } }
+
+    context 'logged in' do
       before do
         request_spec_login
         expect(FinancialAsset).to receive(:new).and_return asset
@@ -55,7 +57,7 @@ RSpec.describe 'Financial Asset Requests' do
         it 'creates a new asset and redirects to the assets index' do
           expect(asset).to receive(:save).and_return true
 
-          post financial_assets_path, params: { financial_asset: { test: 1 } }
+          request!
 
           expect(response).to redirect_to financial_assets_path
           expect(flash[:success]).to match(/created/i)
@@ -66,18 +68,18 @@ RSpec.describe 'Financial Asset Requests' do
         it "doesn't create a new asset" do
           expect(asset.as_new_record).to receive(:save).and_return false
 
-          post financial_assets_path, params: { financial_asset: { test: 1 } }
+          request!
 
           expect(response).to be_successful
         end
       end
     end
 
-    context 'when logged out' do
+    context 'logged out' do
       it 'redirects to the login page' do
         expect(Milestone).not_to receive(:new)
 
-        post financial_assets_path, params: { financial_asset: { test: 1 } }
+        request!
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match(/must be logged in/i)
@@ -88,22 +90,24 @@ RSpec.describe 'Financial Asset Requests' do
   describe 'GET edit' do
     let(:asset) { stub_asset }
 
-    context 'when logged in' do
+    let(:request!) { get edit_financial_asset_path(asset) }
+
+    context 'logged in' do
       it 'returns a successful response' do
         request_spec_login
         expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
 
-        get edit_financial_asset_path(asset)
+        request!
 
         expect(response).to be_successful
       end
     end
 
-    context 'when logged out' do
+    context 'logged out' do
       it 'redirects to the login page' do
         expect(FinancialAsset).not_to receive(:find_by!)
 
-        get edit_financial_asset_path(asset)
+        request!
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match(/must be logged in/i)
@@ -114,7 +118,9 @@ RSpec.describe 'Financial Asset Requests' do
   describe 'PATCH update' do
     let(:asset) { stub_asset }
 
-    context 'when logged in' do
+    let(:request!) { patch financial_asset_path(asset, financial_asset: { test: 1 }) }
+
+    context 'logged in' do
       before do
         request_spec_login
         expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
@@ -124,7 +130,7 @@ RSpec.describe 'Financial Asset Requests' do
         it 'redirects to the asset' do
           expect(asset).to receive(:update).and_return true
 
-          patch financial_asset_path(asset, financial_asset: { test: 1 })
+          request!
 
           expect(response).to redirect_to asset
           expect(flash[:success]).to match(/updated/i)
@@ -135,18 +141,18 @@ RSpec.describe 'Financial Asset Requests' do
         it "doesn't update the asset" do
           expect(asset).to receive(:update).and_return false
 
-          patch financial_asset_path(asset, financial_asset: { test: 1 })
+          request!
 
           expect(response).to be_successful
         end
       end
     end
 
-    context 'when logged out' do
+    context 'logged out' do
       it 'redirects to the login page' do
         expect(FinancialAsset).not_to receive(:find_by!)
 
-        patch financial_asset_path(asset, financial_asset: { test: 1 })
+        request!
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match(/must be logged in/i)
@@ -157,24 +163,26 @@ RSpec.describe 'Financial Asset Requests' do
   describe 'DELETE destroy' do
     let(:asset) { stub_asset }
 
-    context 'when logged in' do
+    let(:request!) { delete financial_asset_path(asset) }
+
+    context 'logged in' do
       it 'destroys the requested asset and redirects to the assets index' do
         request_spec_login
         expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
         expect(asset).to receive(:destroy).and_return true
 
-        delete financial_asset_path(asset)
+        request!
 
         expect(response).to redirect_to financial_assets_path
         expect(flash[:success]).to match(/deleted/i)
       end
     end
 
-    context 'when logged out' do
+    context 'logged out' do
       it 'redirects to the login page' do
         expect(FinancialAsset).not_to receive(:find_by!)
 
-        delete financial_asset_path(asset)
+        request!
 
         expect(response).to redirect_to login_path
         expect(flash[:warning]).to match(/must be logged in/i)
