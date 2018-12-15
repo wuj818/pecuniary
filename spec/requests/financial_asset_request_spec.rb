@@ -13,7 +13,7 @@ RSpec.describe 'Financial Asset Requests' do
   describe 'GET show' do
     it 'returns a successful response' do
       asset = stub_asset
-      expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return stub_asset
+      expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return stub_asset
 
       get financial_asset_path(asset)
 
@@ -91,7 +91,7 @@ RSpec.describe 'Financial Asset Requests' do
     context 'when logged in' do
       it 'returns a successful response' do
         request_spec_login
-        expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return asset
+        expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
 
         get edit_financial_asset_path(asset)
 
@@ -101,7 +101,7 @@ RSpec.describe 'Financial Asset Requests' do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        expect(FinancialAsset).not_to receive(:find_by)
+        expect(FinancialAsset).not_to receive(:find_by!)
 
         get edit_financial_asset_path(asset)
 
@@ -117,7 +117,7 @@ RSpec.describe 'Financial Asset Requests' do
     context 'when logged in' do
       before do
         request_spec_login
-        expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return asset
+        expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
       end
 
       describe 'with valid params' do
@@ -144,7 +144,7 @@ RSpec.describe 'Financial Asset Requests' do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        expect(FinancialAsset).not_to receive(:find_by)
+        expect(FinancialAsset).not_to receive(:find_by!)
 
         patch financial_asset_path(asset, financial_asset: { test: 1 })
 
@@ -160,7 +160,7 @@ RSpec.describe 'Financial Asset Requests' do
     context 'when logged in' do
       it 'destroys the requested asset and redirects to the assets index' do
         request_spec_login
-        expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return asset
+        expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
         expect(asset).to receive(:destroy).and_return true
 
         delete financial_asset_path(asset)
@@ -172,7 +172,7 @@ RSpec.describe 'Financial Asset Requests' do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        expect(FinancialAsset).not_to receive(:find_by)
+        expect(FinancialAsset).not_to receive(:find_by!)
 
         delete financial_asset_path(asset)
 

@@ -2,7 +2,7 @@ RSpec.describe 'Snapshot Requests' do
   describe 'GET show' do
     it 'returns a successful response' do
       snapshot = stub_snapshot
-      expect(Snapshot).to receive(:find_by).with(permalink: snapshot.to_param).and_return snapshot
+      expect(Snapshot).to receive(:find_by!).with(permalink: snapshot.to_param).and_return snapshot
 
       get snapshot_path(snapshot)
 
@@ -16,7 +16,7 @@ RSpec.describe 'Snapshot Requests' do
     context 'when logged in' do
       it 'returns a successful response' do
         request_spec_login
-        expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return asset
+        expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
         expect(asset.snapshots).to receive(:build).and_return stub_snapshot.as_new_record
 
         get new_financial_asset_snapshot_path(asset)
@@ -42,7 +42,7 @@ RSpec.describe 'Snapshot Requests' do
     context 'when logged in' do
       before do
         request_spec_login
-        expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return asset
+        expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
         expect(asset.snapshots).to receive(:build).and_return snapshot
       end
 
@@ -84,7 +84,7 @@ RSpec.describe 'Snapshot Requests' do
     context 'when logged in' do
       it 'returns a successful response' do
         request_spec_login
-        expect(Snapshot).to receive(:find_by).with(permalink: snapshot.to_param).and_return snapshot
+        expect(Snapshot).to receive(:find_by!).with(permalink: snapshot.to_param).and_return snapshot
 
         get edit_snapshot_path(snapshot)
 
@@ -108,7 +108,7 @@ RSpec.describe 'Snapshot Requests' do
     context 'when logged in' do
       before do
         request_spec_login
-        expect(Snapshot).to receive(:find_by).with(permalink: snapshot.to_param).and_return snapshot
+        expect(Snapshot).to receive(:find_by!).with(permalink: snapshot.to_param).and_return snapshot
       end
 
       describe 'with valid params' do
@@ -135,7 +135,7 @@ RSpec.describe 'Snapshot Requests' do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        expect(Snapshot).not_to receive(:find_by)
+        expect(Snapshot).not_to receive(:find_by!)
 
         patch financial_asset_snapshot_path(snapshot.asset, snapshot, snapshot: { test: 1 })
 
@@ -151,7 +151,7 @@ RSpec.describe 'Snapshot Requests' do
     context 'when logged in' do
       it 'destroys the requested snapshot and redirects to its asset' do
         request_spec_login
-        expect(Snapshot).to receive(:find_by).with(permalink: snapshot.to_param).and_return snapshot
+        expect(Snapshot).to receive(:find_by!).with(permalink: snapshot.to_param).and_return snapshot
         expect(snapshot).to receive(:destroy).and_return true
 
         delete snapshot_path(snapshot)
@@ -163,7 +163,7 @@ RSpec.describe 'Snapshot Requests' do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        expect(Snapshot).not_to receive(:find_by)
+        expect(Snapshot).not_to receive(:find_by!)
 
         delete snapshot_path(snapshot)
 

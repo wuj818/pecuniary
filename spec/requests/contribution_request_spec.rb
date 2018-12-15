@@ -13,7 +13,7 @@ RSpec.describe 'Contribution Requests' do
   describe 'GET show' do
     it 'returns a successful response' do
       contribution = stub_contribution
-      expect(Contribution).to receive(:find_by).with(permalink: contribution.to_param).and_return contribution
+      expect(Contribution).to receive(:find_by!).with(permalink: contribution.to_param).and_return contribution
 
       get contribution_path(contribution)
 
@@ -27,7 +27,7 @@ RSpec.describe 'Contribution Requests' do
     context 'when logged in' do
       it 'returns a successful response' do
         request_spec_login
-        expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return asset
+        expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
         expect(asset.contributions).to receive(:build).and_return stub_contribution.as_new_record
 
         get new_financial_asset_contribution_path(asset)
@@ -53,7 +53,7 @@ RSpec.describe 'Contribution Requests' do
     context 'when logged in' do
       before do
         request_spec_login
-        expect(FinancialAsset).to receive(:find_by).with(permalink: asset.to_param).and_return asset
+        expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
         expect(asset.contributions).to receive(:build).and_return contribution
       end
 
@@ -95,7 +95,7 @@ RSpec.describe 'Contribution Requests' do
     context 'when logged in' do
       it 'returns a successful response' do
         request_spec_login
-        expect(Contribution).to receive(:find_by).with(permalink: contribution.to_param).and_return contribution
+        expect(Contribution).to receive(:find_by!).with(permalink: contribution.to_param).and_return contribution
 
         get edit_contribution_path(contribution)
 
@@ -119,7 +119,7 @@ RSpec.describe 'Contribution Requests' do
     context 'when logged in' do
       before do
         request_spec_login
-        expect(Contribution).to receive(:find_by).with(permalink: contribution.to_param).and_return contribution
+        expect(Contribution).to receive(:find_by!).with(permalink: contribution.to_param).and_return contribution
       end
 
       describe 'with valid params' do
@@ -146,7 +146,7 @@ RSpec.describe 'Contribution Requests' do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        expect(Contribution).not_to receive(:find_by)
+        expect(Contribution).not_to receive(:find_by!)
 
         patch financial_asset_contribution_path(contribution.asset, contribution, contribution: { test: 1 })
 
@@ -162,7 +162,7 @@ RSpec.describe 'Contribution Requests' do
     context 'when logged in' do
       it 'destroys the requested contribution and redirects to its asset' do
         request_spec_login
-        expect(Contribution).to receive(:find_by).with(permalink: contribution.to_param).and_return contribution
+        expect(Contribution).to receive(:find_by!).with(permalink: contribution.to_param).and_return contribution
         expect(contribution).to receive(:destroy).and_return true
 
         delete contribution_path(contribution)
@@ -174,7 +174,7 @@ RSpec.describe 'Contribution Requests' do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        expect(Contribution).not_to receive(:find_by)
+        expect(Contribution).not_to receive(:find_by!)
 
         delete contribution_path(contribution)
 

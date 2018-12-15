@@ -52,11 +52,11 @@ class ContributionsController < ApplicationController
   end
 
   def get_asset
-    @asset = FinancialAsset.find_by permalink: params[:financial_asset_id]
+    @asset = FinancialAsset.find_by! permalink: params[:financial_asset_id]
   end
 
   def get_contribution
-    @contribution = Contribution.find_by permalink: params[:id]
+    @contribution = Contribution.find_by! permalink: params[:id]
     @asset = @contribution.asset
   end
 end

@@ -48,11 +48,11 @@ class SnapshotsController < ApplicationController
   end
 
   def get_asset
-    @asset = FinancialAsset.find_by permalink: params[:financial_asset_id]
+    @asset = FinancialAsset.find_by! permalink: params[:financial_asset_id]
   end
 
   def get_snapshot
-    @snapshot = Snapshot.find_by permalink: params[:id]
+    @snapshot = Snapshot.find_by! permalink: params[:id]
     @asset = @snapshot.asset
   end
 end

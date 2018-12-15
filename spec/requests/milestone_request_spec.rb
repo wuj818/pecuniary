@@ -12,7 +12,7 @@ RSpec.describe 'Milestone Requests' do
   describe 'GET show' do
     it 'returns a successful response' do
       milestone = stub_milestone
-      expect(Milestone).to receive(:find_by).with(permalink: milestone.to_param).and_return milestone
+      expect(Milestone).to receive(:find_by!).with(permalink: milestone.to_param).and_return milestone
 
       get milestone_path(milestone)
 
@@ -90,7 +90,7 @@ RSpec.describe 'Milestone Requests' do
     context 'when logged in' do
       it 'returns a successful response' do
         request_spec_login
-        expect(Milestone).to receive(:find_by).with(permalink: milestone.to_param).and_return milestone
+        expect(Milestone).to receive(:find_by!).with(permalink: milestone.to_param).and_return milestone
 
         get edit_milestone_path(milestone)
 
@@ -100,7 +100,7 @@ RSpec.describe 'Milestone Requests' do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        expect(Milestone).not_to receive(:find_by)
+        expect(Milestone).not_to receive(:find_by!)
 
         get edit_milestone_path(milestone)
 
@@ -116,7 +116,7 @@ RSpec.describe 'Milestone Requests' do
     context 'when logged in' do
       before do
         request_spec_login
-        expect(Milestone).to receive(:find_by).with(permalink: milestone.to_param).and_return milestone
+        expect(Milestone).to receive(:find_by!).with(permalink: milestone.to_param).and_return milestone
       end
 
       describe 'with valid params' do
@@ -143,7 +143,7 @@ RSpec.describe 'Milestone Requests' do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        expect(Milestone).not_to receive(:find_by)
+        expect(Milestone).not_to receive(:find_by!)
 
         patch milestone_path(milestone, milestone: { test: 1 })
 
@@ -159,7 +159,7 @@ RSpec.describe 'Milestone Requests' do
     context 'when logged in' do
       it 'destroys the requested milestone and redirects to the milestones index' do
         request_spec_login
-        expect(Milestone).to receive(:find_by).with(permalink: milestone.to_param).and_return milestone
+        expect(Milestone).to receive(:find_by!).with(permalink: milestone.to_param).and_return milestone
         expect(milestone).to receive(:destroy).and_return true
 
         delete milestone_path(milestone)
@@ -171,7 +171,7 @@ RSpec.describe 'Milestone Requests' do
 
     context 'when logged out' do
       it 'redirects to the login page' do
-        expect(Milestone).not_to receive(:find_by)
+        expect(Milestone).not_to receive(:find_by!)
 
         delete milestone_path(milestone)
 
