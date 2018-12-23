@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe Snapshot do
   describe 'associations' do
     it 'belongs to asset' do

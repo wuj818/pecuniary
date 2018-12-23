@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe 'Snapshot Requests' do
   describe 'GET show' do
     let(:snapshot) { stub_snapshot }

@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe FinancialAsset do
   describe 'associations' do
     it 'has many snapshots' do

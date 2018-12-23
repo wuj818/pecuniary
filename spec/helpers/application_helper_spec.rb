@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe ApplicationHelper do
   describe 'currency(number)' do
     it 'returns a comma delimited dollar amount' do

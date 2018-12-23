@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe Contribution do
   describe 'associations' do
     it 'belongs to asset' do

@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe 'Session System' do
   it 'allows the admin to login and logout' do
     visit root_path

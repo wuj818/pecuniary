@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe 'Session Requests' do
   describe 'GET new' do
     let(:request!) { get login_path }

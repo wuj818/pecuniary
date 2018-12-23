@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe 'Financial Asset Requests' do
   describe 'GET index' do
     it 'returns a successful response' do
