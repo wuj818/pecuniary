@@ -49,8 +49,6 @@ group :development, :test do
   gem 'chromedriver-helper', '2.1.0'
   gem 'selenium-webdriver', '3.141.0'
 
-  gem 'byebug', '10.0.2'
-
   gem 'fuubar', '2.3.2'
 end
 
@@ -59,4 +57,4 @@ group :test do
 end
 
 gem 'hirb', '0.7.3'
-gem 'wirble', '0.1.3'
+gem 'pry-rails', '0.3.8'
