@@ -17,7 +17,6 @@
 .gitkeep
 
 # Ignore application configuration
-/config/database.yml
 /config/deploy.rb
 /config/deploy/production.rb
 /puma.rb

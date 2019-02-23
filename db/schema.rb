@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2018_12_14_220358) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "contributions", force: :cascade do |t|
-    t.integer "financial_asset_id"
+    t.bigint "financial_asset_id"
     t.integer "amount", default: 0
     t.date "date"
-    t.string "permalink", limit: 255
+    t.string "permalink"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "employer", default: false
@@ -26,10 +29,10 @@ ActiveRecord::Schema.define(version: 2018_12_14_220358) do
   end
 
   create_table "financial_assets", force: :cascade do |t|
-    t.string "name", limit: 255
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "permalink", limit: 255
+    t.string "permalink"
     t.integer "current_value", default: 0
     t.integer "total_contributions", default: 0
     t.boolean "investment", default: true
@@ -39,7 +42,7 @@ ActiveRecord::Schema.define(version: 2018_12_14_220358) do
   create_table "milestones", force: :cascade do |t|
     t.date "date"
     t.text "notes"
-    t.string "permalink", limit: 255
+    t.string "permalink"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "cached_tag_list"
@@ -48,10 +51,10 @@ ActiveRecord::Schema.define(version: 2018_12_14_220358) do
   end
 
   create_table "snapshots", force: :cascade do |t|
-    t.integer "financial_asset_id"
+    t.bigint "financial_asset_id"
     t.integer "value", default: 0
     t.date "date"
-    t.string "permalink", limit: 255
+    t.string "permalink"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["financial_asset_id"], name: "index_snapshots_on_financial_asset_id"
@@ -59,19 +62,21 @@ ActiveRecord::Schema.define(version: 2018_12_14_220358) do
   end
 
   create_table "taggings", force: :cascade do |t|
-    t.integer "tag_id"
-    t.integer "taggable_id"
-    t.string "taggable_type", limit: 255
-    t.integer "tagger_id"
-    t.string "tagger_type", limit: 255
+    t.bigint "tag_id"
+    t.string "taggable_type"
+    t.bigint "taggable_id"
+    t.string "tagger_type"
+    t.bigint "tagger_id"
     t.string "context", limit: 128
     t.datetime "created_at"
     t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
     t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+    t.index ["taggable_type", "taggable_id"], name: "index_taggings_on_taggable_type_and_taggable_id"
+    t.index ["tagger_type", "tagger_id"], name: "index_taggings_on_tagger_type_and_tagger_id"
   end
 
   create_table "tags", force: :cascade do |t|
-    t.string "name", limit: 255
+    t.string "name"
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true
   end

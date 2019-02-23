@@ -1,4 +1,4 @@
-class CreateAssetSnapshots < ActiveRecord::Migration
+class CreateAssetSnapshots < ActiveRecord::Migration[5.2]
   def change
     create_table :asset_snapshots do |t|
       t.references :financial_asset
@@ -9,7 +9,6 @@ class CreateAssetSnapshots < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :asset_snapshots, :financial_asset_id
     add_index :asset_snapshots, :permalink, unique: true
   end
 end

@@ -1,4 +1,4 @@
-class RemoveExpenses < ActiveRecord::Migration
+class RemoveExpenses < ActiveRecord::Migration[5.2]
   def up
     drop_table :expenses
   end

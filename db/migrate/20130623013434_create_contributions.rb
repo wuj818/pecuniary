@@ -1,4 +1,4 @@
-class CreateContributions < ActiveRecord::Migration
+class CreateContributions < ActiveRecord::Migration[5.2]
   def change
     create_table :contributions do |t|
       t.references :financial_asset
@@ -9,7 +9,6 @@ class CreateContributions < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :contributions, :financial_asset_id
     add_index :contributions, :permalink, unique: true
   end
 end

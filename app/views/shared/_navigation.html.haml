@@ -19,12 +19,13 @@
 
               - assets = FinancialAsset.order(:name).group_by &:investment
 
-              - if assets.present?
+              - if assets[false].present?
                 %h6.dropdown-header Regular Accounts
 
                 - assets[false].each do |asset|
                   = link_to asset, asset, class: 'dropdown-item'
 
+              - if assets[true].present?
                 %h6.dropdown-header Investments
 
                 - assets[true].each do |asset|

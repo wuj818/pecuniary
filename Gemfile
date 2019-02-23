@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'rails', '5.2.1'
-gem 'sqlite3', '1.3.13'
+gem 'pg', '~> 1.1.4'
 
 gem 'bootsnap', '1.3.2', require: false
 gem 'mini_racer', '0.2.4', platforms: :ruby
