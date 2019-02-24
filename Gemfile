@@ -11,22 +11,23 @@ gem 'bootsnap', '~> 1.3.2', require: false
 gem 'mini_racer', '~> 0.2.4', platforms: :ruby
 gem 'puma', '~> 3.12.0'
 
-gem 'haml-rails', '~> 1.0.0'
+gem 'coffee-rails', '~> 4.2.2'
+gem 'hamlit', '~> 2.9.2'
+gem 'sass-rails', '~> 5.0.7'
+
 gem 'jquery-rails', '~> 4.3.3'
 gem 'turbolinks', '~> 5.2.0'
-
-gem 'bootstrap', '~> 4.1.3'
-gem 'coffee-rails', '~> 4.2.2'
-gem 'sass-rails', '~> 5.0.7'
 gem 'uglifier', '~> 4.1.19'
 
-gem 'acts-as-taggable-on', '~> 6.0.0'
+gem 'bootstrap', '~> 4.1.3'
 gem 'bootstrap4-datetime-picker-rails', '~> 0.2.0'
 gem 'font-awesome-rails', '~> 4.7.0.4'
-gem 'groupdate', '~> 4.1.1'
 gem 'highcharts-rails', '~> 6.0.3'
-gem 'kramdown', '~> 1.17.0'
 gem 'momentjs-rails', '~> 2.20.1'
+
+gem 'acts-as-taggable-on', '~> 6.0.0'
+gem 'groupdate', '~> 4.1.1'
+gem 'kramdown', '~> 1.17.0'
 
 group :development do
   gem 'listen', '~> 3.1.5'
