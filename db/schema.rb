@@ -17,68 +17,66 @@ ActiveRecord::Schema.define(version: 2018_12_14_220358) do
 
   create_table "contributions", force: :cascade do |t|
     t.bigint "financial_asset_id"
-    t.integer "amount", default: 0
+    t.bigint "amount", default: 0
     t.date "date"
-    t.string "permalink"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text "permalink"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean "employer", default: false
-    t.index ["employer"], name: "index_contributions_on_employer"
-    t.index ["financial_asset_id"], name: "index_contributions_on_financial_asset_id"
-    t.index ["permalink"], name: "index_contributions_on_permalink", unique: true
+    t.index ["employer"], name: "idx_33855_index_contributions_on_employer"
+    t.index ["financial_asset_id"], name: "idx_33855_index_contributions_on_financial_asset_id"
+    t.index ["permalink"], name: "idx_33855_index_contributions_on_permalink", unique: true
   end
 
   create_table "financial_assets", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "permalink"
-    t.integer "current_value", default: 0
-    t.integer "total_contributions", default: 0
+    t.text "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text "permalink"
+    t.bigint "current_value", default: 0
+    t.bigint "total_contributions", default: 0
     t.boolean "investment", default: true
-    t.index ["permalink"], name: "index_financial_assets_on_permalink", unique: true
+    t.index ["permalink"], name: "idx_33843_index_financial_assets_on_permalink", unique: true
   end
 
   create_table "milestones", force: :cascade do |t|
     t.date "date"
     t.text "notes"
-    t.string "permalink"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "cached_tag_list"
-    t.index ["date"], name: "index_milestones_on_date", unique: true
-    t.index ["permalink"], name: "index_milestones_on_permalink", unique: true
+    t.text "permalink"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text "cached_tag_list"
+    t.index ["date"], name: "idx_33866_index_milestones_on_date", unique: true
+    t.index ["permalink"], name: "idx_33866_index_milestones_on_permalink", unique: true
   end
 
   create_table "snapshots", force: :cascade do |t|
     t.bigint "financial_asset_id"
-    t.integer "value", default: 0
+    t.bigint "value", default: 0
     t.date "date"
-    t.string "permalink"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["financial_asset_id"], name: "index_snapshots_on_financial_asset_id"
-    t.index ["permalink"], name: "index_snapshots_on_permalink", unique: true
+    t.text "permalink"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["financial_asset_id"], name: "idx_33833_index_snapshots_on_financial_asset_id"
+    t.index ["permalink"], name: "idx_33833_index_snapshots_on_permalink", unique: true
   end
 
   create_table "taggings", force: :cascade do |t|
     t.bigint "tag_id"
-    t.string "taggable_type"
     t.bigint "taggable_id"
-    t.string "tagger_type"
+    t.text "taggable_type"
     t.bigint "tagger_id"
-    t.string "context", limit: 128
+    t.text "tagger_type"
+    t.text "context"
     t.datetime "created_at"
-    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
-    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
-    t.index ["taggable_type", "taggable_id"], name: "index_taggings_on_taggable_type_and_taggable_id"
-    t.index ["tagger_type", "tagger_id"], name: "index_taggings_on_tagger_type_and_tagger_id"
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "idx_33885_taggings_idx", unique: true
+    t.index ["taggable_id", "taggable_type", "context"], name: "idx_33885_index_taggings_on_taggable_id_and_taggable_type_and_c"
   end
 
   create_table "tags", force: :cascade do |t|
-    t.string "name"
-    t.integer "taggings_count", default: 0
-    t.index ["name"], name: "index_tags_on_name", unique: true
+    t.text "name"
+    t.bigint "taggings_count", default: 0
+    t.index ["name"], name: "idx_33875_index_tags_on_name", unique: true
   end
 
 end
