@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.3'
 
 gem 'rails', '5.2.1'
+
 gem 'pg', '~> 1.1.4'
 
 gem 'bootsnap', '1.3.2', require: false
@@ -28,11 +29,6 @@ gem 'kramdown', '1.17.0'
 gem 'momentjs-rails', '2.20.1'
 
 group :development do
-  gem 'capistrano', '3.11.0'
-  gem 'capistrano-rails', '1.4.0'
-  gem 'capistrano-rvm', '0.1.2'
-  gem 'capistrano3-puma', '3.1.1'
-
   gem 'listen', '3.1.5'
   gem 'spring', '2.0.2'
   gem 'spring-commands-rspec', '1.0.4'
