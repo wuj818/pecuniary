@@ -123,6 +123,8 @@ GEM
       ruby-progressbar (~> 1.4)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    groupdate (4.1.1)
+      activesupport (>= 4.2)
     haml (5.0.4)
       temple (>= 0.8.0)
       tilt
@@ -339,6 +341,7 @@ DEPENDENCIES
   factory_bot_rails (= 4.11.1)
   font-awesome-rails (= 4.7.0.4)
   fuubar (= 2.3.2)
+  groupdate (~> 4.1.1)
   haml-rails (= 1.0.0)
   haml_lint (= 0.28.0)
   highcharts-rails (= 6.0.3)
