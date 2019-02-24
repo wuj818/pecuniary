@@ -17,5 +17,11 @@ module Pecuniary
     # the framework and any gems in your application.
 
     config.time_zone = 'Eastern Time (US & Canada)'
+
+    if ENV['HTTP_AUTH'].present?
+      config.middleware.use(Rack::Auth::Basic) do |username, password|
+        ENV['HTTP_AUTH'].split(':') == [username, password]
+      end
+    end
   end
 end
