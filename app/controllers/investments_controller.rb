@@ -1,13 +1,12 @@
 class InvestmentsController < ApplicationController
   def history
-    start = Contribution.minimum :date
-    @snapshots = Snapshot.select('date, SUM(value) AS total').where('investment = ?', true).joins(:asset).group(:date).having('date >= ?', start).order(:date)
-    @snapshots = @snapshots.each_with_object({}) do |snapshot, hash|
-      hash[snapshot.date] = snapshot.total
-    end
+    investment_ids = FinancialAsset.where(investment: true).select(:id)
+    @snapshots = Snapshot.where(financial_asset_id: investment_ids).group_by_month(:date, time_zone: false).sum(:value)
+    @snapshots.transform_keys!(&:end_of_month)
+    @snapshots.transform_values!(&:to_i)
 
-    current = start.end_of_month
-    stop = Time.zone.now.to_date.end_of_month
+    current = Contribution.minimum(:date).end_of_month
+    stop = Date.current.end_of_month
     months = []
 
     until current > stop
@@ -19,13 +18,11 @@ class InvestmentsController < ApplicationController
       hash[month] = 0
     end
 
-    query = Contribution.select('date, SUM(amount) AS total').group('strftime("%m-%Y", date)').order(:date)
+    results = Contribution.group_by_month(:date, time_zone: false).sum(:amount)
+    results.transform_keys!(&:end_of_month)
+    results.transform_values!(&:to_i)
 
-    contributions = query.each_with_object({}) do |contribution, hash|
-      hash[contribution.date.end_of_month] = contribution.total
-    end
-
-    contributions = empty_months.merge contributions
+    contributions = empty_months.merge(results)
     @cumulative_contributions = {}
 
     contributions.keys.sort.inject(0) do |sum, month|

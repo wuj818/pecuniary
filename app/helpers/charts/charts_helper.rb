@@ -61,13 +61,11 @@ module Charts
     def cumulative_contributions_line_chart
       return no_chart_data if Contribution.count.zero?
 
-      empty_months = end_of_months_since Contribution.minimum(:date)
+      empty_months = end_of_months_since(Contribution.minimum(:date))
 
-      query = Contribution.select('date, SUM(amount) AS total').group('STRFTIME("%m-%Y", date)').order(:date)
-
-      contributions = query.each_with_object({}) do |row, hash|
-        hash[row.date.end_of_month.to_js_time] = row.total
-      end
+      contributions = Contribution.group_by_month(:date, time_zone: false).sum(:amount)
+      contributions.transform_keys! { |date| date.end_of_month.to_js_time }
+      contributions.transform_values!(&:to_i)
 
       sum = 0
       data = empty_months.merge(contributions).map do |date, value|
@@ -82,16 +80,14 @@ module Charts
     def contributions_stacked_column_chart
       return no_chart_data if Contribution.count.zero?
 
-      empty_months = end_of_months_since Contribution.minimum(:date)
+      empty_months = end_of_months_since(Contribution.minimum(:date))
 
       query = FinancialAsset.where(investment: true).includes(:contributions).order(:name)
 
       series = query.each_with_object([]) do |asset, array|
-        contributions_query = asset.contributions.select('date, SUM(amount) AS total').group('STRFTIME("%m-%Y", date)').order(:date)
-
-        contributions = contributions_query.each_with_object({}) do |contribution, hash|
-          hash[contribution.date.end_of_month.to_js_time] = contribution.total
-        end
+        contributions = asset.contributions.group_by_month(:date, time_zone: false).sum(:amount)
+        contributions.transform_keys! { |date| date.end_of_month.to_js_time }
+        contributions.transform_values!(&:to_i)
 
         data = empty_months.merge(contributions).to_a
 
@@ -117,21 +113,19 @@ module Charts
     def investment_asset_area_chart(asset)
       return no_chart_data if asset.snapshots.count.zero?
 
-      snapshots = asset.snapshots.order(:date).each_with_object({}) do |snapshot, hash|
-        hash[snapshot.date.to_js_time] = snapshot.value
+      snapshots = asset.snapshots.order(:date).each_with_object({}) do |snapshot, data|
+        data[snapshot.date.to_js_time] = snapshot.value
       end
 
-      empty_months = snapshots.keys.each_with_object({}) do |month, hash|
-        hash[month] = 0
+      empty_months = snapshots.keys.each_with_object({}) do |month, data|
+        data[month] = 0
       end
 
-      query = asset.contributions.select('date, SUM(amount) AS total').group('STRFTIME("%m-%Y", date)').order(:date)
+      contributions = asset.contributions.group_by_month(:date, time_zone: false).sum(:amount)
+      contributions.transform_keys! { |date| date.end_of_month.to_js_time }
+      contributions.transform_values!(&:to_i)
 
-      contributions = query.each_with_object({}) do |row, hash|
-        hash[row.date.end_of_month.to_js_time] = row.total
-      end
-
-      contributions = empty_months.merge contributions
+      contributions = empty_months.merge(contributions)
 
       cumulative_contributions = {}
 
@@ -185,13 +179,11 @@ module Charts
         hash[month] = 0
       end
 
-      query = asset.contributions.select('date, SUM(amount) AS total').group('STRFTIME("%m-%Y", date)').order(:date)
+      contributions = asset.contributions.group_by_month(:date, time_zone: false).sum(:amount)
+      contributions.transform_keys! { |date| date.end_of_month.to_js_time }
+      contributions.transform_values!(&:to_i)
 
-      contributions = query.each_with_object({}) do |row, hash|
-        hash[row.date.end_of_month.to_js_time] = row.total
-      end
-
-      contributions = empty_months.merge contributions
+      contributions = empty_months.merge(contributions)
 
       cumulative_contributions = {}
 
@@ -237,13 +229,11 @@ module Charts
     def investment_asset_contributions_column_chart(asset)
       return no_chart_data if asset.contributions.count.zero?
 
-      empty_months = end_of_months_since asset.contributions.minimum(:date)
+      empty_months = end_of_months_since(asset.contributions.minimum(:date))
 
-      query = asset.contributions.select('date, SUM(amount) AS total').group('STRFTIME("%m-%Y", date)').order(:date)
-
-      contributions = query.each_with_object({}) do |row, hash|
-        hash[row.date.end_of_month.to_js_time] = row.total
-      end
+      contributions = asset.contributions.group_by_month(:date, time_zone: false).sum(:amount)
+      contributions.transform_keys! { |date| date.end_of_month.to_js_time }
+      contributions.transform_values!(&:to_i)
 
       data = empty_months.merge(contributions).to_a
 
