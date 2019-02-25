@@ -18,6 +18,8 @@ module Pecuniary
 
     config.time_zone = 'Eastern Time (US & Canada)'
 
+    config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag }
+
     if ENV['HTTP_AUTH'].present?
       config.middleware.use(Rack::Auth::Basic) do |username, password|
         ENV['HTTP_AUTH'].split(':') == [username, password]
