@@ -23,7 +23,7 @@ class Contribution < ApplicationRecord
   after_destroy :update_asset_total_contributions
 
   def formatted_date
-    date&.to_time&.strftime '%B %-d, %Y'
+    date&.strftime '%B %-d, %Y'
   end
 
   def to_param

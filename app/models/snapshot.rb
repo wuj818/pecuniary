@@ -23,7 +23,7 @@ class Snapshot < ApplicationRecord
   after_destroy :update_asset_current_value
 
   def formatted_date
-    date&.to_time&.strftime '%B %Y'
+    date&.strftime '%B %Y'
   end
 
   def to_param
