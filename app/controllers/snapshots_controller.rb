@@ -1,8 +1,8 @@
 class SnapshotsController < ApplicationController
   before_action :authorize, only: %i[new create edit update destroy]
 
-  before_action :get_asset, only: %i[new create]
-  before_action :get_snapshot, only: %i[show edit update destroy]
+  before_action :set_asset, only: %i[new create]
+  before_action :set_snapshot, only: %i[show edit update destroy]
 
   def show
   end
@@ -47,11 +47,11 @@ class SnapshotsController < ApplicationController
     params.require(:snapshot).permit :date, :permalink, :value
   end
 
-  def get_asset
+  def set_asset
     @asset = FinancialAsset.find_by! permalink: params[:financial_asset_id]
   end
 
-  def get_snapshot
+  def set_snapshot
     @snapshot = Snapshot.find_by! permalink: params[:id]
     @asset = @snapshot.asset
   end

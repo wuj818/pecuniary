@@ -1,8 +1,8 @@
 class ContributionsController < ApplicationController
   before_action :authorize, only: %i[new create edit update destroy]
 
-  before_action :get_asset, only: %i[new create]
-  before_action :get_contribution, only: %i[show edit update destroy]
+  before_action :set_asset, only: %i[new create]
+  before_action :set_contribution, only: %i[show edit update destroy]
 
   def index
     @contributions = Contribution.includes(:asset).order('date DESC')
@@ -51,11 +51,11 @@ class ContributionsController < ApplicationController
     params.require(:contribution).permit :amount, :employer, :date, :permalink
   end
 
-  def get_asset
+  def set_asset
     @asset = FinancialAsset.find_by! permalink: params[:financial_asset_id]
   end
 
-  def get_contribution
+  def set_contribution
     @contribution = Contribution.find_by! permalink: params[:id]
     @asset = @contribution.asset
   end

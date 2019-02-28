@@ -1,7 +1,7 @@
 class FinancialAssetsController < ApplicationController
   before_action :authorize, only: %i[new create edit update destroy]
 
-  before_action :get_asset, only: %i[show edit update destroy]
+  before_action :set_asset, only: %i[show edit update destroy]
 
   def index
     @assets = FinancialAsset.includes(:snapshots).order(:name)
@@ -52,7 +52,7 @@ class FinancialAssetsController < ApplicationController
     params.require(:financial_asset).permit :name, :investment
   end
 
-  def get_asset
+  def set_asset
     @asset = FinancialAsset.find_by! permalink: params[:id]
   end
 end

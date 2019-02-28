@@ -1,7 +1,7 @@
 class MilestonesController < ApplicationController
   before_action :authorize, only: %i[new create edit update destroy]
 
-  before_action :get_milestone, only: %i[show edit update destroy]
+  before_action :set_milestone, only: %i[show edit update destroy]
 
   def index
     @milestones = Milestone.order('date DESC')
@@ -50,7 +50,7 @@ class MilestonesController < ApplicationController
     params.require(:milestone).permit :date, :notes, :permalink, :tag_list
   end
 
-  def get_milestone
+  def set_milestone
     @milestone = Milestone.find_by! permalink: params[:id]
   end
 end
