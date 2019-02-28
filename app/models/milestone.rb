@@ -2,8 +2,8 @@ class Milestone < ApplicationRecord
   acts_as_taggable
 
   validates :date,
-    presence: true,
-    uniqueness: true
+            presence: true,
+            uniqueness: true
 
   validates :notes, presence: true
 

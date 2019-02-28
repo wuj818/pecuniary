@@ -4,8 +4,8 @@ class FinancialAsset < ApplicationRecord
   has_many :contributions, dependent: :destroy, inverse_of: 'asset'
 
   validates :name,
-    presence: true,
-    uniqueness: true
+            presence: true,
+            uniqueness: true
 
   validates :permalink, uniqueness: true
 

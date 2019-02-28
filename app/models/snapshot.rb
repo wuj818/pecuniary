@@ -4,11 +4,11 @@ class Snapshot < ApplicationRecord
   validates :asset, presence: true
 
   validates :date,
-    presence: true,
-    uniqueness: {
-      scope: [:financial_asset_id],
-      message: 'has already been taken for this asset'
-    }
+            presence: true,
+            uniqueness: {
+              scope: [:financial_asset_id],
+              message: 'has already been taken for this asset'
+            }
 
   validates :permalink, uniqueness: true
 
