@@ -4,8 +4,7 @@ class SnapshotsController < ApplicationController
   before_action :set_asset, only: %i[new create]
   before_action :set_snapshot, only: %i[show edit update destroy]
 
-  def show
-  end
+  def show; end
 
   def new
     @snapshot = @asset.snapshots.build
@@ -22,8 +21,7 @@ class SnapshotsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @snapshot.update snapshot_params

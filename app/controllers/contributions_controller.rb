@@ -8,8 +8,7 @@ class ContributionsController < ApplicationController
     @contributions = Contribution.includes(:asset).order('date DESC')
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @contribution = @asset.contributions.build
@@ -26,8 +25,7 @@ class ContributionsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @contribution.update contribution_params

@@ -7,8 +7,7 @@ class MilestonesController < ApplicationController
     @milestones = Milestone.order('date DESC')
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @milestone = Milestone.new
@@ -25,8 +24,7 @@ class MilestonesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @milestone.update milestone_params

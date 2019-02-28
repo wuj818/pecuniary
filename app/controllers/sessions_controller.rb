@@ -1,8 +1,7 @@
 class SessionsController < ApplicationController
   before_action :block_admin, only: %i[new create]
 
-  def new
-  end
+  def new; end
 
   def create
     if params[:password] == Rails.application.credentials.password[Rails.env.to_sym]
