@@ -32,9 +32,13 @@ gem 'kramdown', '~> 1.17.0'
 group :development do
   gem 'listen', '~> 3.1.5'
   gem 'spring', '~> 2.0.2'
-  gem 'spring-commands-rspec', '~> 1.0.4'
   gem 'spring-watcher-listen', '~> 2.0.1'
+
+  gem 'better_errors', '~> 2.5.1'
+  gem 'binding_of_caller', '~> 0.8.0'
   gem 'web-console', '~> 3.7.0'
+
+  gem 'spring-commands-rspec', '~> 1.0.4'
 
   gem 'haml_lint', '~> 0.28.0', require: false
   gem 'rubocop', '~> 0.65.0', require: false
@@ -56,5 +60,7 @@ group :test do
   gem 'factory_bot_rails', '~> 4.11.1'
 end
 
+gem 'awesome_print', '~> 1.8.0'
 gem 'hirb', '~> 0.7.3'
+gem 'pry-byebug', '~> 3.7.0'
 gem 'pry-rails', '~> 0.3.8'
