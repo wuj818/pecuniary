@@ -9,7 +9,7 @@ gem 'pg', '~> 1.1'
 
 gem 'bootsnap', '~> 1.4', require: false
 gem 'mini_racer', '~> 0.2', platforms: :ruby
-gem 'puma', '~> 3.12'
+gem 'puma', '~> 4.3'
 
 gem 'coffee-rails', '~> 4.2'
 gem 'hamlit', '~> 2.9'
