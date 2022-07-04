@@ -46,15 +46,15 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-activemodel-mocks', '~> 1.1'
-  gem 'rspec-rails', '~> 3.8'
+  gem 'rspec-activemodel-mocks'
+  gem 'rspec-rails'
 
-  gem 'capybara', '~> 3.14'
+  gem 'capybara'
   gem 'webdrivers', require: false
 end
 
 group :test do
-  gem 'factory_bot_rails', '~> 5.0'
+  gem 'factory_bot_rails'
 end
 
 gem 'awesome_print', '~> 1.8'
