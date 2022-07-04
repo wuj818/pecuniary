@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.5'
 
-gem 'rails', '5.2.3'
+gem 'rails', '~> 5.2.3'
 
 gem 'pg', '~> 1.1'
 
@@ -50,8 +50,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8'
 
   gem 'capybara', '~> 3.14'
-  gem 'chromedriver-helper', '~> 2.1'
-  gem 'selenium-webdriver', '~> 3.141'
+  gem 'webdrivers', require: false
 
   gem 'fuubar', '~> 2.3'
 end
