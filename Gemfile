@@ -20,7 +20,7 @@ gem 'terser'
 
 gem 'bootstrap', '~> 4.3.1'
 gem 'bootstrap4-datetime-picker-rails', '~> 0.3'
-gem 'font-awesome-rails', '~> 4.7.0'
+gem 'font-awesome-rails'
 gem 'highcharts-rails', '~> 6.0'
 gem 'momentjs-rails', '~> 2.20'
 
