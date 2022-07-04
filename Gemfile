@@ -26,7 +26,7 @@ gem 'momentjs-rails', '~> 2.20'
 
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'groupdate', '~> 4.1'
-gem 'kramdown', '~> 2.1'
+gem 'kramdown', '~> 2.4'
 
 group :development do
   gem 'listen'
