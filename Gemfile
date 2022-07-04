@@ -24,7 +24,7 @@ gem 'font-awesome-rails', '~> 4.7.0'
 gem 'highcharts-rails', '~> 6.0'
 gem 'momentjs-rails', '~> 2.20'
 
-gem 'acts-as-taggable-on', '~> 6.0'
+gem 'acts-as-taggable-on'
 gem 'groupdate', '~> 4.1'
 gem 'kramdown'
 
