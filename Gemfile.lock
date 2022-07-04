@@ -88,6 +88,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
+    colorize (0.8.1)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     debug_inspector (1.1.0)
@@ -151,6 +152,8 @@ GEM
     momentjs-rails (2.20.1)
       railties (>= 3.1)
     msgpack (1.5.3)
+    next_rails (1.1.0)
+      colorize (>= 0.8.1)
     nio4r (2.5.8)
     nokogiri (1.13.6)
       mini_portile2 (~> 2.8.0)
@@ -355,6 +358,7 @@ DEPENDENCIES
   kramdown
   listen
   momentjs-rails (~> 2.20)
+  next_rails
   pg
   pry-byebug
   pry-rails

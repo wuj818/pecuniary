@@ -67,3 +67,5 @@ gem 'awesome_print'
 gem 'hirb'
 gem 'pry-byebug'
 gem 'pry-rails'
+
+gem 'next_rails', group: :development
