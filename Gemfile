@@ -16,7 +16,7 @@ gem 'sass-rails', '~> 5.0'
 
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5.2'
-gem 'uglifier', '~> 4.1'
+gem 'terser'
 
 gem 'bootstrap', '~> 4.3.1'
 gem 'bootstrap4-datetime-picker-rails', '~> 0.3'

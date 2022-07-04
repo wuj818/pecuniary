@@ -303,6 +303,8 @@ GEM
       sprockets (>= 3.0.0)
     sysexits (1.2.0)
     temple (0.8.2)
+    terser (1.1.11)
+      execjs (>= 0.3.0, < 3)
     thor (1.2.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -311,8 +313,6 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
-    uglifier (4.1.20)
-      execjs (>= 0.3.0, < 3)
     unicode-display_width (2.2.0)
     web-console (3.7.0)
       actionview (>= 5.0)
@@ -373,8 +373,8 @@ DEPENDENCIES
   spring-commands-rspec
   spring-commands-rubocop
   spring-watcher-listen
+  terser
   turbolinks (~> 5.2)
-  uglifier (~> 4.1)
   web-console
   webdrivers
 
