@@ -7,7 +7,7 @@ gem 'rails', '~> 5.2.8'
 
 gem 'pg'
 
-gem 'bootsnap', '~> 1.4', require: false
+gem 'bootsnap', require: false
 gem 'mini_racer', platforms: :ruby
 gem 'puma'
 
