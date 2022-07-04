@@ -12,7 +12,7 @@ gem 'puma'
 
 gem 'coffee-rails', '~> 4.2'
 gem 'hamlit', '~> 2.9'
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
 
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5.2'
