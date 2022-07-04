@@ -57,7 +57,7 @@ group :test do
   gem 'factory_bot_rails'
 end
 
-gem 'awesome_print', '~> 1.8'
-gem 'hirb', '~> 0.7'
-gem 'pry-byebug', '~> 3.7'
-gem 'pry-rails', '~> 0.3'
+gem 'awesome_print'
+gem 'hirb'
+gem 'pry-byebug'
+gem 'pry-rails'
