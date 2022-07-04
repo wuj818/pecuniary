@@ -8,7 +8,6 @@ gem 'rails', '~> 5.2.8'
 gem 'pg'
 
 gem 'bootsnap', require: false
-gem 'mini_racer'
 gem 'puma'
 
 gem 'coffee-rails', '~> 4.2'
