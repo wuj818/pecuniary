@@ -51,8 +51,6 @@ group :development, :test do
 
   gem 'capybara', '~> 3.14'
   gem 'webdrivers', require: false
-
-  gem 'fuubar', '~> 2.3'
 end
 
 group :test do
