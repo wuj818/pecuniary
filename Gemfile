@@ -30,19 +30,19 @@ gem 'groupdate', '~> 4.1'
 gem 'kramdown', '~> 2.1'
 
 group :development do
-  gem 'listen', '~> 3.1'
-  gem 'spring', '~> 2.0'
-  gem 'spring-watcher-listen', '~> 2.0'
+  gem 'listen'
+  gem 'spring'
+  gem 'spring-watcher-listen'
 
-  gem 'better_errors', '~> 2.5'
-  gem 'binding_of_caller', '~> 0.8'
-  gem 'web-console', '~> 3.7'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'web-console'
 
-  gem 'spring-commands-rspec', '~> 1.0'
+  gem 'spring-commands-rspec'
 
-  gem 'haml_lint', '~> 0.28', require: false
-  gem 'rubocop', '~> 0.65', require: false
-  gem 'spring-commands-rubocop', '~> 0.2'
+  gem 'haml_lint', require: false
+  gem 'rubocop', require: false
+  gem 'spring-commands-rubocop'
 end
 
 group :development, :test do
