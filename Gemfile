@@ -11,7 +11,7 @@ gem 'bootsnap', require: false
 gem 'puma'
 
 gem 'coffee-rails', '~> 4.2'
-gem 'hamlit', '~> 2.9'
+gem 'hamlit'
 gem 'sassc-rails'
 
 gem 'jquery-rails'
