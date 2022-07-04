@@ -5,7 +5,7 @@ ruby File.read('.ruby-version')
 
 gem 'rails', '~> 5.2.8'
 
-gem 'pg', '~> 1.1'
+gem 'pg'
 
 gem 'bootsnap', '~> 1.4', require: false
 gem 'mini_racer', platforms: :ruby
