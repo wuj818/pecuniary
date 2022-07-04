@@ -40,7 +40,12 @@ group :development do
   gem 'spring-commands-rspec'
 
   gem 'haml_lint', require: false
+
   gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'rubocop-thread_safety', require: false
   gem 'spring-commands-rubocop'
 end
 
