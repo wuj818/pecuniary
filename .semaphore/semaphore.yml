@@ -1,0 +1,50 @@
+version: v1.0
+
+name: pecuniary
+
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+
+auto_cancel:
+  running:
+    when: "true"
+
+execution_time_limit:
+  minutes: 3
+
+global_job_config:
+  secrets:
+    - name: pecuniary-secrets
+
+  env_vars:
+    - name: BUNDLE_CLEAN
+      value: "true"
+    - name: BUNDLE_FROZEN
+      value: "true"
+    - name: BUNDLE_JOBS
+      value: "4"
+    - name: BUNDLE_PATH
+      value: "vendor/bundle"
+    - name: RAILS_ENV
+      value: "test"
+
+  prologue:
+    commands:
+      - checkout
+
+blocks:
+  - name: Tests
+    task:
+      jobs:
+        - name: rspec
+          commands:
+            - cache restore gems-$(checksum Gemfile.lock)
+            - bundle install
+            - cache store gems-$(checksum Gemfile.lock) $BUNDLE_PATH
+
+            - sem-service start postgres 13
+            - bin/rake db:setup
+
+            - bin/rspec
