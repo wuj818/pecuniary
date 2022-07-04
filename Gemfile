@@ -14,7 +14,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'hamlit', '~> 2.9'
 gem 'sass-rails', '~> 5.0'
 
-gem 'jquery-rails', '~> 4.3'
+gem 'jquery-rails', '~> 4.5'
 gem 'turbolinks', '~> 5.2'
 gem 'uglifier', '~> 4.1'
 
