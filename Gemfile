@@ -22,7 +22,7 @@ gem "bootstrap", "~> 4.3.1"
 gem "bootstrap4-datetime-picker-rails", "~> 0.3"
 gem "font-awesome-rails"
 gem "highcharts-rails", "~> 6.0"
-gem "momentjs-rails", "~> 2.20"
+gem "momentjs-rails", "~> 2.29"
 
 gem "acts-as-taggable-on"
 gem "groupdate", "~> 4.1"

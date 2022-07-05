@@ -173,7 +173,7 @@ GEM
     minitest (5.16.2)
     moment-timezone-rails (1.0.0)
       momentjs-rails (>= 2.10.5, <= 3.0.0)
-    momentjs-rails (2.20.1)
+    momentjs-rails (2.29.1.1)
       railties (>= 3.1)
     msgpack (1.5.3)
     net-imap (0.2.3)
@@ -197,6 +197,8 @@ GEM
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     nokogiri (1.13.6-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.13.6-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.13.6-x86_64-linux)
       racc (~> 1.4)
@@ -382,7 +384,7 @@ DEPENDENCIES
   jquery-rails
   kramdown
   listen
-  momentjs-rails (~> 2.20)
+  momentjs-rails (~> 2.29)
   next_rails
   pg
   pry-byebug
