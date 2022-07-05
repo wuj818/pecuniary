@@ -119,9 +119,7 @@ module Charts
         data[snapshot.date.to_js_time] = snapshot.value
       end
 
-      empty_months = snapshots.keys.each_with_object({}) do |month, data|
-        data[month] = 0
-      end
+      empty_months = snapshots.keys.index_with { 0 }
 
       contributions = asset.contributions.group_by_month(:date, time_zone: false).sum(:amount)
       contributions.transform_keys! { |date| date.end_of_month.to_js_time }
@@ -177,9 +175,7 @@ module Charts
         hash[snapshot.date.to_js_time] = snapshot.value
       end
 
-      empty_months = snapshots.keys.each_with_object({}) do |month, hash|
-        hash[month] = 0
-      end
+      empty_months = snapshots.keys.index_with { 0 }
 
       contributions = asset.contributions.group_by_month(:date, time_zone: false).sum(:amount)
       contributions.transform_keys! { |date| date.end_of_month.to_js_time }

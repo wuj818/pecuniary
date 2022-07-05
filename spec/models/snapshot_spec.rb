@@ -68,7 +68,7 @@ RSpec.describe Snapshot do
       snapshot = described_class.create
 
       [:asset].each do |attribute|
-        expect(snapshot.errors[attribute]).to include "can't be blank"
+        expect(snapshot.errors[attribute]).to include("must exist")
       end
     end
 

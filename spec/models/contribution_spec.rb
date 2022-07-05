@@ -63,7 +63,7 @@ RSpec.describe Contribution do
       contribution = described_class.create
 
       [:asset].each do |attribute|
-        expect(contribution.errors[attribute]).to include "can't be blank"
+        expect(contribution.errors[attribute]).to include("must exist")
       end
     end
 

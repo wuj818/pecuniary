@@ -16,9 +16,7 @@ class InvestmentsController < ApplicationController
       current = current.next_month.end_of_month
     end
 
-    empty_months = months.each_with_object({}) do |month, hash|
-      hash[month] = 0
-    end
+    empty_months = months.index_with { 0 }
 
     results = Contribution.group_by_month(:date, time_zone: false).sum(:amount)
     results.transform_keys!(&:end_of_month)

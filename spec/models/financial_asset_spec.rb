@@ -60,7 +60,7 @@ RSpec.describe FinancialAsset do
       asset = described_class.create
 
       [:name].each do |attribute|
-        expect(asset.errors[attribute]).to include "can't be blank"
+        expect(asset.errors[attribute]).to include("can't be blank")
       end
     end
 

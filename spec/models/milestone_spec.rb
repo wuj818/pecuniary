@@ -38,7 +38,7 @@ RSpec.describe Milestone do
       milestone = described_class.create
 
       [:notes].each do |attribute|
-        expect(milestone.errors[attribute]).to include "can't be blank"
+        expect(milestone.errors[attribute]).to include("can't be blank")
       end
     end
 
