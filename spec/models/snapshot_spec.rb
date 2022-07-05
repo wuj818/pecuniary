@@ -15,7 +15,7 @@ RSpec.describe Snapshot do
     let(:snapshot) { create :snapshot, date: date, asset: create(:financial_asset, name: "Bank") }
 
     it "sets the date to the end of the current month by default" do
-      snapshot = Snapshot.new
+      snapshot = described_class.new
       expect(snapshot.date).to eq Time.zone.now.to_date.end_of_month
     end
 
@@ -65,7 +65,7 @@ RSpec.describe Snapshot do
 
   describe "validations" do
     it "has required attributes" do
-      snapshot = Snapshot.create
+      snapshot = described_class.create
 
       [:asset].each do |attribute|
         expect(snapshot.errors[attribute]).to include "can't be blank"

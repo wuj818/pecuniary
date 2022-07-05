@@ -8,7 +8,7 @@ RSpec.describe Milestone do
     let(:milestone) { create :milestone, date: date }
 
     it "sets the date to the current day by default" do
-      milestone = Milestone.new
+      milestone = described_class.new
       expect(milestone.date).to eq Time.zone.now.to_date
     end
 
@@ -35,7 +35,7 @@ RSpec.describe Milestone do
 
   describe "validations" do
     it "has required attributes" do
-      milestone = Milestone.create
+      milestone = described_class.create
 
       [:notes].each do |attribute|
         expect(milestone.errors[attribute]).to include "can't be blank"

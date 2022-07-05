@@ -26,7 +26,7 @@ RSpec.describe "Milestone Requests" do
   describe "GET new" do
     let(:request!) { get new_milestone_path }
 
-    context "logged in" do
+    context "when logged in" do
       it "returns a successful response" do
         request_spec_login
 
@@ -36,7 +36,7 @@ RSpec.describe "Milestone Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       it "redirects to the login page" do
         request!
 
@@ -51,7 +51,7 @@ RSpec.describe "Milestone Requests" do
 
     let(:request!) { post milestones_path, params: { milestone: { test: 1 } } }
 
-    context "logged in" do
+    context "when logged in" do
       before do
         request_spec_login
         expect(Milestone).to receive(:new).and_return milestone
@@ -79,7 +79,7 @@ RSpec.describe "Milestone Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       it "redirects to the login page" do
         expect(Milestone).not_to receive(:new)
 
@@ -96,7 +96,7 @@ RSpec.describe "Milestone Requests" do
 
     let(:request!) { get edit_milestone_path(milestone) }
 
-    context "logged in" do
+    context "when logged in" do
       it "returns a successful response" do
         request_spec_login
         expect(Milestone).to receive(:find_by!).with(permalink: milestone.to_param).and_return milestone
@@ -107,7 +107,7 @@ RSpec.describe "Milestone Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       it "redirects to the login page" do
         expect(Milestone).not_to receive(:find_by!)
 
@@ -124,7 +124,7 @@ RSpec.describe "Milestone Requests" do
 
     let(:request!) { patch milestone_path(milestone, milestone: { test: 1 }) }
 
-    context "logged in" do
+    context "when logged in" do
       before do
         request_spec_login
         expect(Milestone).to receive(:find_by!).with(permalink: milestone.to_param).and_return milestone
@@ -152,7 +152,7 @@ RSpec.describe "Milestone Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       it "redirects to the login page" do
         expect(Milestone).not_to receive(:find_by!)
 
@@ -169,7 +169,7 @@ RSpec.describe "Milestone Requests" do
 
     let(:request!) { delete milestone_path(milestone) }
 
-    context "logged in" do
+    context "when logged in" do
       it "destroys the requested milestone and redirects to the milestones index" do
         request_spec_login
         expect(Milestone).to receive(:find_by!).with(permalink: milestone.to_param).and_return milestone
@@ -182,7 +182,7 @@ RSpec.describe "Milestone Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       it "redirects to the login page" do
         expect(Milestone).not_to receive(:find_by!)
 

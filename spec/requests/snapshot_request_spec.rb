@@ -20,7 +20,7 @@ RSpec.describe "Snapshot Requests" do
 
     let(:request!) { get new_financial_asset_snapshot_path(asset) }
 
-    context "logged in" do
+    context "when logged in" do
       it "returns a successful response" do
         request_spec_login
         expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
@@ -32,7 +32,7 @@ RSpec.describe "Snapshot Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       it "redirects to the login page" do
         request!
 
@@ -48,7 +48,7 @@ RSpec.describe "Snapshot Requests" do
 
     let(:request!) { post financial_asset_snapshots_path(asset, snapshot: { test: 1 }) }
 
-    context "logged in" do
+    context "when logged in" do
       before do
         request_spec_login
         expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
@@ -77,7 +77,7 @@ RSpec.describe "Snapshot Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       it "redirects to the login page" do
         request!
 
@@ -92,7 +92,7 @@ RSpec.describe "Snapshot Requests" do
 
     let(:request!) { get edit_snapshot_path(snapshot) }
 
-    context "logged in" do
+    context "when logged in" do
       it "returns a successful response" do
         request_spec_login
         expect(Snapshot).to receive(:find_by!).with(permalink: snapshot.to_param).and_return snapshot
@@ -103,7 +103,7 @@ RSpec.describe "Snapshot Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       it "redirects to the login page" do
         request!
 
@@ -118,7 +118,7 @@ RSpec.describe "Snapshot Requests" do
 
     let(:request!) { patch financial_asset_snapshot_path(snapshot.asset, snapshot, snapshot: { test: 1 }) }
 
-    context "logged in" do
+    context "when logged in" do
       before do
         request_spec_login
         expect(Snapshot).to receive(:find_by!).with(permalink: snapshot.to_param).and_return snapshot
@@ -146,7 +146,7 @@ RSpec.describe "Snapshot Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       it "redirects to the login page" do
         expect(Snapshot).not_to receive(:find_by!)
 
@@ -163,7 +163,7 @@ RSpec.describe "Snapshot Requests" do
 
     let(:request!) { delete snapshot_path(snapshot) }
 
-    context "logged in" do
+    context "when logged in" do
       it "destroys the requested snapshot and redirects to its asset" do
         request_spec_login
         expect(Snapshot).to receive(:find_by!).with(permalink: snapshot.to_param).and_return snapshot
@@ -176,7 +176,7 @@ RSpec.describe "Snapshot Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       it "redirects to the login page" do
         expect(Snapshot).not_to receive(:find_by!)
 

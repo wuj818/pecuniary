@@ -6,7 +6,7 @@ RSpec.describe "Session Requests" do
   describe "GET new" do
     let(:request!) { get login_path }
 
-    context "logged in" do
+    context "when logged in" do
       it "redirects to the home page" do
         request_spec_login
 
@@ -16,7 +16,7 @@ RSpec.describe "Session Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       it "returns a successful response" do
         request!
 
@@ -34,7 +34,7 @@ RSpec.describe "Session Requests" do
       end
     end
 
-    context "logged in" do
+    context "when logged in" do
       it "redirects to the home page" do
         request_spec_login
 
@@ -45,7 +45,7 @@ RSpec.describe "Session Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       context "with a valid password" do
         it "logs in the admin and redirects to the home page" do
           request!.call password
@@ -76,7 +76,7 @@ RSpec.describe "Session Requests" do
       expect(admin_cookie).to be_blank
     end
 
-    context "logged in" do
+    context "when logged in" do
       it "logs out the admin and redirects to the home page" do
         request_spec_login
 
@@ -86,7 +86,7 @@ RSpec.describe "Session Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       it "redirects to the home page" do
         request!
 

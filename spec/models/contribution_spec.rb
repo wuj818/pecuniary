@@ -15,7 +15,7 @@ RSpec.describe Contribution do
     let(:contribution) { create :contribution, date: date, asset: create(:financial_asset, name: "Bank") }
 
     it "sets the date to the current date by default" do
-      contribution = Contribution.new
+      contribution = described_class.new
       expect(contribution.date).to eq Time.zone.now.to_date
     end
 
@@ -60,7 +60,7 @@ RSpec.describe Contribution do
 
   describe "validations" do
     it "has required attributes" do
-      contribution = Contribution.create
+      contribution = described_class.create
 
       [:asset].each do |attribute|
         expect(contribution.errors[attribute]).to include "can't be blank"
@@ -76,7 +76,7 @@ RSpec.describe Contribution do
     end
 
     it "requires an investment asset" do
-      contribution = Contribution.new
+      contribution = described_class.new
       contribution.asset = create :financial_asset, name: "Bank", investment: false
       contribution.save
       expect(contribution.errors[:base]).to include "Bank is not a contributable investment"

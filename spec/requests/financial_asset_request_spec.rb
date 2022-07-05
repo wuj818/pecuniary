@@ -26,7 +26,7 @@ RSpec.describe "Financial Asset Requests" do
   describe "GET new" do
     let(:request!) { get new_financial_asset_path }
 
-    context "logged in" do
+    context "when logged in" do
       it "returns a successful response" do
         request_spec_login
 
@@ -36,7 +36,7 @@ RSpec.describe "Financial Asset Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       it "redirects to the login page" do
         request!
 
@@ -51,7 +51,7 @@ RSpec.describe "Financial Asset Requests" do
 
     let(:request!) { post financial_assets_path, params: { financial_asset: { test: 1 } } }
 
-    context "logged in" do
+    context "when logged in" do
       before do
         request_spec_login
         expect(FinancialAsset).to receive(:new).and_return asset
@@ -79,7 +79,7 @@ RSpec.describe "Financial Asset Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       it "redirects to the login page" do
         expect(Milestone).not_to receive(:new)
 
@@ -96,7 +96,7 @@ RSpec.describe "Financial Asset Requests" do
 
     let(:request!) { get edit_financial_asset_path(asset) }
 
-    context "logged in" do
+    context "when logged in" do
       it "returns a successful response" do
         request_spec_login
         expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
@@ -107,7 +107,7 @@ RSpec.describe "Financial Asset Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       it "redirects to the login page" do
         expect(FinancialAsset).not_to receive(:find_by!)
 
@@ -124,7 +124,7 @@ RSpec.describe "Financial Asset Requests" do
 
     let(:request!) { patch financial_asset_path(asset, financial_asset: { test: 1 }) }
 
-    context "logged in" do
+    context "when logged in" do
       before do
         request_spec_login
         expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
@@ -152,7 +152,7 @@ RSpec.describe "Financial Asset Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       it "redirects to the login page" do
         expect(FinancialAsset).not_to receive(:find_by!)
 
@@ -169,7 +169,7 @@ RSpec.describe "Financial Asset Requests" do
 
     let(:request!) { delete financial_asset_path(asset) }
 
-    context "logged in" do
+    context "when logged in" do
       it "destroys the requested asset and redirects to the assets index" do
         request_spec_login
         expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
@@ -182,7 +182,7 @@ RSpec.describe "Financial Asset Requests" do
       end
     end
 
-    context "logged out" do
+    context "when logged out" do
       it "redirects to the login page" do
         expect(FinancialAsset).not_to receive(:find_by!)
 

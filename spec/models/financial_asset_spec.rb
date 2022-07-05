@@ -57,7 +57,7 @@ RSpec.describe FinancialAsset do
 
   describe "validations" do
     it "has required attributes" do
-      asset = FinancialAsset.create
+      asset = described_class.create
 
       [:name].each do |attribute|
         expect(asset.errors[attribute]).to include "can't be blank"

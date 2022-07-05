@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Milestone System" do
-  context "logged in" do
+  context "when logged in" do
     before { system_spec_login }
 
     describe "milestones index" do
@@ -80,7 +80,7 @@ RSpec.describe "Milestone System" do
     end
   end
 
-  context "logged out" do
+  context "when logged out" do
     describe "milestones index" do
       let!(:milestones) { create_list :milestone, 2 }
 

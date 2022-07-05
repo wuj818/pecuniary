@@ -14,5 +14,8 @@ AllCops:
   Exclude:
     - db/**/*
 
+RSpec/MultipleExpectations:
+  Enabled: false
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
