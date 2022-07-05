@@ -1,29 +1,29 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Snapshot do
-  describe 'associations' do
-    it 'belongs to asset' do
+  describe "associations" do
+    it "belongs to asset" do
       snapshot = create :snapshot
       expect(snapshot.asset).to be_a FinancialAsset
     end
   end
 
-  describe 'callbacks' do
+  describe "callbacks" do
     let(:date) { Date.new 2010, 7, 28 }
-    let(:snapshot) { create :snapshot, date: date, asset: create(:financial_asset, name: 'Bank') }
+    let(:snapshot) { create :snapshot, date: date, asset: create(:financial_asset, name: "Bank") }
 
-    it 'sets the date to the end of the current month by default' do
+    it "sets the date to the end of the current month by default" do
       snapshot = Snapshot.new
       expect(snapshot.date).to eq Time.zone.now.to_date.end_of_month
     end
 
-    it 'sets the date to the end of the month' do
+    it "sets the date to the end of the month" do
       expect(snapshot.date).not_to eq date
       expect(snapshot.date).to eq date.end_of_month
     end
 
-    it 'creates a permalink from the asset, month, and year' do
-      expect(snapshot.permalink).to eq 'bank-july-2010'
+    it "creates a permalink from the asset, month, and year" do
+      expect(snapshot.permalink).to eq "bank-july-2010"
     end
 
     it "updates its asset's current value with the most recent value" do
@@ -39,19 +39,19 @@ RSpec.describe Snapshot do
       end.to change(asset, :current_value).from(asset.current_value).to 9000
 
       expect do
-        asset.snapshots.order('date DESC').first.destroy
+        asset.snapshots.order("date DESC").first.destroy
         asset.reload
       end.to change(asset, :current_value).from(9000).to snapshot.value
     end
   end
 
-  describe 'instance methods' do
-    describe 'to_param' do
+  describe "instance methods" do
+    describe "to_param" do
       it "doesn't change until after the record is saved" do
-        snapshot = create :snapshot, date: Date.new(2010, 7, 28), asset: create(:financial_asset, name: 'Bank')
+        snapshot = create :snapshot, date: Date.new(2010, 7, 28), asset: create(:financial_asset, name: "Bank")
         old_to_param = snapshot.to_param
 
-        snapshot.permalink = 'test'
+        snapshot.permalink = "test"
         expect(snapshot.to_param).to eq old_to_param
 
         snapshot.date = Date.new 2011, 3, 28
@@ -61,8 +61,8 @@ RSpec.describe Snapshot do
     end
   end
 
-  describe 'validations' do
-    it 'has required attributes' do
+  describe "validations" do
+    it "has required attributes" do
       snapshot = Snapshot.create
 
       [:asset].each do |attribute|
@@ -70,15 +70,15 @@ RSpec.describe Snapshot do
       end
     end
 
-    it 'requires a unique date/asset pair' do
+    it "requires a unique date/asset pair" do
       snapshot1 = create :snapshot
       snapshot2 = build :snapshot, asset: snapshot1.asset, date: snapshot1.date
       snapshot2.save
 
-      expect(snapshot2.errors[:date]).to include 'has already been taken for this asset'
+      expect(snapshot2.errors[:date]).to include "has already been taken for this asset"
     end
 
-    it 'is destroyed when the asset is destroyed' do
+    it "is destroyed when the asset is destroyed" do
       snapshot = create :snapshot
       snapshot.asset.destroy
 

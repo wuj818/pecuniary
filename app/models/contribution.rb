@@ -1,5 +1,5 @@
 class Contribution < ApplicationRecord
-  belongs_to :asset, class_name: 'FinancialAsset', foreign_key: 'financial_asset_id', inverse_of: 'contributions'
+  belongs_to :asset, class_name: "FinancialAsset", foreign_key: "financial_asset_id", inverse_of: "contributions"
 
   validates :asset, presence: true
 
@@ -7,7 +7,7 @@ class Contribution < ApplicationRecord
             presence: true,
             uniqueness: {
               scope: [:financial_asset_id],
-              message: 'has already been taken for this asset'
+              message: "has already been taken for this asset"
             }
 
   validates :permalink, uniqueness: true
@@ -23,7 +23,7 @@ class Contribution < ApplicationRecord
   after_destroy :update_asset_total_contributions
 
   def formatted_date
-    date&.strftime '%B %-d, %Y'
+    date&.strftime "%B %-d, %Y"
   end
 
   def to_param
@@ -31,13 +31,13 @@ class Contribution < ApplicationRecord
   end
 
   def to_s
-    ["#{asset} Contribution", formatted_date].join ' - '
+    ["#{asset} Contribution", formatted_date].join " - "
   end
 
   private
 
   def create_permalink
-    self.permalink = [asset&.permalink, formatted_date&.parameterize].join '-'
+    self.permalink = [asset&.permalink, formatted_date&.parameterize].join "-"
   end
 
   def investment_asset

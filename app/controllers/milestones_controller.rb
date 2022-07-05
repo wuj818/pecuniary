@@ -4,7 +4,7 @@ class MilestonesController < ApplicationController
   before_action :set_milestone, only: %i[show edit update destroy]
 
   def index
-    @milestones = Milestone.order('date DESC')
+    @milestones = Milestone.order("date DESC")
   end
 
   def show; end
@@ -17,7 +17,7 @@ class MilestonesController < ApplicationController
     @milestone = Milestone.new milestone_params
 
     if @milestone.save
-      flash[:success] = 'Milestone was successfully created.'
+      flash[:success] = "Milestone was successfully created."
       redirect_to milestones_path
     else
       render :new
@@ -28,7 +28,7 @@ class MilestonesController < ApplicationController
 
   def update
     if @milestone.update milestone_params
-      flash[:success] = 'Milestone was successfully updated.'
+      flash[:success] = "Milestone was successfully updated."
       redirect_to @milestone
     else
       render :edit
@@ -38,7 +38,7 @@ class MilestonesController < ApplicationController
   def destroy
     @milestone.destroy
 
-    flash[:success] = 'Milestone was successfully deleted.'
+    flash[:success] = "Milestone was successfully deleted."
     redirect_to milestones_path
   end
 

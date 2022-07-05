@@ -1,7 +1,7 @@
 class FinancialAsset < ApplicationRecord
-  has_many :snapshots, dependent: :destroy, inverse_of: 'asset'
+  has_many :snapshots, dependent: :destroy, inverse_of: "asset"
 
-  has_many :contributions, dependent: :destroy, inverse_of: 'asset'
+  has_many :contributions, dependent: :destroy, inverse_of: "asset"
 
   validates :name,
             presence: true,

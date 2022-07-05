@@ -1,4 +1,4 @@
-require 'hirb'
+require "hirb"
 
 Hirb.enable
 
@@ -9,9 +9,9 @@ end
 
 def formatted_env
   color = case Rails.env
-          when 'production' then :red
-          when 'staging'    then :yellow
-          when 'test'       then :blue
+          when "production" then :red
+          when "staging"    then :yellow
+          when "test"       then :blue
           else                   :green
           end
 

@@ -6,10 +6,10 @@ class SessionsController < ApplicationController
   def create
     if params[:password] == Rails.application.credentials.password[Rails.env.to_sym]
       login
-      flash[:success] = 'Logged in successfully.'
+      flash[:success] = "Logged in successfully."
       redirect_to root_path
     else
-      flash.now[:danger] = 'Incorrect password.'
+      flash.now[:danger] = "Incorrect password."
       render :new
     end
   end
@@ -17,9 +17,9 @@ class SessionsController < ApplicationController
   def destroy
     if admin?
       logout
-      flash[:success] = 'Logged out successfully.'
+      flash[:success] = "Logged out successfully."
     else
-      flash[:info] = 'You are not logged in.'
+      flash[:info] = "You are not logged in."
     end
 
     redirect_to root_path
@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
   def block_admin
     return unless admin?
 
-    flash[:info] = 'You are already logged in.'
+    flash[:info] = "You are already logged in."
     redirect_to root_path
   end
 end

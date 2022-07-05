@@ -5,7 +5,7 @@ class ContributionsController < ApplicationController
   before_action :set_contribution, only: %i[show edit update destroy]
 
   def index
-    @contributions = Contribution.includes(:asset).order('date DESC')
+    @contributions = Contribution.includes(:asset).order("date DESC")
   end
 
   def show; end
@@ -18,7 +18,7 @@ class ContributionsController < ApplicationController
     @contribution = @asset.contributions.build contribution_params
 
     if @contribution.save
-      flash[:success] = 'Contribution was successfully created.'
+      flash[:success] = "Contribution was successfully created."
       redirect_to @asset
     else
       render :new
@@ -29,7 +29,7 @@ class ContributionsController < ApplicationController
 
   def update
     if @contribution.update contribution_params
-      flash[:success] = 'Contribution was successfully updated.'
+      flash[:success] = "Contribution was successfully updated."
       redirect_to @contribution
     else
       render :edit
@@ -39,7 +39,7 @@ class ContributionsController < ApplicationController
   def destroy
     @contribution.destroy
 
-    flash[:success] = 'Contribution was successfully deleted.'
+    flash[:success] = "Contribution was successfully deleted."
     redirect_to @asset
   end
 

@@ -1,11 +1,11 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'Session Requests' do
-  describe 'GET new' do
+RSpec.describe "Session Requests" do
+  describe "GET new" do
     let(:request!) { get login_path }
 
-    context 'logged in' do
-      it 'redirects to the home page' do
+    context "logged in" do
+      it "redirects to the home page" do
         request_spec_login
 
         request!
@@ -14,8 +14,8 @@ RSpec.describe 'Session Requests' do
       end
     end
 
-    context 'logged out' do
-      it 'returns a successful response' do
+    context "logged out" do
+      it "returns a successful response" do
         request!
 
         expect(response).to be_successful
@@ -23,17 +23,17 @@ RSpec.describe 'Session Requests' do
     end
   end
 
-  describe 'POST create' do
+  describe "POST create" do
     let(:password) { Rails.application.credentials.password[Rails.env.to_sym] }
 
     let(:request!) do
-      lambda do |password = 'wrong'|
+      lambda do |password = "wrong"|
         post sessions_path, params: { password: password }
       end
     end
 
-    context 'logged in' do
-      it 'redirects to the home page' do
+    context "logged in" do
+      it "redirects to the home page" do
         request_spec_login
 
         request!.call password
@@ -43,9 +43,9 @@ RSpec.describe 'Session Requests' do
       end
     end
 
-    context 'logged out' do
-      context 'with a valid password' do
-        it 'logs in the admin and redirects to the home page' do
+    context "logged out" do
+      context "with a valid password" do
+        it "logs in the admin and redirects to the home page" do
           request!.call password
 
           expect(response).to redirect_to root_path
@@ -54,7 +54,7 @@ RSpec.describe 'Session Requests' do
         end
       end
 
-      context 'with an invalid password' do
+      context "with an invalid password" do
         it "doesn't login the admin" do
           request!.call
 
@@ -66,7 +66,7 @@ RSpec.describe 'Session Requests' do
     end
   end
 
-  describe 'DELETE destroy' do
+  describe "DELETE destroy" do
     let(:request!) { delete logout_path }
 
     after do
@@ -74,8 +74,8 @@ RSpec.describe 'Session Requests' do
       expect(admin_cookie).to be_blank
     end
 
-    context 'logged in' do
-      it 'logs out the admin and redirects to the home page' do
+    context "logged in" do
+      it "logs out the admin and redirects to the home page" do
         request_spec_login
 
         request!
@@ -84,8 +84,8 @@ RSpec.describe 'Session Requests' do
       end
     end
 
-    context 'logged out' do
-      it 'redirects to the home page' do
+    context "logged out" do
+      it "redirects to the home page" do
         request!
 
         expect(flash[:info]).to match(/not logged in/i)

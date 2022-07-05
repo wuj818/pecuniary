@@ -1,18 +1,18 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'Contribution Requests' do
-  describe 'GET index' do
-    it 'returns a successful response' do
+RSpec.describe "Contribution Requests" do
+  describe "GET index" do
+    it "returns a successful response" do
       get contributions_path
 
       expect(response).to be_successful
     end
   end
 
-  describe 'GET show' do
+  describe "GET show" do
     let(:contribution) { stub_contribution }
 
-    it 'returns a successful response' do
+    it "returns a successful response" do
       expect(Contribution).to receive(:find_by!).with(permalink: contribution.to_param).and_return contribution
 
       get contribution_path(contribution)
@@ -21,13 +21,13 @@ RSpec.describe 'Contribution Requests' do
     end
   end
 
-  describe 'GET new' do
+  describe "GET new" do
     let(:asset) { stub_asset }
 
     let(:request!) { get new_financial_asset_contribution_path(asset) }
 
-    context 'logged in' do
-      it 'returns a successful response' do
+    context "logged in" do
+      it "returns a successful response" do
         request_spec_login
         expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
         expect(asset.contributions).to receive(:build).and_return stub_contribution.as_new_record
@@ -38,8 +38,8 @@ RSpec.describe 'Contribution Requests' do
       end
     end
 
-    context 'logged out' do
-      it 'redirects to the login page' do
+    context "logged out" do
+      it "redirects to the login page" do
         request!
 
         expect(response).to redirect_to login_path
@@ -48,21 +48,21 @@ RSpec.describe 'Contribution Requests' do
     end
   end
 
-  describe 'POST create' do
+  describe "POST create" do
     let(:asset) { stub_asset }
     let(:contribution) { stub_contribution asset: asset }
 
     let(:request!) { post financial_asset_contributions_path(asset, contribution: { test: 1 }) }
 
-    context 'logged in' do
+    context "logged in" do
       before do
         request_spec_login
         expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
         expect(asset.contributions).to receive(:build).and_return contribution
       end
 
-      describe 'with valid params' do
-        it 'creates a new contribution and redirects to its asset' do
+      describe "with valid params" do
+        it "creates a new contribution and redirects to its asset" do
           expect(contribution).to receive(:save).and_return true
 
           request!
@@ -72,7 +72,7 @@ RSpec.describe 'Contribution Requests' do
         end
       end
 
-      describe 'with invalid params' do
+      describe "with invalid params" do
         it "doesn't create a new contribution" do
           expect(contribution.as_new_record).to receive(:save).and_return false
 
@@ -83,8 +83,8 @@ RSpec.describe 'Contribution Requests' do
       end
     end
 
-    context 'logged out' do
-      it 'redirects to the login page' do
+    context "logged out" do
+      it "redirects to the login page" do
         request!
 
         expect(response).to redirect_to login_path
@@ -93,13 +93,13 @@ RSpec.describe 'Contribution Requests' do
     end
   end
 
-  describe 'GET edit' do
+  describe "GET edit" do
     let(:contribution) { stub_contribution }
 
     let(:request!) { get edit_contribution_path(contribution) }
 
-    context 'logged in' do
-      it 'returns a successful response' do
+    context "logged in" do
+      it "returns a successful response" do
         request_spec_login
         expect(Contribution).to receive(:find_by!).with(permalink: contribution.to_param).and_return contribution
 
@@ -109,8 +109,8 @@ RSpec.describe 'Contribution Requests' do
       end
     end
 
-    context 'logged out' do
-      it 'redirects to the login page' do
+    context "logged out" do
+      it "redirects to the login page" do
         request!
 
         expect(response).to redirect_to login_path
@@ -119,19 +119,19 @@ RSpec.describe 'Contribution Requests' do
     end
   end
 
-  describe 'PATCH update' do
+  describe "PATCH update" do
     let(:contribution) { stub_contribution }
 
     let(:request!) { patch financial_asset_contribution_path(contribution.asset, contribution, contribution: { test: 1 }) }
 
-    context 'logged in' do
+    context "logged in" do
       before do
         request_spec_login
         expect(Contribution).to receive(:find_by!).with(permalink: contribution.to_param).and_return contribution
       end
 
-      describe 'with valid params' do
-        it 'redirects to the contribution' do
+      describe "with valid params" do
+        it "redirects to the contribution" do
           expect(contribution).to receive(:update).and_return true
 
           request!
@@ -141,7 +141,7 @@ RSpec.describe 'Contribution Requests' do
         end
       end
 
-      describe 'with invalid params' do
+      describe "with invalid params" do
         it "doesn't update the contribution" do
           expect(contribution).to receive(:update).and_return false
 
@@ -152,8 +152,8 @@ RSpec.describe 'Contribution Requests' do
       end
     end
 
-    context 'logged out' do
-      it 'redirects to the login page' do
+    context "logged out" do
+      it "redirects to the login page" do
         expect(Contribution).not_to receive(:find_by!)
 
         request!
@@ -164,13 +164,13 @@ RSpec.describe 'Contribution Requests' do
     end
   end
 
-  describe 'DELETE destroy' do
+  describe "DELETE destroy" do
     let(:contribution) { stub_contribution }
 
     let(:request!) { delete contribution_path(contribution) }
 
-    context 'logged in' do
-      it 'destroys the requested contribution and redirects to its asset' do
+    context "logged in" do
+      it "destroys the requested contribution and redirects to its asset" do
         request_spec_login
         expect(Contribution).to receive(:find_by!).with(permalink: contribution.to_param).and_return contribution
         expect(contribution).to receive(:destroy).and_return true
@@ -182,8 +182,8 @@ RSpec.describe 'Contribution Requests' do
       end
     end
 
-    context 'logged out' do
-      it 'redirects to the login page' do
+    context "logged out" do
+      it "redirects to the login page" do
         expect(Contribution).not_to receive(:find_by!)
 
         request!

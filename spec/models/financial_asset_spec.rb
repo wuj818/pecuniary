@@ -1,8 +1,8 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe FinancialAsset do
-  describe 'associations' do
-    it 'has many snapshots' do
+  describe "associations" do
+    it "has many snapshots" do
       asset = create :financial_asset
       create :snapshot, asset: asset
 
@@ -11,50 +11,50 @@ RSpec.describe FinancialAsset do
     end
   end
 
-  describe 'callbacks' do
-    it 'creates a parameterized permalink' do
-      asset = create :financial_asset, name: 'Roth IRA'
-      expect(asset.permalink).to eq 'roth-ira'
+  describe "callbacks" do
+    it "creates a parameterized permalink" do
+      asset = create :financial_asset, name: "Roth IRA"
+      expect(asset.permalink).to eq "roth-ira"
     end
 
     it "updates all of its association's permalinks when its name changes" do
-      asset = create :financial_asset, name: 'Bank'
+      asset = create :financial_asset, name: "Bank"
       snapshot = create :snapshot, asset: asset
       contribution = create :contribution, asset: asset
 
-      expect(snapshot.permalink).to match 'bank'
-      expect(contribution.permalink).to match 'bank'
+      expect(snapshot.permalink).to match "bank"
+      expect(contribution.permalink).to match "bank"
 
-      asset.update name: 'Roth IRA'
+      asset.update name: "Roth IRA"
 
       snapshot.reload
-      expect(snapshot.permalink).not_to match 'bank'
-      expect(snapshot.permalink).to match 'roth-ira'
+      expect(snapshot.permalink).not_to match "bank"
+      expect(snapshot.permalink).to match "roth-ira"
 
       contribution.reload
-      expect(contribution.permalink).not_to match 'bank'
-      expect(contribution.permalink).to match 'roth-ira'
+      expect(contribution.permalink).not_to match "bank"
+      expect(contribution.permalink).to match "roth-ira"
     end
   end
 
-  describe 'instance methods' do
-    describe 'to_param' do
+  describe "instance methods" do
+    describe "to_param" do
       it "doesn't change until after the record is saved" do
-        asset = create :financial_asset, name: 'Bank'
+        asset = create :financial_asset, name: "Bank"
         old_to_param = asset.to_param
 
-        asset.permalink = 'test'
+        asset.permalink = "test"
         expect(asset.to_param).to eq old_to_param
 
-        asset.name = 'Roth IRA'
+        asset.name = "Roth IRA"
         asset.save
         expect(asset.to_param).not_to eq old_to_param
       end
     end
   end
 
-  describe 'validations' do
-    it 'has required attributes' do
+  describe "validations" do
+    it "has required attributes" do
       asset = FinancialAsset.create
 
       [:name].each do |attribute|
@@ -62,12 +62,12 @@ RSpec.describe FinancialAsset do
       end
     end
 
-    it 'requires a unique name' do
+    it "requires a unique name" do
       asset1 = create :financial_asset
       asset2 = build :financial_asset, name: asset1.name
       asset2.save
 
-      expect(asset2.errors[:name]).to include 'has already been taken'
+      expect(asset2.errors[:name]).to include "has already been taken"
     end
   end
 end

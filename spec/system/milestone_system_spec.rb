@@ -1,13 +1,13 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'Milestone System' do
-  context 'logged in' do
+RSpec.describe "Milestone System" do
+  context "logged in" do
     before { system_spec_login }
 
-    describe 'milestones index' do
+    describe "milestones index" do
       let!(:milestones) { create_list :milestone, 2 }
 
-      it 'lists the milestones along with edit and delete links' do
+      it "lists the milestones along with edit and delete links" do
         visit milestones_path
 
         milestones.each do |milestone|
@@ -18,18 +18,18 @@ RSpec.describe 'Milestone System' do
       end
     end
 
-    describe 'milestone creation' do
-      let(:milestone_note) { 'test note' }
+    describe "milestone creation" do
+      let(:milestone_note) { "test note" }
 
-      it 'allows the admin to create milestones and shows errors when appropriate' do
+      it "allows the admin to create milestones and shows errors when appropriate" do
         visit milestones_path
         click_link href: new_milestone_path
-        click_button 'Save'
+        click_button "Save"
 
         expect(page).to have_content(/prohibited this milestone from being saved/i)
 
-        fill_in 'milestone_notes', with: milestone_note
-        click_button 'Save'
+        fill_in "milestone_notes", with: milestone_note
+        click_button "Save"
 
         expect(page.current_path).to eq milestones_path
         expect(page).to have_content(/successfully created/i)
@@ -37,23 +37,23 @@ RSpec.describe 'Milestone System' do
       end
     end
 
-    describe 'milestone modification' do
-      let(:milestone_note) { 'test note' }
-      let(:new_milestone_note) { 'new test note' }
+    describe "milestone modification" do
+      let(:milestone_note) { "test note" }
+      let(:new_milestone_note) { "new test note" }
 
       let!(:milestone) { create :milestone, notes: milestone_note }
 
-      it 'allows the admin to update milestones and shows errors when appropriate' do
+      it "allows the admin to update milestones and shows errors when appropriate" do
         visit milestones_path
         click_link href: edit_milestone_path(milestone)
 
-        fill_in 'milestone_notes', with: ''
-        click_button 'Save'
+        fill_in "milestone_notes", with: ""
+        click_button "Save"
 
         expect(page).to have_content(/prohibited this milestone from being saved/i)
 
-        fill_in 'milestone_notes', with: new_milestone_note
-        click_button 'Save'
+        fill_in "milestone_notes", with: new_milestone_note
+        click_button "Save"
 
         expect(page.current_path).to eq milestone_path(milestone)
         expect(page).to have_content(/successfully updated/i)
@@ -61,10 +61,10 @@ RSpec.describe 'Milestone System' do
       end
     end
 
-    describe 'milestone deletion' do
+    describe "milestone deletion" do
       let!(:milestone) { create :milestone }
 
-      it 'deletes the milestone', js: true do
+      it "deletes the milestone", js: true do
         visit milestones_path
 
         accept_confirm do
@@ -78,11 +78,11 @@ RSpec.describe 'Milestone System' do
     end
   end
 
-  context 'logged out' do
-    describe 'milestones index' do
+  context "logged out" do
+    describe "milestones index" do
       let!(:milestones) { create_list :milestone, 2 }
 
-      it 'lists the milestones without edit or delete links' do
+      it "lists the milestones without edit or delete links" do
         visit milestones_path
 
         milestones.each do |milestone|
@@ -93,10 +93,10 @@ RSpec.describe 'Milestone System' do
       end
     end
 
-    describe 'milestone creation and modification' do
+    describe "milestone creation and modification" do
       let!(:milestone) { create :milestone }
 
-      it 'prevents access to the new and edit milestone pages' do
+      it "prevents access to the new and edit milestone pages" do
         visit new_milestone_path
 
         expect(page).to have_content(/must be logged in/i)

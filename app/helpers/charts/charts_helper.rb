@@ -3,15 +3,15 @@ module Charts
     def net_worth_line_chart
       return no_chart_data if Snapshot.count.zero?
 
-      query = Snapshot.select([:date, 'SUM(value) AS value']).group(:date).order(:date)
+      query = Snapshot.select([:date, "SUM(value) AS value"]).group(:date).order(:date)
 
       data = query.each_with_object([]) do |row, array|
         array << [row.date.to_js_time, row.value]
       end
 
-      series = { name: 'Net Worth', data: data }
+      series = { name: "Net Worth", data: data }
 
-      line_chart 'net-worth', series
+      line_chart "net-worth", series
     end
 
     def assets_stacked_area_chart
@@ -22,7 +22,7 @@ module Charts
       query = FinancialAsset.order(:name)
 
       series = query.each_with_object([]) do |asset, array|
-        snapshots_query = asset.snapshots.select([:date, 'SUM(value) AS value']).group(:date).order(:date)
+        snapshots_query = asset.snapshots.select([:date, "SUM(value) AS value"]).group(:date).order(:date)
 
         snapshots = snapshots_query.each_with_object({}) do |row, points|
           points[row.date.to_js_time] = row.value
@@ -37,11 +37,11 @@ module Charts
       end
 
       options = {
-        chart: { type: 'area' },
+        chart: { type: "area" },
         series: series
       }
 
-      chart 'assets-stacked-area-chart', options
+      chart "assets-stacked-area-chart", options
     end
 
     def non_investment_asset_line_chart(asset)
@@ -53,9 +53,9 @@ module Charts
         array << [snapshot.date.to_js_time, snapshot.value]
       end
 
-      series = { name: 'Total Value', data: data }
+      series = { name: "Total Value", data: data }
 
-      line_chart 'non-investment-asset', series
+      line_chart "non-investment-asset", series
     end
 
     def cumulative_contributions_line_chart
@@ -72,9 +72,9 @@ module Charts
         [date, sum += value]
       end
 
-      series = { name: 'Cumulative Contributions', data: data }
+      series = { name: "Cumulative Contributions", data: data }
 
-      line_chart 'cumulative-contributions', series
+      line_chart "cumulative-contributions", series
     end
 
     def contributions_stacked_column_chart
@@ -98,16 +98,16 @@ module Charts
       end
 
       options = {
-        chart: { type: 'column' },
+        chart: { type: "column" },
         plotOptions: {
           column: {
-            stacking: 'normal'
+            stacking: "normal"
           }
         },
         series: series
       }
 
-      chart 'contributions-stacked-column-chart', options
+      chart "contributions-stacked-column-chart", options
     end
 
     def investment_asset_area_chart(asset)
@@ -134,19 +134,19 @@ module Charts
         cumulative_contributions[month] = sum
       end
 
-      investment_area_chart 'investment-asset-area-chart', snapshots.to_a, cumulative_contributions.to_a
+      investment_area_chart "investment-asset-area-chart", snapshots.to_a, cumulative_contributions.to_a
     end
 
     def investment_assets_area_chart(snapshots, cumulative_contributions)
       snapshots = snapshots.transform_keys(&:to_js_time)
       cumulative_contributions = cumulative_contributions.transform_keys(&:to_js_time)
 
-      investment_area_chart 'investment-assets-area-chart', snapshots.to_a, cumulative_contributions.to_a
+      investment_area_chart "investment-assets-area-chart", snapshots.to_a, cumulative_contributions.to_a
     end
 
     def investment_area_chart(id, snapshots, cumulative_contributions)
       options = {
-        chart: { type: 'area' },
+        chart: { type: "area" },
         plotOptions: {
           area: {
             stacking: nil
@@ -154,11 +154,11 @@ module Charts
         },
         series: [
           {
-            name: 'Total Value',
+            name: "Total Value",
             data: snapshots
           },
           {
-            name: 'Cumulative Contributions',
+            name: "Cumulative Contributions",
             fillOpacity: 0.25,
             data: cumulative_contributions
           }
@@ -192,14 +192,14 @@ module Charts
         cumulative_contributions[month] = sum
       end
 
-      investment_performance_line_chart 'investment-asset-performance', snapshots, cumulative_contributions
+      investment_performance_line_chart "investment-asset-performance", snapshots, cumulative_contributions
     end
 
     def investment_assets_performance_line_chart(snapshots, cumulative_contributions)
       snapshots = snapshots.transform_keys(&:to_js_time)
       cumulative_contributions = cumulative_contributions.transform_keys(&:to_js_time)
 
-      investment_performance_line_chart 'investment-assets-performance', snapshots, cumulative_contributions
+      investment_performance_line_chart "investment-assets-performance", snapshots, cumulative_contributions
     end
 
     def investment_performance_line_chart(id, snapshots, cumulative_contributions)
@@ -211,15 +211,15 @@ module Charts
         array << [month, gain]
       end
 
-      series = { name: 'Total Return', data: data }
+      series = { name: "Total Return", data: data }
 
       custom_options = {
-        title: { text: 'Performance' },
-        yAxis: { labels: { format: '{value:,.2f}%' } },
+        title: { text: "Performance" },
+        yAxis: { labels: { format: "{value:,.2f}%" } },
         tooltip: {
           valueDecimals: 2,
           valuePrefix: nil,
-          valueSuffix: '%'
+          valueSuffix: "%"
         }
       }
 
@@ -238,18 +238,18 @@ module Charts
       data = empty_months.merge(contributions).to_a
 
       options = {
-        title: { text: 'Contributions' },
+        title: { text: "Contributions" },
         legend: { enabled: false },
-        chart: { type: 'column' },
+        chart: { type: "column" },
         series: [
           {
-            name: 'Contributions',
+            name: "Contributions",
             data: data
           }
         ]
       }
 
-      chart 'investment-asset-contributions-column-chart', options
+      chart "investment-asset-contributions-column-chart", options
     end
 
     def end_of_months_since(start)

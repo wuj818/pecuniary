@@ -14,7 +14,7 @@ module Authorization
   end
 
   def deny_access
-    flash[:warning] = 'You must be logged in to access this page.'
+    flash[:warning] = "You must be logged in to access this page."
     redirect_to login_path
   end
 

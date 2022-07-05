@@ -21,14 +21,14 @@ module ApplicationHelper
               :danger
             end
 
-    tag.div class: 'progress', style: 'height: 35px;' do
+    tag.div class: "progress", style: "height: 35px;" do
       tag.div class: "progress-bar progress-bar-striped progress-bar-animated bg-#{color}", style: "width: #{percentage}" do
         tag.strong percentage
       end
     end
   end
 
-  def icon(names = 'flag', options = {})
+  def icon(names = "flag", options = {})
     classes = [:fa].concat(names.to_s.split.map { |name| "fa-#{name}" })
 
     classes << options.delete(:class)
@@ -38,7 +38,7 @@ module ApplicationHelper
     return icon if text.blank?
 
     result = [icon, ERB::Util.html_escape(text)]
-    safe_join (options.delete(:text_first) ? result.reverse : result), ' '
+    safe_join (options.delete(:text_first) ? result.reverse : result), " "
   end
 
   def kramdown(text)
@@ -50,7 +50,7 @@ module ApplicationHelper
   end
 
   def page_header
-    tag.div class: 'pb-2 mb-4 border-bottom' do
+    tag.div class: "pb-2 mb-4 border-bottom" do
       yield
     end
   end

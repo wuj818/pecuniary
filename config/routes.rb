@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :contributions, only: %i[index show edit destroy]
 
-  resources :financial_assets, path: 'financial-assets' do
+  resources :financial_assets, path: "financial-assets" do
     resources :snapshots, only: %i[new create update]
 
     resources :contributions, only: %i[new create update]
@@ -13,11 +13,11 @@ Rails.application.routes.draw do
 
   resources :milestones
 
-  get '/investments', to: 'investments#history'
+  get "/investments", to: "investments#history"
 
   resources :sessions, only: %i[new create destroy]
-  get '/login', to: 'sessions#new'
-  delete '/logout', to: 'sessions#destroy'
+  get "/login", to: "sessions#new"
+  delete "/logout", to: "sessions#destroy"
 
-  root to: 'pages#main'
+  root to: "pages#main"
 end

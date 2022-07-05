@@ -1,18 +1,18 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'Milestone Requests' do
-  describe 'GET index' do
-    it 'returns a successful response' do
+RSpec.describe "Milestone Requests" do
+  describe "GET index" do
+    it "returns a successful response" do
       get milestones_path
 
       expect(response).to be_successful
     end
   end
 
-  describe 'GET show' do
+  describe "GET show" do
     let(:milestone) { stub_milestone }
 
-    it 'returns a successful response' do
+    it "returns a successful response" do
       expect(Milestone).to receive(:find_by!).with(permalink: milestone.to_param).and_return milestone
 
       get milestone_path(milestone)
@@ -21,11 +21,11 @@ RSpec.describe 'Milestone Requests' do
     end
   end
 
-  describe 'GET new' do
+  describe "GET new" do
     let(:request!) { get new_milestone_path }
 
-    context 'logged in' do
-      it 'returns a successful response' do
+    context "logged in" do
+      it "returns a successful response" do
         request_spec_login
 
         request!
@@ -34,8 +34,8 @@ RSpec.describe 'Milestone Requests' do
       end
     end
 
-    context 'logged out' do
-      it 'redirects to the login page' do
+    context "logged out" do
+      it "redirects to the login page" do
         request!
 
         expect(response).to redirect_to login_path
@@ -44,19 +44,19 @@ RSpec.describe 'Milestone Requests' do
     end
   end
 
-  describe 'POST create' do
+  describe "POST create" do
     let(:milestone) { stub_milestone }
 
     let(:request!) { post milestones_path, params: { milestone: { test: 1 } } }
 
-    context 'logged in' do
+    context "logged in" do
       before do
         request_spec_login
         expect(Milestone).to receive(:new).and_return milestone
       end
 
-      describe 'with valid params' do
-        it 'creates a new milestone and redirects to the milestones index' do
+      describe "with valid params" do
+        it "creates a new milestone and redirects to the milestones index" do
           expect(milestone).to receive(:save).and_return true
 
           request!
@@ -66,7 +66,7 @@ RSpec.describe 'Milestone Requests' do
         end
       end
 
-      describe 'with invalid params' do
+      describe "with invalid params" do
         it "doesn't create a new milestone" do
           expect(milestone.as_new_record).to receive(:save).and_return false
 
@@ -77,8 +77,8 @@ RSpec.describe 'Milestone Requests' do
       end
     end
 
-    context 'logged out' do
-      it 'redirects to the login page' do
+    context "logged out" do
+      it "redirects to the login page" do
         expect(Milestone).not_to receive(:new)
 
         request!
@@ -89,13 +89,13 @@ RSpec.describe 'Milestone Requests' do
     end
   end
 
-  describe 'GET edit' do
+  describe "GET edit" do
     let(:milestone) { stub_milestone }
 
     let(:request!) { get edit_milestone_path(milestone) }
 
-    context 'logged in' do
-      it 'returns a successful response' do
+    context "logged in" do
+      it "returns a successful response" do
         request_spec_login
         expect(Milestone).to receive(:find_by!).with(permalink: milestone.to_param).and_return milestone
 
@@ -105,8 +105,8 @@ RSpec.describe 'Milestone Requests' do
       end
     end
 
-    context 'logged out' do
-      it 'redirects to the login page' do
+    context "logged out" do
+      it "redirects to the login page" do
         expect(Milestone).not_to receive(:find_by!)
 
         request!
@@ -117,19 +117,19 @@ RSpec.describe 'Milestone Requests' do
     end
   end
 
-  describe 'PATCH update' do
+  describe "PATCH update" do
     let(:milestone) { stub_milestone }
 
     let(:request!) { patch milestone_path(milestone, milestone: { test: 1 }) }
 
-    context 'logged in' do
+    context "logged in" do
       before do
         request_spec_login
         expect(Milestone).to receive(:find_by!).with(permalink: milestone.to_param).and_return milestone
       end
 
-      describe 'with valid params' do
-        it 'redirects to the milestone' do
+      describe "with valid params" do
+        it "redirects to the milestone" do
           expect(milestone).to receive(:update).and_return true
 
           request!
@@ -139,7 +139,7 @@ RSpec.describe 'Milestone Requests' do
         end
       end
 
-      describe 'with invalid params' do
+      describe "with invalid params" do
         it "doesn't update the milestone" do
           expect(milestone).to receive(:update).and_return false
 
@@ -150,8 +150,8 @@ RSpec.describe 'Milestone Requests' do
       end
     end
 
-    context 'logged out' do
-      it 'redirects to the login page' do
+    context "logged out" do
+      it "redirects to the login page" do
         expect(Milestone).not_to receive(:find_by!)
 
         request!
@@ -162,13 +162,13 @@ RSpec.describe 'Milestone Requests' do
     end
   end
 
-  describe 'DELETE destroy' do
+  describe "DELETE destroy" do
     let(:milestone) { stub_milestone }
 
     let(:request!) { delete milestone_path(milestone) }
 
-    context 'logged in' do
-      it 'destroys the requested milestone and redirects to the milestones index' do
+    context "logged in" do
+      it "destroys the requested milestone and redirects to the milestones index" do
         request_spec_login
         expect(Milestone).to receive(:find_by!).with(permalink: milestone.to_param).and_return milestone
         expect(milestone).to receive(:destroy).and_return true
@@ -180,8 +180,8 @@ RSpec.describe 'Milestone Requests' do
       end
     end
 
-    context 'logged out' do
-      it 'redirects to the login page' do
+    context "logged out" do
+      it "redirects to the login page" do
         expect(Milestone).not_to receive(:find_by!)
 
         request!
