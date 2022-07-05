@@ -30,14 +30,10 @@ gem "kramdown"
 
 group :development do
   gem "listen"
-  gem "spring"
-  gem "spring-watcher-listen"
 
   gem "better_errors"
   gem "binding_of_caller"
   gem "web-console"
-
-  gem "spring-commands-rspec"
 
   gem "haml_lint", require: false
 
@@ -46,7 +42,6 @@ group :development do
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
   gem "rubocop-thread_safety", require: false
-  gem "spring-commands-rubocop"
 end
 
 group :development, :test do
