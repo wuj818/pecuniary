@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Milestone < ApplicationRecord
   acts_as_taggable
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InvestmentsController < ApplicationController
   def history
     investment_ids = FinancialAsset.where(investment: true).select(:id)

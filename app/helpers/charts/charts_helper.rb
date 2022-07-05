@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Charts
   module ChartsHelper
     def net_worth_line_chart

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FinancialAssetsController < ApplicationController
   before_action :authorize, only: %i[new create edit update destroy]
 

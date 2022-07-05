@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Charts
   module LineHelper
     def line_chart(id, series, custom_options = {})

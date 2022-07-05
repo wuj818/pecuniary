@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SystemSpecHelper
   def system_spec_login
     visit login_path

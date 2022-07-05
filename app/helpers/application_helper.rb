@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def currency(number)
     number_to_currency number, precision: 0

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Charts
   module RenderHelper
     def chart(id, options)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FinancialAsset < ApplicationRecord
   has_many :snapshots, dependent: :destroy, inverse_of: "asset"
 

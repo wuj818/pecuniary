@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Contribution < ApplicationRecord
   belongs_to :asset, class_name: "FinancialAsset", foreign_key: "financial_asset_id", inverse_of: "contributions"
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Date
   def to_js_time
     to_time.to_i * 1000

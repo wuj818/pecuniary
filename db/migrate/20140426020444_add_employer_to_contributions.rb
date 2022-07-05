@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddEmployerToContributions < ActiveRecord::Migration[5.2]
   def change
     add_column :contributions, :employer, :boolean, default: false
