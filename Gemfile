@@ -10,19 +10,20 @@ gem "pg"
 gem "bootsnap", require: false
 gem "puma"
 
+gem "terser"
+
 gem "coffee-rails", "~> 4.2"
 gem "hamlit"
 gem "sassc-rails"
 
 gem "jquery-rails"
 gem "turbolinks", "~> 5.2"
-gem "terser"
 
 gem "bootstrap", "~> 4.3"
 gem "bootstrap4-datetime-picker-rails"
 gem "font-awesome-rails"
-gem "highcharts-rails", "~> 6.0"
-gem "momentjs-rails", "~> 2.20"
+gem "highcharts-rails"
+gem "momentjs-rails"
 
 gem "acts-as-taggable-on"
 gem "groupdate", "~> 4.1"
@@ -58,9 +59,7 @@ group :test do
   gem "simplecov", require: false
 end
 
-gem "awesome_print"
 gem "hirb"
-gem "pry-byebug"
 gem "pry-rails"
 
 gem "next_rails", group: :development
