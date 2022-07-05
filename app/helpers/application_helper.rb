@@ -35,7 +35,7 @@ module ApplicationHelper
 
     classes << options.delete(:class)
     text = options.delete :text
-    icon = tag.i nil, options.merge(class: classes.compact)
+    icon = tag.i(nil, **options.merge(class: classes.compact))
 
     return icon if text.blank?
 
