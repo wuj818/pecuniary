@@ -14,7 +14,7 @@ gem "puma"
 
 gem "terser"
 
-gem "coffee-rails", "~> 4.2"
+gem "coffee-rails", "~> 5.0"
 gem "hamlit"
 gem "sassc-rails"
 
