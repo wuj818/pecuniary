@@ -19,7 +19,7 @@ gem "hamlit"
 gem "sassc-rails"
 
 gem "jquery-rails"
-gem "turbolinks", "~> 5.2"
+gem "turbolinks"
 
 gem "bootstrap", "~> 4.3"
 gem "bootstrap4-datetime-picker-rails"
