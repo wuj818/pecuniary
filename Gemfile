@@ -28,7 +28,7 @@ gem "highcharts-rails"
 gem "momentjs-rails"
 
 gem "acts-as-taggable-on"
-gem "groupdate", "~> 4.1"
+gem "groupdate"
 gem "kramdown"
 
 group :development do

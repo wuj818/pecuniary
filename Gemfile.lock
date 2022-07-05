@@ -128,8 +128,8 @@ GEM
       railties (>= 3.2, < 8.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
-    groupdate (4.1.1)
-      activesupport (>= 4.2)
+    groupdate (6.1.0)
+      activesupport (>= 5.2)
     haml (5.2.2)
       temple (>= 0.8.0)
       tilt
@@ -372,7 +372,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   factory_bot_rails
   font-awesome-rails
-  groupdate (~> 4.1)
+  groupdate
   haml_lint
   hamlit
   highcharts-rails
