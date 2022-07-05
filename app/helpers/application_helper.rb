@@ -51,9 +51,7 @@ module ApplicationHelper
     controller.to_s == controller_name ? :active : nil
   end
 
-  def page_header
-    tag.div class: "pb-2 mb-4 border-bottom" do
-      yield
-    end
+  def page_header(&block)
+    tag.div(class: "pb-2 mb-4 border-bottom", &block)
   end
 end
