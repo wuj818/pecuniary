@@ -23,6 +23,8 @@ $(document).on 'turbolinks:load', ->
       xDateFormat: '%B %Y'
       valuePrefix: '$'
     plotOptions:
+      series:
+        animation: false
       line:
         marker:
           enabled: false
