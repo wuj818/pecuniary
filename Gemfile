@@ -38,8 +38,6 @@ group :development do
   gem "binding_of_caller"
   gem "web-console"
 
-  gem "haml_lint", require: false
-
   gem "reek", require: false
 
   gem "rubocop", require: false

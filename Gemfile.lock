@@ -130,15 +130,6 @@ GEM
       activesupport (>= 5.0)
     groupdate (6.1.0)
       activesupport (>= 5.2)
-    haml (5.2.2)
-      temple (>= 0.8.0)
-      tilt
-    haml_lint (0.40.0)
-      haml (>= 4.0, < 5.3)
-      parallel (~> 1.10)
-      rainbow
-      rubocop (>= 0.50.0)
-      sysexits (~> 1.1)
     hamlit (2.16.0)
       temple (>= 0.8.2)
       thor
@@ -326,7 +317,6 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     strscan (3.0.3)
-    sysexits (1.2.0)
     temple (0.8.2)
     terser (1.1.11)
       execjs (>= 0.3.0, < 3)
@@ -373,7 +363,6 @@ DEPENDENCIES
   factory_bot_rails
   font-awesome-rails
   groupdate
-  haml_lint
   hamlit
   highcharts-rails
   hirb
