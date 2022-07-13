@@ -21,7 +21,7 @@ gem "sassc-rails"
 gem "jquery-rails"
 gem "turbolinks"
 
-gem "bootstrap", "~> 4.3"
+gem "bootstrap", "~> 5.1"
 gem "bootstrap4-datetime-picker-rails"
 gem "font-awesome-rails"
 gem "highcharts-rails"
