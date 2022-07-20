@@ -4,8 +4,8 @@ require "hirb"
 
 Hirb.enable
 
-Pry.config.print = proc do |*args|
-  Hirb::View.view_or_page_output(args[1]) || Pry::ColorPrinter.pp(args[1])
+Pry.config.print = proc do |output, value, pry_instance|
+  Hirb::View.view_or_page_output(value) || Pry::ColorPrinter.default(output, value, pry_instance)
 end
 
 def formatted_env
