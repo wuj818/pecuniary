@@ -244,6 +244,7 @@ GEM
       rainbow (>= 2.0, < 4.0)
     regexp_parser (2.5.0)
     rexml (3.2.5)
+    rollbar (3.3.1)
     rspec-activemodel-mocks (1.1.0)
       activemodel (>= 3.0)
       activesupport (>= 3.0)
@@ -376,6 +377,7 @@ DEPENDENCIES
   puma
   rails (~> 7.0.3)
   reek
+  rollbar
   rspec-activemodel-mocks
   rspec-rails
   rubocop

@@ -31,6 +31,8 @@ gem "acts-as-taggable-on"
 gem "groupdate"
 gem "kramdown"
 
+gem "rollbar"
+
 group :development do
   gem "listen"
 
