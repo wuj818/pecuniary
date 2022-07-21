@@ -5,6 +5,10 @@ FactoryBot.define do
     asset
     date { generate :date }
     value { 350 }
+
+    factory :invalid_snapshot do
+      value { "not a number" }
+    end
   end
 
   factory :contribution do

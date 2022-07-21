@@ -2,29 +2,25 @@
 
 require "rails_helper"
 
-RSpec.describe "Snapshot Requests" do
-  describe "GET show" do
-    let(:snapshot) { stub_snapshot }
+RSpec.describe "/snapshots" do
+  describe "GET /show" do
+    let(:snapshot) { create(:snapshot) }
 
     it "returns a successful response" do
-      expect(Snapshot).to receive(:find_by!).with(permalink: snapshot.to_param).and_return snapshot
-
-      get snapshot_path(snapshot)
+      get snapshot_url(snapshot)
 
       expect(response).to be_successful
     end
   end
 
-  describe "GET new" do
-    let(:asset) { stub_asset }
+  describe "GET /new" do
+    let(:asset) { create(:asset) }
 
-    let(:request!) { get new_financial_asset_snapshot_path(asset) }
+    let(:request!) { get new_financial_asset_snapshot_url(asset) }
 
     context "when logged in" do
       it "returns a successful response" do
         request_spec_login
-        expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
-        expect(asset.snapshots).to receive(:build).and_return stub_snapshot.as_new_record
 
         request!
 
@@ -36,41 +32,39 @@ RSpec.describe "Snapshot Requests" do
       it "redirects to the login page" do
         request!
 
-        expect(response).to redirect_to login_path
+        expect(response).to redirect_to(login_url)
         expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
 
-  describe "POST create" do
-    let(:asset) { stub_asset }
-    let(:snapshot) { stub_snapshot asset: asset }
+  describe "POST /create" do
+    let(:asset) { create(:asset) }
 
-    let(:request!) { post financial_asset_snapshots_path(asset, snapshot: { test: 1 }) }
+    let(:request!) { post financial_asset_snapshots_url(asset), params: params }
+
+    let(:params) { { snapshot: snapshot_params } }
+    let(:snapshot_params) { nil }
 
     context "when logged in" do
-      before do
-        request_spec_login
-        expect(FinancialAsset).to receive(:find_by!).with(permalink: asset.to_param).and_return asset
-        expect(asset.snapshots).to receive(:build).and_return snapshot
-      end
+      before { request_spec_login }
 
-      describe "with valid params" do
+      context "with valid params" do
+        let(:snapshot_params) { attributes_for(:snapshot) }
+
         it "creates a new snapshot and redirects to its asset" do
-          expect(snapshot).to receive(:save).and_return true
+          expect { request! }.to change(Snapshot, :count).by(1)
 
-          request!
-
-          expect(response).to redirect_to asset
+          expect(response).to redirect_to(asset)
           expect(flash[:success]).to match(/created/i)
         end
       end
 
-      describe "with invalid params" do
-        it "doesn't create a new snapshot" do
-          expect(snapshot.as_new_record).to receive(:save).and_return false
+      context "with invalid params" do
+        let(:snapshot_params) { attributes_for(:invalid_snapshot) }
 
-          request!
+        it "doesn't create a new snapshot" do
+          expect { request! }.not_to change(Snapshot, :count)
 
           expect(response).to be_successful
         end
@@ -81,21 +75,20 @@ RSpec.describe "Snapshot Requests" do
       it "redirects to the login page" do
         request!
 
-        expect(response).to redirect_to login_path
+        expect(response).to redirect_to(login_url)
         expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
 
-  describe "GET edit" do
-    let(:snapshot) { stub_snapshot }
+  describe "GET /edit" do
+    let(:snapshot) { create(:snapshot) }
 
-    let(:request!) { get edit_snapshot_path(snapshot) }
+    let(:request!) { get edit_snapshot_url(snapshot) }
 
     context "when logged in" do
       it "returns a successful response" do
         request_spec_login
-        expect(Snapshot).to receive(:find_by!).with(permalink: snapshot.to_param).and_return snapshot
 
         request!
 
@@ -107,39 +100,45 @@ RSpec.describe "Snapshot Requests" do
       it "redirects to the login page" do
         request!
 
-        expect(response).to redirect_to login_path
+        expect(response).to redirect_to(login_url)
         expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
 
-  describe "PATCH update" do
-    let(:snapshot) { stub_snapshot }
+  describe "PATCH /update" do
+    let!(:snapshot) { create(:snapshot) }
+    let(:asset) { snapshot.asset }
 
-    let(:request!) { patch financial_asset_snapshot_path(snapshot.asset, snapshot, snapshot: { test: 1 }) }
+    let(:request!) do
+      patch financial_asset_snapshot_url(asset, snapshot), params: params
+      snapshot.reload
+    end
+
+    let(:params) { { snapshot: snapshot_params } }
+    let(:snapshot_params) { nil }
 
     context "when logged in" do
-      before do
-        request_spec_login
-        expect(Snapshot).to receive(:find_by!).with(permalink: snapshot.to_param).and_return snapshot
-      end
+      before { request_spec_login }
 
-      describe "with valid params" do
-        it "redirects to the snapshot" do
-          expect(snapshot).to receive(:update).and_return true
+      context "with valid params" do
+        let(:new_value) { snapshot.value + 1 }
 
-          request!
+        let(:snapshot_params) { { value: new_value } }
 
-          expect(response).to redirect_to snapshot
+        it "redirects to the updated snapshot" do
+          expect { request! }.to change(snapshot, :value).to(new_value)
+
+          expect(response).to redirect_to(snapshot)
           expect(flash[:success]).to match(/updated/i)
         end
       end
 
-      describe "with invalid params" do
-        it "doesn't update the snapshot" do
-          expect(snapshot).to receive(:update).and_return false
+      context "with invalid params" do
+        let(:snapshot_params) { attributes_for(:invalid_snapshot) }
 
-          request!
+        it "doesn't update the snapshot" do
+          expect { request! }.not_to change(snapshot, :attributes)
 
           expect(response).to be_successful
         end
@@ -148,41 +147,36 @@ RSpec.describe "Snapshot Requests" do
 
     context "when logged out" do
       it "redirects to the login page" do
-        expect(Snapshot).not_to receive(:find_by!)
-
         request!
 
-        expect(response).to redirect_to login_path
+        expect(response).to redirect_to(login_url)
         expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
 
-  describe "DELETE destroy" do
-    let(:snapshot) { stub_snapshot }
+  describe "DELETE /destroy" do
+    let!(:snapshot) { create(:snapshot) }
+    let(:asset) { snapshot.asset }
 
-    let(:request!) { delete snapshot_path(snapshot) }
+    let(:request!) { delete snapshot_url(snapshot) }
 
     context "when logged in" do
       it "destroys the requested snapshot and redirects to its asset" do
         request_spec_login
-        expect(Snapshot).to receive(:find_by!).with(permalink: snapshot.to_param).and_return snapshot
-        expect(snapshot).to receive(:destroy).and_return true
 
-        request!
+        expect { request! }.to change(Snapshot, :count).by(-1)
 
-        expect(response).to redirect_to snapshot.asset
+        expect(response).to redirect_to(asset)
         expect(flash[:success]).to match(/deleted/i)
       end
     end
 
     context "when logged out" do
       it "redirects to the login page" do
-        expect(Snapshot).not_to receive(:find_by!)
-
         request!
 
-        expect(response).to redirect_to login_path
+        expect(response).to redirect_to(login_url)
         expect(flash[:warning]).to match(/must be logged in/i)
       end
     end

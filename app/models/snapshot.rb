@@ -10,6 +10,9 @@ class Snapshot < ApplicationRecord
               message: "has already been taken for this asset"
             }
 
+  validates :value,
+            numericality: true
+
   validates :permalink, uniqueness: true
 
   after_initialize -> { self.date ||= Time.zone.now.to_date.end_of_month }
