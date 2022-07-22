@@ -71,7 +71,7 @@ RSpec.describe "Milestone management" do
 
         accept_confirm { click_link id: dom_id(milestone, :delete) }
 
-        expect(page).to(have_current_path milestones_path)
+        expect(page).to have_current_path(milestones_path)
         expect(page).to have_content(/successfully deleted/i)
         expect(page).to have_no_link(href: milestone_path(milestone))
       end
