@@ -141,7 +141,7 @@ RSpec.describe "/milestones" do
         let(:milestone_params) { attributes_for(:invalid_milestone) }
 
         it "doesn't update the milestone" do
-          expect { request! }.not_to change(milestone, :attributes)
+          expect { request! }.not_to change(milestone.reload, :attributes)
 
           expect(response).to be_successful
         end

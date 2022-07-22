@@ -141,7 +141,7 @@ RSpec.describe "/financial-assets" do
         let(:asset_params) { attributes_for(:invalid_asset) }
 
         it "doesn't update the asset" do
-          expect { request! }.not_to change(asset, :attributes)
+          expect { request! }.not_to change(asset.reload, :attributes)
 
           expect(response).to be_successful
         end
