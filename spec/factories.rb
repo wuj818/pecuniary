@@ -24,7 +24,6 @@ FactoryBot.define do
 
   factory :financial_asset, aliases: [:asset] do
     sequence(:name) { |n| "Asset-#{n}" }
-    current_value { 350 }
     investment { true }
 
     factory :invalid_financial_asset, aliases: [:invalid_asset] do
