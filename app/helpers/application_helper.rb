@@ -24,7 +24,9 @@ module ApplicationHelper
             end
 
     tag.div class: "progress", style: "height: 35px;" do
-      tag.div class: "progress-bar progress-bar-striped progress-bar-animated bg-#{color}", style: "width: #{percentage}" do
+      css_class = "progress-bar progress-bar-striped progress-bar-animated bg-#{color}"
+
+      tag.div class: css_class, style: "width: #{percentage}" do
         tag.strong percentage
       end
     end
