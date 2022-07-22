@@ -20,5 +20,8 @@ RSpec/MultipleExpectations:
 Style/Documentation:
   Enabled: false
 
+Style/HashSyntax:
+  EnforcedShorthandSyntax: either
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
