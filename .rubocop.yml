@@ -17,6 +17,9 @@ AllCops:
 RSpec/MultipleExpectations:
   Enabled: false
 
+RSpec/NestedGroups:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 
