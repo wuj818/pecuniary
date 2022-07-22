@@ -23,10 +23,5 @@ module RequestSpecHelper
       defaults = { asset: stub_asset, amount: 9000, date: "2010-07-28", permalink: "july-28-2010" }
       stub_model Contribution, defaults.merge(stubs)
     end
-
-    def stub_milestone(stubs = {})
-      defaults = { date: "2010-07-28", notes: "", permalink: "july-28-2010" }
-      stub_model Milestone, defaults.merge(stubs)
-    end
   end
 end

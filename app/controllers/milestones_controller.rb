@@ -16,7 +16,7 @@ class MilestonesController < ApplicationController
   end
 
   def create
-    @milestone = Milestone.new milestone_params
+    @milestone = Milestone.new(milestone_params)
 
     if @milestone.save
       flash[:success] = "Milestone was successfully created."
@@ -29,7 +29,7 @@ class MilestonesController < ApplicationController
   def edit; end
 
   def update
-    if @milestone.update milestone_params
+    if @milestone.update(milestone_params)
       flash[:success] = "Milestone was successfully updated."
       redirect_to @milestone
     else
@@ -47,10 +47,10 @@ class MilestonesController < ApplicationController
   private
 
   def milestone_params
-    params.require(:milestone).permit :date, :notes, :permalink, :tag_list
+    params.require(:milestone).permit(:date, :notes, :permalink, :tag_list)
   end
 
   def set_milestone
-    @milestone = Milestone.find_by! permalink: params[:id]
+    @milestone = Milestone.find_by!(permalink: params[:id])
   end
 end

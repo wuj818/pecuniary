@@ -2,29 +2,27 @@
 
 require "rails_helper"
 
-RSpec.describe "Milestone Requests" do
-  describe "GET index" do
+RSpec.describe "/milestones" do
+  describe "GET /index" do
     it "returns a successful response" do
-      get milestones_path
+      get milestones_url
 
       expect(response).to be_successful
     end
   end
 
-  describe "GET show" do
-    let(:milestone) { stub_milestone }
+  describe "GET /show" do
+    let(:milestone) { create(:milestone) }
 
     it "returns a successful response" do
-      expect(Milestone).to receive(:find_by!).with(permalink: milestone.to_param).and_return milestone
-
-      get milestone_path(milestone)
+      get milestone_url(milestone)
 
       expect(response).to be_successful
     end
   end
 
-  describe "GET new" do
-    let(:request!) { get new_milestone_path }
+  describe "GET /new" do
+    let(:request!) { get new_milestone_url }
 
     context "when logged in" do
       it "returns a successful response" do
@@ -40,39 +38,37 @@ RSpec.describe "Milestone Requests" do
       it "redirects to the login page" do
         request!
 
-        expect(response).to redirect_to login_path
+        expect(response).to redirect_to(login_url)
         expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
 
-  describe "POST create" do
-    let(:milestone) { stub_milestone }
+  describe "POST /create" do
+    let(:request!) { post milestones_url, params: params }
 
-    let(:request!) { post milestones_path, params: { milestone: { test: 1 } } }
+    let(:params) { { milestone: milestone_params } }
+    let(:milestone_params) { nil }
 
     context "when logged in" do
-      before do
-        request_spec_login
-        expect(Milestone).to receive(:new).and_return milestone
-      end
+      before { request_spec_login }
 
       describe "with valid params" do
+        let(:milestone_params) { attributes_for(:milestone) }
+
         it "creates a new milestone and redirects to the milestones index" do
-          expect(milestone).to receive(:save).and_return true
+          expect { request! }.to change(Milestone, :count).by(1)
 
-          request!
-
-          expect(response).to redirect_to milestones_path
+          expect(response).to redirect_to(milestones_url)
           expect(flash[:success]).to match(/created/i)
         end
       end
 
       describe "with invalid params" do
-        it "doesn't create a new milestone" do
-          expect(milestone.as_new_record).to receive(:save).and_return false
+        let(:milestone_params) { attributes_for(:invalid_milestone) }
 
-          request!
+        it "doesn't create a new milestone" do
+          expect { request! }.not_to change(Milestone, :count)
 
           expect(response).to be_successful
         end
@@ -81,25 +77,22 @@ RSpec.describe "Milestone Requests" do
 
     context "when logged out" do
       it "redirects to the login page" do
-        expect(Milestone).not_to receive(:new)
-
         request!
 
-        expect(response).to redirect_to login_path
+        expect(response).to redirect_to(login_url)
         expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
 
-  describe "GET edit" do
-    let(:milestone) { stub_milestone }
+  describe "GET /edit" do
+    let(:milestone) { create(:milestone) }
 
-    let(:request!) { get edit_milestone_path(milestone) }
+    let(:request!) { get edit_milestone_url(milestone) }
 
     context "when logged in" do
       it "returns a successful response" do
         request_spec_login
-        expect(Milestone).to receive(:find_by!).with(permalink: milestone.to_param).and_return milestone
 
         request!
 
@@ -109,43 +102,46 @@ RSpec.describe "Milestone Requests" do
 
     context "when logged out" do
       it "redirects to the login page" do
-        expect(Milestone).not_to receive(:find_by!)
-
         request!
 
-        expect(response).to redirect_to login_path
+        expect(response).to redirect_to(login_url)
         expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
 
-  describe "PATCH update" do
-    let(:milestone) { stub_milestone }
+  describe "PATCH /update" do
+    let!(:milestone) { create(:milestone) }
 
-    let(:request!) { patch milestone_path(milestone, milestone: { test: 1 }) }
+    let(:request!) do
+      patch milestone_url(milestone), params: params
+      milestone.reload
+    end
+
+    let(:params) { { milestone: milestone_params } }
+    let(:milestone_params) { nil }
 
     context "when logged in" do
-      before do
-        request_spec_login
-        expect(Milestone).to receive(:find_by!).with(permalink: milestone.to_param).and_return milestone
-      end
+      before { request_spec_login }
 
       describe "with valid params" do
+        let(:new_notes) { milestone.notes.reverse }
+
+        let(:milestone_params) { { notes: new_notes } }
+
         it "redirects to the milestone" do
-          expect(milestone).to receive(:update).and_return true
+          expect { request! }.to change(milestone, :notes).to(new_notes)
 
-          request!
-
-          expect(response).to redirect_to milestone
+          expect(response).to redirect_to(milestone)
           expect(flash[:success]).to match(/updated/i)
         end
       end
 
       describe "with invalid params" do
-        it "doesn't update the milestone" do
-          expect(milestone).to receive(:update).and_return false
+        let(:milestone_params) { attributes_for(:invalid_milestone) }
 
-          request!
+        it "doesn't update the milestone" do
+          expect { request! }.not_to change(milestone, :attributes)
 
           expect(response).to be_successful
         end
@@ -154,41 +150,35 @@ RSpec.describe "Milestone Requests" do
 
     context "when logged out" do
       it "redirects to the login page" do
-        expect(Milestone).not_to receive(:find_by!)
-
         request!
 
-        expect(response).to redirect_to login_path
+        expect(response).to redirect_to(login_url)
         expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
 
-  describe "DELETE destroy" do
-    let(:milestone) { stub_milestone }
+  describe "DELETE /destroy" do
+    let!(:milestone) { create(:milestone) }
 
-    let(:request!) { delete milestone_path(milestone) }
+    let(:request!) { delete milestone_url(milestone) }
 
     context "when logged in" do
       it "destroys the requested milestone and redirects to the milestones index" do
         request_spec_login
-        expect(Milestone).to receive(:find_by!).with(permalink: milestone.to_param).and_return milestone
-        expect(milestone).to receive(:destroy).and_return true
 
-        request!
+        expect { request! }.to change(Milestone, :count).by(-1)
 
-        expect(response).to redirect_to milestones_path
+        expect(response).to redirect_to(milestones_url)
         expect(flash[:success]).to match(/deleted/i)
       end
     end
 
     context "when logged out" do
       it "redirects to the login page" do
-        expect(Milestone).not_to receive(:find_by!)
-
         request!
 
-        expect(response).to redirect_to login_path
+        expect(response).to redirect_to(login_url)
         expect(flash[:warning]).to match(/must be logged in/i)
       end
     end

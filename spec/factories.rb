@@ -27,6 +27,10 @@ FactoryBot.define do
   factory :milestone do
     date { generate :date }
     notes { "none" }
+
+    factory :invalid_milestone do
+      notes { nil }
+    end
   end
 
   sequence :date do |n|
