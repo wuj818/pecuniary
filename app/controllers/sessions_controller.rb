@@ -6,10 +6,10 @@ class SessionsController < ApplicationController
   def new; end
 
   def create
-    if params[:password] == Rails.application.credentials.password[Rails.env.to_sym]
+    if valid_password?
       login
       flash[:success] = "Logged in successfully."
-      redirect_to root_path
+      redirect_to root_url
     else
       flash.now[:danger] = "Incorrect password."
       render :new
@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
       flash[:info] = "You are not logged in."
     end
 
-    redirect_to root_path
+    redirect_to root_url
   end
 
   private
@@ -33,6 +33,10 @@ class SessionsController < ApplicationController
     return unless admin?
 
     flash[:info] = "You are already logged in."
-    redirect_to root_path
+    redirect_to root_url
+  end
+
+  def valid_password?
+    params[:password] == admin_password
   end
 end
