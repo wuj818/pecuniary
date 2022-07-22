@@ -66,7 +66,6 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   config.include RequestSpecHelper, type: "request"
-  config.include RequestSpecHelper::Stubs, type: "request"
 
   config.include SystemSpecHelper, type: "system"
   config.include ActionView::RecordIdentifier, type: "system"

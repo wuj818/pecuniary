@@ -17,7 +17,7 @@ class ContributionsController < ApplicationController
   end
 
   def create
-    @contribution = @asset.contributions.build contribution_params
+    @contribution = @asset.contributions.build(contribution_params)
 
     if @contribution.save
       flash[:success] = "Contribution was successfully created."
@@ -30,7 +30,7 @@ class ContributionsController < ApplicationController
   def edit; end
 
   def update
-    if @contribution.update contribution_params
+    if @contribution.update(contribution_params)
       flash[:success] = "Contribution was successfully updated."
       redirect_to @contribution
     else
@@ -48,15 +48,15 @@ class ContributionsController < ApplicationController
   private
 
   def contribution_params
-    params.require(:contribution).permit :amount, :employer, :date, :permalink
+    params.require(:contribution).permit(:amount, :employer, :date, :permalink)
   end
 
   def set_asset
-    @asset = FinancialAsset.find_by! permalink: params[:financial_asset_id]
+    @asset = FinancialAsset.find_by!(permalink: params[:financial_asset_id])
   end
 
   def set_contribution
-    @contribution = Contribution.find_by! permalink: params[:id]
+    @contribution = Contribution.find_by!(permalink: params[:id])
     @asset = @contribution.asset
   end
 end

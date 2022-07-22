@@ -10,6 +10,9 @@ class Contribution < ApplicationRecord
               message: "has already been taken for this asset"
             }
 
+  validates :amount,
+            numericality: true
+
   validates :permalink, uniqueness: true
 
   validate :investment_asset

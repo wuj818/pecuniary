@@ -16,6 +16,10 @@ FactoryBot.define do
     date { generate :date }
     amount { 350 }
     employer { false }
+
+    factory :invalid_contribution do
+      amount { "not a number" }
+    end
   end
 
   factory :financial_asset, aliases: [:asset] do
