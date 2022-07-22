@@ -45,6 +45,6 @@ blocks:
             - cache store gems-$(checksum Gemfile.lock) $BUNDLE_PATH
 
             - sem-service start postgres 13
-            - bin/rake db:setup
+            - bin/rails db:setup
 
             - bin/rspec

@@ -148,7 +148,7 @@ RSpec.describe "/contributions" do
         let(:contribution_params) { attributes_for(:invalid_contribution) }
 
         it "doesn't update the contribution" do
-          expect { request! }.not_to change(contribution, :attributes)
+          expect { request! }.not_to change(contribution.reload, :attributes)
 
           expect(response).to be_successful
         end

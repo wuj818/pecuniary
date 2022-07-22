@@ -138,7 +138,7 @@ RSpec.describe "/snapshots" do
         let(:snapshot_params) { attributes_for(:invalid_snapshot) }
 
         it "doesn't update the snapshot" do
-          expect { request! }.not_to change(snapshot, :attributes)
+          expect { request! }.not_to change(snapshot.reload, :attributes)
 
           expect(response).to be_successful
         end
