@@ -32,6 +32,7 @@ gem "groupdate"
 gem "kramdown"
 
 gem "rollbar"
+gem "scout_apm"
 
 group :development do
   gem "listen"
