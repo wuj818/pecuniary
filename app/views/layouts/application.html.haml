@@ -15,13 +15,7 @@
 
     = csrf_meta_tags
 
-    - if Rails.env.production?
-      = render 'shared/google_analytics'
-
   %body
-    - if Rails.env.production?
-      #google-analytics{ data: { property_id: ga_property_id } }
-
     = render 'shared/navigation'
 
     .container#content
