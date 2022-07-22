@@ -19,7 +19,7 @@ class FinancialAssetsController < ApplicationController
   end
 
   def create
-    @asset = FinancialAsset.new asset_params
+    @asset = FinancialAsset.new(asset_params)
 
     if @asset.save
       flash[:success] = "Asset was successfully created."
@@ -32,7 +32,7 @@ class FinancialAssetsController < ApplicationController
   def edit; end
 
   def update
-    if @asset.update asset_params
+    if @asset.update(asset_params)
       flash[:success] = "Asset was successfully updated."
       redirect_to @asset
     else
@@ -50,10 +50,10 @@ class FinancialAssetsController < ApplicationController
   private
 
   def asset_params
-    params.require(:financial_asset).permit :name, :investment
+    params.require(:financial_asset).permit(:name, :investment)
   end
 
   def set_asset
-    @asset = FinancialAsset.find_by! permalink: params[:id]
+    @asset = FinancialAsset.find_by!(permalink: params[:id])
   end
 end
