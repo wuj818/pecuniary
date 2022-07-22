@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_05_024602) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_22_053059) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,9 +47,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_024602) do
     t.bigint "amount", default: 0
     t.date "date"
     t.text "permalink"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
+    t.timestamptz "created_at"
+    t.timestamptz "updated_at"
     t.boolean "employer", default: false
+    t.index ["date", "financial_asset_id"], name: "index_contributions_on_date_and_financial_asset_id", unique: true
     t.index ["employer"], name: "index_contributions_on_employer"
     t.index ["financial_asset_id"], name: "index_contributions_on_financial_asset_id"
     t.index ["permalink"], name: "index_contributions_on_permalink", unique: true
@@ -57,12 +58,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_024602) do
 
   create_table "financial_assets", force: :cascade do |t|
     t.text "name"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
+    t.timestamptz "created_at"
+    t.timestamptz "updated_at"
     t.text "permalink"
     t.bigint "current_value", default: 0
     t.bigint "total_contributions", default: 0
     t.boolean "investment", default: true
+    t.index ["name"], name: "index_financial_assets_on_name", unique: true
     t.index ["permalink"], name: "index_financial_assets_on_permalink", unique: true
   end
 
@@ -70,8 +72,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_024602) do
     t.date "date"
     t.text "notes"
     t.text "permalink"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
+    t.timestamptz "created_at"
+    t.timestamptz "updated_at"
     t.text "cached_tag_list"
     t.index ["date"], name: "index_milestones_on_date", unique: true
     t.index ["permalink"], name: "index_milestones_on_permalink", unique: true
@@ -82,8 +84,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_024602) do
     t.bigint "value", default: 0
     t.date "date"
     t.text "permalink"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
+    t.timestamptz "created_at"
+    t.timestamptz "updated_at"
+    t.index ["date", "financial_asset_id"], name: "index_snapshots_on_date_and_financial_asset_id", unique: true
     t.index ["financial_asset_id"], name: "index_snapshots_on_financial_asset_id"
     t.index ["permalink"], name: "index_snapshots_on_permalink", unique: true
   end
@@ -95,7 +98,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_024602) do
     t.bigint "tagger_id"
     t.text "tagger_type"
     t.text "context"
-    t.datetime "created_at", precision: nil
+    t.timestamptz "created_at"
     t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
     t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
   end
