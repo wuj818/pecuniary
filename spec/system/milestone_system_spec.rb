@@ -33,7 +33,7 @@ RSpec.describe "Milestone management" do
         fill_in "milestone_notes", with: milestone_note
         click_button "Save"
 
-        expect(page.current_path).to eq(milestones_path)
+        expect(page).to have_current_path(milestones_path)
         expect(page).to have_content(/successfully created/i)
         expect(page).to have_content(milestone_note)
       end
@@ -57,7 +57,7 @@ RSpec.describe "Milestone management" do
         fill_in "milestone_notes", with: new_milestone_note
         click_button "Save"
 
-        expect(page.current_path).to eq(milestone_path(milestone))
+        expect(page).to have_current_path(milestone_path(milestone))
         expect(page).to have_content(/successfully updated/i)
         expect(page).to have_content(new_milestone_note)
       end
@@ -71,7 +71,7 @@ RSpec.describe "Milestone management" do
 
         accept_confirm { click_link id: dom_id(milestone, :delete) }
 
-        expect(page.current_path).to(eq milestones_path)
+        expect(page).to(have_current_path milestones_path)
         expect(page).to have_content(/successfully deleted/i)
         expect(page).to have_no_link(href: milestone_path(milestone))
       end
