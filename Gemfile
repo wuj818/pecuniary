@@ -34,8 +34,6 @@ gem "kramdown"
 gem "rollbar"
 
 group :development do
-  gem "listen"
-
   gem "better_errors"
   gem "binding_of_caller"
   gem "web-console"
