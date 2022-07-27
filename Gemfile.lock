@@ -90,6 +90,7 @@ GEM
       jquery-rails (~> 4.2, >= 4.2.0)
       moment-timezone-rails (~> 1.0)
       momentjs-rails (>= 2.10.5, <= 3.0.0)
+    brakeman (5.2.3)
     builder (3.2.4)
     capybara (3.37.1)
       addressable
@@ -359,6 +360,7 @@ DEPENDENCIES
   bootsnap
   bootstrap (~> 4.3)
   bootstrap4-datetime-picker-rails
+  brakeman
   capybara
   coffee-rails
   factory_bot_rails
