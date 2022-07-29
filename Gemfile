@@ -12,6 +12,8 @@ gem "pg"
 gem "bootsnap", require: false
 gem "puma"
 
+gem "dalli"
+
 gem "terser"
 
 gem "coffee-rails"
