@@ -1,11 +1,10 @@
 - @title = 'Assets'
 
 = page_header do
-  - if admin?
-    .float-right
-      = link_to new_financial_asset_path, class: 'btn btn-lg btn-success' do
-        = icon 'plus-circle'
-        Asset
+  .float-right
+    = link_to new_financial_asset_path, class: 'btn btn-lg btn-success' do
+      = icon 'plus-circle'
+      Asset
 
   %h1
     = @title
@@ -25,9 +24,7 @@
           %th Total Return
           %th Investment?
           %th Permalink
-
-          - if admin?
-            %th
+          %th
 
       %tbody
         - @assets.each do |asset|
@@ -50,13 +47,12 @@
             %td
               = link_to asset.permalink, asset
 
-            - if admin?
-              %td.fit
-                .btn-group
-                  = link_to [:edit, asset], class: 'btn btn-sm btn-info' do
-                    = icon :edit
+            %td.fit
+              .btn-group
+                = link_to [:edit, asset], class: 'btn btn-sm btn-info' do
+                  = icon :edit
 
-                  = link_to asset, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
-                    = icon 'trash-o'
+                = link_to asset, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
+                  = icon 'trash-o'
 - else
   %p There are no assets.

@@ -22,9 +22,7 @@
           %th Employer Contribution?
           %th Asset
           %th Permalink
-
-          - if admin?
-            %th
+          %th
 
       %tbody
         - @contributions.each do |contribution|
@@ -44,13 +42,12 @@
             %td
               = link_to contribution.permalink, contribution
 
-            - if admin?
-              %td.fit
-                .btn-group
-                  = link_to [:edit, contribution], class: 'btn btn-sm btn-info' do
-                    = icon :edit
+            %td.fit
+              .btn-group
+                = link_to [:edit, contribution], class: 'btn btn-sm btn-info' do
+                  = icon :edit
 
-                  = link_to contribution, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
-                    = icon 'trash-o'
+                = link_to contribution, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
+                  = icon 'trash-o'
 - else
   %p There are no contributions.

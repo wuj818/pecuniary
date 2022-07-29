@@ -1,11 +1,10 @@
 - @title = 'Milestones'
 
 = page_header do
-  - if admin?
-    .float-right
-      = link_to new_milestone_path, class: 'btn btn-lg btn-success' do
-        = icon 'plus-circle'
-        Milestone
+  .float-right
+    = link_to new_milestone_path, class: 'btn btn-lg btn-success' do
+      = icon 'plus-circle'
+      Milestone
 
   %h1
     = @title
@@ -16,13 +15,12 @@
       %li{ class: cycle('', 'timeline-inverted') }
         .timeline-panel
           .timeline-heading
-            - if admin?
-              .float-right
-                = link_to [:edit, milestone], class: 'btn btn-info btn-xs' do
-                  = icon :edit
+            .float-right
+              = link_to [:edit, milestone], class: 'btn btn-info btn-xs' do
+                = icon :edit
 
-                = link_to milestone, method: 'delete', id: dom_id(milestone, :delete), class: 'btn btn-danger btn-xs', data: { confirm: t(:confirm) } do
-                  = icon 'trash-o'
+              = link_to milestone, method: 'delete', id: dom_id(milestone, :delete), class: 'btn btn-danger btn-xs', data: { confirm: t(:confirm) } do
+                = icon 'trash-o'
 
             %h4.timeline-title
               = link_to milestone, milestone

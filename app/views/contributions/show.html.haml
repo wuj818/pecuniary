@@ -5,9 +5,8 @@
     = link_to @asset, class: 'btn btn-lg btn-secondary mr-1' do
       = icon 'arrow-left'
 
-    - if admin?
-      = link_to [:edit, @contribution], class: 'btn btn-lg btn-info' do
-        = icon :edit
+    = link_to [:edit, @contribution], class: 'btn btn-lg btn-info' do
+      = icon :edit
 
   %h1
     = link_to @asset, @asset
@@ -22,9 +21,7 @@
         %th Amount
         %th Employer Contribution?
         %th Permalink
-
-        - if admin?
-          %th
+        %th
 
     %tbody
       %tr{ class: (:info if @contribution.employer?) }
@@ -40,11 +37,10 @@
         %td
           = link_to @contribution.permalink, @contribution
 
-        - if admin?
-          %td.fit
-            .btn-group
-              = link_to [:edit, @contribution], class: 'btn btn-sm btn-info' do
-                = icon :edit
+        %td.fit
+          .btn-group
+            = link_to [:edit, @contribution], class: 'btn btn-sm btn-info' do
+              = icon :edit
 
-              = link_to @contribution, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
-                = icon 'trash-o'
+            = link_to @contribution, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
+              = icon 'trash-o'

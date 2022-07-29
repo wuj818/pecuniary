@@ -5,18 +5,17 @@
     = link_to :financial_assets, class: 'btn btn-lg btn-secondary mr-1' do
       = icon 'arrow-left'
 
-    - if admin?
-      = link_to [:edit, @asset], class: 'btn btn-lg btn-info mr-1' do
-        = icon :edit
+    = link_to [:edit, @asset], class: 'btn btn-lg btn-info mr-1' do
+      = icon :edit
 
-      = link_to [:new, @asset, :snapshot], class: 'btn btn-lg btn-success mr-1' do
+    = link_to [:new, @asset, :snapshot], class: 'btn btn-lg btn-success mr-1' do
+      = icon 'plus-circle'
+      Snapshot
+
+    - if @asset.investment?
+      = link_to [:new, @asset, :contribution], class: 'btn btn-lg btn-success' do
         = icon 'plus-circle'
-        Snapshot
-
-      - if @asset.investment?
-        = link_to [:new, @asset, :contribution], class: 'btn btn-lg btn-success' do
-          = icon 'plus-circle'
-          Contribution
+        Contribution
 
   %h1
     = @title

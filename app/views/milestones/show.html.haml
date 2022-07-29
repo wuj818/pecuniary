@@ -5,9 +5,8 @@
     = link_to :milestones, class: 'btn btn-lg btn-secondary mr-1' do
       = icon 'arrow-left'
 
-    - if admin?
-      = link_to [:edit, @milestone], class: 'btn btn-lg btn-info' do
-        = icon :edit
+    = link_to [:edit, @milestone], class: 'btn btn-lg btn-info' do
+      = icon :edit
 
   %h1
     Milestone - #{@milestone}
@@ -19,9 +18,7 @@
         %th Date
         %th Notes
         %th Permalink
-
-        - if admin?
-          %th
+        %th
 
     %tbody
       %tr
@@ -34,11 +31,10 @@
         %td
           = link_to @milestone.permalink, @milestone
 
-        - if admin?
-          %td.fit
-            .btn-group
-              = link_to [:edit, @milestone], class: 'btn btn-sm btn-info' do
-                = icon :edit
+        %td.fit
+          .btn-group
+            = link_to [:edit, @milestone], class: 'btn btn-sm btn-info' do
+              = icon :edit
 
-              = link_to @milestone, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
-                = icon 'trash-o'
+            = link_to @milestone, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
+              = icon 'trash-o'
