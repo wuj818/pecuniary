@@ -10,27 +10,28 @@
     = @title
 
 %ul.timeline
-  - @milestones.each do |milestone|
-    %li{ class: cycle('', 'timeline-inverted') }
-      .timeline-panel
-        .timeline-heading
-          .float-right
-            = link_to [:edit, milestone], class: 'btn btn-info btn-xs' do
-              = icon :edit
+  - cache @milestones do
+    - @milestones.each do |milestone|
+      %li{ class: cycle('', 'timeline-inverted') }
+        .timeline-panel
+          .timeline-heading
+            .float-right
+              = link_to [:edit, milestone], class: 'btn btn-info btn-xs' do
+                = icon :edit
 
-            = link_to milestone, method: 'delete', id: dom_id(milestone, :delete), class: 'btn btn-danger btn-xs', data: { confirm: t(:confirm) } do
-              = icon 'trash-o'
+              = link_to milestone, method: 'delete', id: dom_id(milestone, :delete), class: 'btn btn-danger btn-xs', data: { confirm: t(:confirm) } do
+                = icon 'trash-o'
 
-          %h4.timeline-title
-            = link_to milestone, milestone
+            %h4.timeline-title
+              = link_to milestone, milestone
 
-        %hr
+          %hr
 
-        .timeline-body
-          = kramdown milestone.notes
+          .timeline-body
+            = kramdown milestone.notes
 
-          - if milestone.cached_tag_list.present?
-            %hr
+            - if milestone.cached_tag_list.present?
+              %hr
 
-            - milestone.cached_tag_list.split(', ').sort.each do |tag|
-              = link_to tag, 'javascript:;', class: 'badge badge-info'
+              - milestone.cached_tag_list.split(', ').sort.each do |tag|
+                = link_to tag, 'javascript:;', class: 'badge badge-info'
