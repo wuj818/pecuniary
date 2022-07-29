@@ -59,7 +59,15 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  if ENV["MEMCACHEDCLOUD_SERVERS"].present?
+    memcached_servers = ENV["MEMCACHEDCLOUD_SERVERS"].split(",")
+    memcached_credentials = {
+      username: ENV.fetch("MEMCACHEDCLOUD_USERNAME"),
+      password: ENV.fetch("MEMCACHEDCLOUD_PASSWORD")
+    }
+
+    config.cache_store = :mem_cache_store, memcached_servers, memcached_credentials
+  end
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
