@@ -17,19 +17,15 @@
 
               .dropdown-divider
 
-              - assets = FinancialAsset.order(:name).group_by &:investment
+              %h6.dropdown-header Regular Assets
 
-              - if assets[false].present?
-                %h6.dropdown-header Regular Accounts
+              - FinancialAsset.regular_assets.each do |asset|
+                = link_to asset, asset, class: 'dropdown-item'
 
-                - assets[false].each do |asset|
-                  = link_to asset, asset, class: 'dropdown-item'
+              %h6.dropdown-header Investment Assets
 
-              - if assets[true].present?
-                %h6.dropdown-header Investments
-
-                - assets[true].each do |asset|
-                  = link_to asset, asset, class: 'dropdown-item'
+              - FinancialAsset.investment_assets.each do |asset|
+                = link_to asset, asset, class: 'dropdown-item'
 
           %li.nav-item{ class: nav_class(:contributions) }
             = link_to 'Contributions', contributions_path, class: 'nav-link'
