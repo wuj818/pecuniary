@@ -12,42 +12,39 @@
 
 %hr
 
-- unless @contributions.length.zero?
-  .table-responsive
-    %table.table.table-striped.table-bordered.table-hover#contributions-table
-      %thead.thead-dark
-        %tr
-          %th Date
-          %th Amount
-          %th Employer Contribution?
-          %th Asset
-          %th Permalink
-          %th
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover#contributions-table
+    %thead.thead-dark
+      %tr
+        %th Date
+        %th Amount
+        %th Employer Contribution?
+        %th Asset
+        %th Permalink
+        %th
 
-      %tbody
-        - @contributions.each do |contribution|
-          %tr{ class: (:info if contribution.employer?) }
-            %td
-              = contribution.formatted_date
+    %tbody
+      - @contributions.each do |contribution|
+        %tr{ class: (:info if contribution.employer?) }
+          %td
+            = contribution.formatted_date
 
-            %td{ class: contribution.amount.negative? ? 'text-danger' : 'text-success' }
-              = currency contribution.amount
+          %td{ class: contribution.amount.negative? ? 'text-danger' : 'text-success' }
+            = currency contribution.amount
 
-            %td
-              = contribution.employer? ? 'yes' : 'no'
+          %td
+            = contribution.employer? ? 'yes' : 'no'
 
-            %td
-              = contribution.asset
+          %td
+            = contribution.asset
 
-            %td
-              = link_to contribution.permalink, contribution
+          %td
+            = link_to contribution.permalink, contribution
 
-            %td.fit
-              .btn-group
-                = link_to [:edit, contribution], class: 'btn btn-sm btn-info' do
-                  = icon :edit
+          %td.fit
+            .btn-group
+              = link_to [:edit, contribution], class: 'btn btn-sm btn-info' do
+                = icon :edit
 
-                = link_to contribution, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
-                  = icon 'trash-o'
-- else
-  %p There are no contributions.
+              = link_to contribution, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
+                = icon 'trash-o'
