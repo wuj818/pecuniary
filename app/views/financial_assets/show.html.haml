@@ -21,17 +21,21 @@
     = @title
 
 - if @asset.investment?
-  = investment_asset_area_chart @asset
+  - cache [@asset.snapshots, @asset.contributions, :area] do
+    = investment_asset_area_chart @asset
 
   %hr
 
-  = investment_asset_performance_line_chart @asset
+  - cache [@asset.snapshots, @asset.contributions, :line] do
+    = investment_asset_performance_line_chart @asset
 
   %hr
 
-  = investment_asset_contributions_column_chart @asset
+  - cache [@asset.contributions, :column] do
+    = investment_asset_contributions_column_chart @asset
 - else
-  = non_investment_asset_line_chart @asset
+  - cache [@asset.snapshots, :line] do
+    = non_investment_asset_line_chart @asset
 
 %hr
 
@@ -45,13 +49,14 @@
               Snapshots
 
         %tbody
-          - @snapshots.each do |snapshot|
-            %tr
-              %td
-                = link_to snapshot.formatted_date, snapshot
+          - cache @snapshots do
+            - @snapshots.each do |snapshot|
+              %tr
+                %td
+                  = link_to snapshot.formatted_date, snapshot
 
-              %td.fit
-                = currency snapshot.value
+                %td.fit
+                  = currency snapshot.value
 
   - if @asset.investment?
     .col-sm-6
@@ -63,14 +68,15 @@
                 Contributions
 
           %tbody
-            - @contributions.each do |contribution|
-              %tr
-                %td
-                  = link_to contribution.formatted_date, contribution
+            - cache @contributions do
+              - @contributions.each do |contribution|
+                %tr
+                  %td
+                    = link_to contribution.formatted_date, contribution
 
-                  - if contribution.employer?
-                    %span.badge.badge-info.float-right
-                      Employer
+                    - if contribution.employer?
+                      %span.badge.badge-info.float-right
+                        Employer
 
-                %td.fit{ class: contribution.amount.negative? ? 'text-danger' : 'text-success' }
-                  = currency contribution.amount
+                  %td.fit{ class: contribution.amount.negative? ? 'text-danger' : 'text-success' }
+                    = currency contribution.amount
