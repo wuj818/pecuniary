@@ -1,8 +1,10 @@
 = page_header do
   %h1 Net Worth Over Time
 
-= net_worth_line_chart
+- cache [Snapshot.all, :line] do
+  = net_worth_line_chart
 
 %hr
 
-= financial_independence_progress
+- cache [FinancialAsset.all, :progress] do
+  = financial_independence_progress
