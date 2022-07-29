@@ -4,11 +4,13 @@
   %h1
     = @title
 
-= contributions_stacked_column_chart
+- cache [FinancialAsset.investment_assets, Contribution.all, :column] do
+  = contributions_stacked_column_chart
 
 %hr
 
-= cumulative_contributions_line_chart
+- cache [Contribution.all, :line] do
+  = cumulative_contributions_line_chart
 
 %hr
 
@@ -24,27 +26,28 @@
         %th
 
     %tbody
-      - @contributions.each do |contribution|
-        %tr{ class: (:info if contribution.employer?) }
-          %td
-            = contribution.formatted_date
+      - cache @contributions do
+        - @contributions.each do |contribution|
+          %tr{ class: (:info if contribution.employer?) }
+            %td
+              = contribution.formatted_date
 
-          %td{ class: contribution.amount.negative? ? 'text-danger' : 'text-success' }
-            = currency contribution.amount
+            %td{ class: contribution.amount.negative? ? 'text-danger' : 'text-success' }
+              = currency contribution.amount
 
-          %td
-            = contribution.employer? ? 'yes' : 'no'
+            %td
+              = contribution.employer? ? 'yes' : 'no'
 
-          %td
-            = contribution.asset
+            %td
+              = contribution.asset
 
-          %td
-            = link_to contribution.permalink, contribution
+            %td
+              = link_to contribution.permalink, contribution
 
-          %td.fit
-            .btn-group
-              = link_to [:edit, contribution], class: 'btn btn-sm btn-info' do
-                = icon :edit
+            %td.fit
+              .btn-group
+                = link_to [:edit, contribution], class: 'btn btn-sm btn-info' do
+                  = icon :edit
 
-              = link_to contribution, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
-                = icon 'trash-o'
+                = link_to contribution, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: t(:confirm) } do
+                  = icon 'trash-o'
