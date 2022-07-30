@@ -79,20 +79,6 @@ RSpec.describe "Milestone management" do
   end
 
   context "when logged out" do
-    describe "milestones index" do
-      let!(:milestones) { create_list(:milestone, 2) }
-
-      it "lists the milestones without edit or delete links" do
-        visit milestones_path
-
-        milestones.each do |milestone|
-          expect(page).to have_link(href: milestone_path(milestone))
-          expect(page).to have_no_link(href: edit_milestone_path(milestone))
-          expect(page).to have_no_link(id: dom_id(milestone, :delete))
-        end
-      end
-    end
-
     describe "milestone creation and modification" do
       let!(:milestone) { create(:milestone) }
 
