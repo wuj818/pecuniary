@@ -132,7 +132,7 @@ GEM
       activesupport (>= 5.0)
     groupdate (6.1.0)
       activesupport (>= 5.2)
-    hamlit (2.16.0)
+    hamlit (3.0.0)
       temple (>= 0.8.2)
       thor
       tilt
@@ -186,6 +186,8 @@ GEM
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     nokogiri (1.13.8-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.13.8-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
