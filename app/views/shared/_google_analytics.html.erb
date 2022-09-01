@@ -1,0 +1,14 @@
+<% return unless GoogleAnalytics.enabled? %>
+
+<% id = GoogleAnalytics.web_stream_measurement_id %>
+<% gtag_url = "https://www.googletagmanager.com/gtag/js?id=#{id}" %>
+
+<!-- Google tag (gtag.js) -->
+<script async src="<%= gtag_url %>"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+
+  gtag("config", "<%= id %>");
+</script>
