@@ -7,6 +7,8 @@ ruby File.read(".ruby-version")
 
 gem "rails", "~> 7.0.3"
 
+gem "dotenv-rails"
+
 gem "pg"
 
 gem "bootsnap", require: false
