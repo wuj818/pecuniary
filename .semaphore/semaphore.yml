@@ -40,6 +40,8 @@ blocks:
       jobs:
         - name: rspec
           commands:
+            - cat .semaphore/.rspec >> .rspec
+
             - cache restore gems-$(checksum Gemfile.lock)
             - bundle install
             - cache store gems-$(checksum Gemfile.lock) $BUNDLE_PATH
@@ -50,3 +52,15 @@ blocks:
             - bin/rails db:setup
 
             - bin/rspec
+
+      epilogue:
+        always:
+          commands:
+            - test-results publish test-summaries --parser rspec
+
+after_pipeline:
+  task:
+    jobs:
+      - name: Summarize Pipeline Tests
+        commands:
+          - test-results gen-pipeline-report
