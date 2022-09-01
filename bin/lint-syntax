@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+bin/rubocop \
+  --force-default-config \
+  --only Lint/Debugger,Lint/Syntax \
+  --parallel

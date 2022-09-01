@@ -44,6 +44,8 @@ blocks:
             - bundle install
             - cache store gems-$(checksum Gemfile.lock) $BUNDLE_PATH
 
+            - bin/lint-syntax
+
             - sem-service start postgres 14
             - bin/rails db:setup
 
