@@ -1,0 +1,3 @@
+#!/usr/bin/env -S bash -e
+
+cache restore $GEMS_CACHE_KEY

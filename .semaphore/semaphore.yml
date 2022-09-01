@@ -18,21 +18,10 @@ global_job_config:
   secrets:
     - name: pecuniary-secrets
 
-  env_vars:
-    - name: BUNDLE_CLEAN
-      value: "true"
-    - name: BUNDLE_FROZEN
-      value: "true"
-    - name: BUNDLE_JOBS
-      value: "4"
-    - name: BUNDLE_PATH
-      value: "vendor/bundle"
-    - name: RAILS_ENV
-      value: "test"
-
   prologue:
     commands:
       - checkout
+      - source .semaphore/bin/setup-repo
 
 blocks:
   - name: Tests
@@ -40,18 +29,13 @@ blocks:
       jobs:
         - name: rspec
           commands:
-            - cat .semaphore/.rspec >> .rspec
+            - install-gems
 
-            - cache restore gems-$(checksum Gemfile.lock)
-            - bundle install
-            - cache store gems-$(checksum Gemfile.lock) $BUNDLE_PATH
+            - lint-syntax
 
-            - bin/lint-syntax
+            - setup-db
 
-            - sem-service start postgres 14
-            - bin/rails db:setup
-
-            - bin/rspec
+            - rspec
 
       epilogue:
         always:

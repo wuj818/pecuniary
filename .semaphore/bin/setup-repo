@@ -1,0 +1,23 @@
+#!/usr/bin/env -S bash -e
+
+export PROJECT_DIR=$PWD
+export SEMAPHORE_DIR=$PROJECT_DIR/.semaphore
+export SEMAPHORE_BIN_DIR=$SEMAPHORE_DIR/bin
+
+export SEMAPHORE_RSPEC_CONFIG=$SEMAPHORE_DIR/.rspec
+cat $SEMAPHORE_RSPEC_CONFIG >> .rspec
+
+export PATH=./bin:$PATH:$SEMAPHORE_BIN_DIR
+
+export MAKEFLAGS="--jobs=$(nproc)"
+
+export RAILS_ENV=test
+
+export BUNDLE_CLEAN=true
+export BUNDLE_FROZEN=true
+export BUNDLE_JOBS=4
+export BUNDLE_PATH=vendor/bundle
+
+export GEMS_CACHE_KEY=gems-$(checksum Gemfile.lock)
+
+export POSTGRES_VERSION=14
