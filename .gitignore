@@ -30,6 +30,9 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+.env.local
+.env.*.local
+
 node_modules
 
 coverage
