@@ -1,13 +1,21 @@
 #!/usr/bin/env -S bash -e
 
 export PROJECT_DIR=$PWD
+export PROJECT_BIN_DIR=$PROJECT_DIR/bin
+
 export SEMAPHORE_DIR=$PROJECT_DIR/.semaphore
 export SEMAPHORE_BIN_DIR=$SEMAPHORE_DIR/bin
 
 export SEMAPHORE_RSPEC_CONFIG=$SEMAPHORE_DIR/.rspec
 cat $SEMAPHORE_RSPEC_CONFIG >> .rspec
 
-export PATH=./bin:$PATH:$SEMAPHORE_BIN_DIR
+for directory in $(find $PROJECT_BIN_DIR -type d); do
+  export PATH=$directory:$PATH
+done
+
+for directory in $(find $SEMAPHORE_BIN_DIR -type d); do
+  export PATH=$directory:$PATH
+done
 
 export MAKEFLAGS="--jobs=$(nproc)"
 
