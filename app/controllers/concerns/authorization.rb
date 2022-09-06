@@ -8,7 +8,7 @@ module Authorization
   end
 
   def admin?
-    cookies.signed[:admin] == admin_password
+    cookies.encrypted[:admin] == admin_password
   end
 
   def authorize
@@ -21,7 +21,10 @@ module Authorization
   end
 
   def login
-    cookies.permanent.signed[:admin] = admin_password
+    cookies.permanent.encrypted[:admin] = {
+      value: admin_password,
+      httponly: true
+    }
   end
 
   def logout
