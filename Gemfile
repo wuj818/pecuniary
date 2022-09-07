@@ -35,6 +35,7 @@ gem "acts-as-taggable-on"
 gem "groupdate"
 gem "kramdown"
 
+gem "honeybadger"
 gem "rollbar"
 
 group :development do

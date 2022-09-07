@@ -143,6 +143,7 @@ GEM
     highcharts-rails (6.0.3)
       railties (>= 3.1)
     hirb (0.7.3)
+    honeybadger (4.12.2)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     jquery-rails (4.5.0)
@@ -372,6 +373,7 @@ DEPENDENCIES
   hamlit
   highcharts-rails
   hirb
+  honeybadger
   jquery-rails
   kramdown
   momentjs-rails
