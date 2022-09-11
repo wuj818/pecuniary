@@ -55,7 +55,6 @@ group :development do
 end
 
 group :development, :test do
-  gem "rspec-activemodel-mocks"
   gem "rspec-rails"
 
   gem "capybara"

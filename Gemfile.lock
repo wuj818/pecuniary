@@ -246,10 +246,6 @@ GEM
     regexp_parser (2.5.0)
     rexml (3.2.5)
     rollbar (3.3.1)
-    rspec-activemodel-mocks (1.1.0)
-      activemodel (>= 3.0)
-      activesupport (>= 3.0)
-      rspec-mocks (>= 2.99, < 4.0)
     rspec-core (3.11.0)
       rspec-support (~> 3.11.0)
     rspec-expectations (3.11.0)
@@ -384,7 +380,6 @@ DEPENDENCIES
   rails (~> 7.0.3)
   reek
   rollbar
-  rspec-activemodel-mocks
   rspec-rails
   rspec_junit_formatter
   rubocop
