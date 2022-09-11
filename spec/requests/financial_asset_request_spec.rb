@@ -24,6 +24,8 @@ RSpec.describe "/financial-assets" do
   describe "GET /new" do
     let(:request!) { get new_financial_asset_url }
 
+    include_examples "authentication required"
+
     context "when logged in" do
       it "returns a successful response" do
         request_spec_login
@@ -33,15 +35,6 @@ RSpec.describe "/financial-assets" do
         expect(response).to be_successful
       end
     end
-
-    context "when logged out" do
-      it "redirects to the login page" do
-        request!
-
-        expect(response).to redirect_to(login_url)
-        expect(flash[:warning]).to match(/must be logged in/i)
-      end
-    end
   end
 
   describe "POST /create" do
@@ -49,6 +42,8 @@ RSpec.describe "/financial-assets" do
 
     let(:params) { { financial_asset: asset_params } }
     let(:asset_params) { nil }
+
+    include_examples "authentication required"
 
     context "when logged in" do
       before { request_spec_login }
@@ -74,21 +69,14 @@ RSpec.describe "/financial-assets" do
         end
       end
     end
-
-    context "when logged out" do
-      it "redirects to the login page" do
-        request!
-
-        expect(response).to redirect_to(login_url)
-        expect(flash[:warning]).to match(/must be logged in/i)
-      end
-    end
   end
 
   describe "GET /edit" do
     let(:asset) { create(:asset) }
 
     let(:request!) { get edit_financial_asset_url(asset) }
+
+    include_examples "authentication required"
 
     context "when logged in" do
       it "returns a successful response" do
@@ -97,15 +85,6 @@ RSpec.describe "/financial-assets" do
         request!
 
         expect(response).to be_successful
-      end
-    end
-
-    context "when logged out" do
-      it "redirects to the login page" do
-        request!
-
-        expect(response).to redirect_to(login_url)
-        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
@@ -120,6 +99,8 @@ RSpec.describe "/financial-assets" do
 
     let(:params) { { financial_asset: asset_params } }
     let(:asset_params) { nil }
+
+    include_examples "authentication required"
 
     context "when logged in" do
       before { request_spec_login }
@@ -147,21 +128,14 @@ RSpec.describe "/financial-assets" do
         end
       end
     end
-
-    context "when logged out" do
-      it "redirects to the login page" do
-        request!
-
-        expect(response).to redirect_to(login_url)
-        expect(flash[:warning]).to match(/must be logged in/i)
-      end
-    end
   end
 
   describe "DELETE /destroy" do
     let!(:asset) { create(:asset) }
 
     let(:request!) { delete financial_asset_url(asset) }
+
+    include_examples "authentication required"
 
     context "when logged in" do
       it "destroys the requested asset and redirects to the assets index" do
@@ -171,15 +145,6 @@ RSpec.describe "/financial-assets" do
 
         expect(response).to redirect_to(financial_assets_url)
         expect(flash[:success]).to match(/deleted/i)
-      end
-    end
-
-    context "when logged out" do
-      it "redirects to the login page" do
-        request!
-
-        expect(response).to redirect_to(login_url)
-        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end

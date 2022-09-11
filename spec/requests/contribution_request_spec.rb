@@ -26,6 +26,8 @@ RSpec.describe "/contributions" do
 
     let(:request!) { get new_financial_asset_contribution_url(asset) }
 
+    include_examples "authentication required"
+
     context "when logged in" do
       it "returns a successful response" do
         request_spec_login
@@ -33,15 +35,6 @@ RSpec.describe "/contributions" do
         request!
 
         expect(response).to be_successful
-      end
-    end
-
-    context "when logged out" do
-      it "redirects to the login page" do
-        request!
-
-        expect(response).to redirect_to(login_url)
-        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
@@ -55,6 +48,8 @@ RSpec.describe "/contributions" do
 
     let(:params) { { contribution: contribution_params } }
     let(:contribution_params) { nil }
+
+    include_examples "authentication required"
 
     context "when logged in" do
       before { request_spec_login }
@@ -80,21 +75,14 @@ RSpec.describe "/contributions" do
         end
       end
     end
-
-    context "when logged out" do
-      it "redirects to the login page" do
-        request!
-
-        expect(response).to redirect_to(login_url)
-        expect(flash[:warning]).to match(/must be logged in/i)
-      end
-    end
   end
 
   describe "GET /edit" do
     let(:contribution) { create(:contribution) }
 
     let(:request!) { get edit_contribution_url(contribution) }
+
+    include_examples "authentication required"
 
     context "when logged in" do
       it "returns a successful response" do
@@ -103,15 +91,6 @@ RSpec.describe "/contributions" do
         request!
 
         expect(response).to be_successful
-      end
-    end
-
-    context "when logged out" do
-      it "redirects to the login page" do
-        request!
-
-        expect(response).to redirect_to(login_url)
-        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
@@ -127,6 +106,8 @@ RSpec.describe "/contributions" do
 
     let(:params) { { contribution: contribution_params } }
     let(:contribution_params) { nil }
+
+    include_examples "authentication required"
 
     context "when logged in" do
       before { request_spec_login }
@@ -154,15 +135,6 @@ RSpec.describe "/contributions" do
         end
       end
     end
-
-    context "when logged out" do
-      it "redirects to the login page" do
-        request!
-
-        expect(response).to redirect_to(login_url)
-        expect(flash[:warning]).to match(/must be logged in/i)
-      end
-    end
   end
 
   describe "DELETE /destroy" do
@@ -170,6 +142,8 @@ RSpec.describe "/contributions" do
     let(:asset) { contribution.asset }
 
     let(:request!) { delete contribution_url(contribution) }
+
+    include_examples "authentication required"
 
     context "when logged in" do
       it "destroys the requested contribution and redirects to its asset" do
@@ -179,15 +153,6 @@ RSpec.describe "/contributions" do
 
         expect(response).to redirect_to(asset)
         expect(flash[:success]).to match(/deleted/i)
-      end
-    end
-
-    context "when logged out" do
-      it "redirects to the login page" do
-        request!
-
-        expect(response).to redirect_to(login_url)
-        expect(flash[:warning]).to match(/must be logged in/i)
       end
     end
   end
