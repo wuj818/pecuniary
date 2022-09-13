@@ -17,13 +17,13 @@ RSpec.describe GoogleAnalytics do
         blank_ids.each do |blank_id|
           stub_measurement_id_env_var(blank_id)
 
-          expect(described_class.web_stream_measurement_id).to be_blank
+          expect(described_class.measurement_id).to be_blank
         end
       end
     end
 
     context "when the measurement ID env variable is set" do
-      subject { described_class.web_stream_measurement_id }
+      subject { described_class.measurement_id }
 
       before { stub_measurement_id_env_var(valid_measurement_id) }
 
@@ -34,7 +34,7 @@ RSpec.describe GoogleAnalytics do
   describe ".enabled?" do
     def stub_measurement_id(id)
       allow(described_class)
-        .to receive(:web_stream_measurement_id)
+        .to receive(:measurement_id)
         .and_return(id)
     end
 
@@ -53,7 +53,7 @@ RSpec.describe GoogleAnalytics do
 
       before do
         allow(described_class)
-          .to receive(:web_stream_measurement_id)
+          .to receive(:measurement_id)
           .and_return(valid_measurement_id)
       end
 
