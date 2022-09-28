@@ -3,7 +3,7 @@
 class GoogleAnalytics
   class << self
     def measurement_id
-      ENV["GA4_WEB_STREAM_MEASUREMENT_ID"].presence
+      ENV["GA4_MEASUREMENT_ID"].presence
     end
 
     def enabled?

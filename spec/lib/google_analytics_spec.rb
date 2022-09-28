@@ -9,7 +9,7 @@ RSpec.describe GoogleAnalytics do
 
   describe ".web_stream_measurement_id" do
     def stub_measurement_id_env_var(id)
-      stub_env(GA4_WEB_STREAM_MEASUREMENT_ID: id)
+      stub_env(GA4_MEASUREMENT_ID: id)
     end
 
     context "when the measurement ID env variable is not set" do
